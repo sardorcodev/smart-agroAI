@@ -1,27 +1,78 @@
-# React + Vite
+# Smart Agro AI Documentation
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Project Overview
+Smart Agro AI is an innovative solution that utilizes artificial intelligence to enhance agricultural practices, optimize resource use, and ensure sustainable farming.
 
-Currently, two official plugins are available:
+## Technology Stack
+- Python
+- Flask
+- TensorFlow
+- React
+- PostgreSQL
+- Docker
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Project Structure
+```
+smart-agroAI/
+├── api/
+├── models/
+├── ui/
+└── scripts/
+```
 
-## React Compiler
+## Installation Guide
+1. Clone the repository: `git clone https://github.com/sardorcodev/smart-agroAI.git`
+2. Navigate to the project directory: `cd smart-agroAI`
+3. Install dependencies:
+   - For backend: `pip install -r requirements.txt`
+   - For frontend: `npm install` (inside the `ui` folder)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## API Endpoints
+- `/api/weather`: Get weather forecasts.
+- `/api/data`: Access data analytics.
+- `/api/market`: Get market trends.
 
-## Expanding the ESLint configuration
+## AI Model Details
+The AI models are trained using historical data for predictions and recommendations.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Weather Data Source
+Utilizes real-time data from weather APIs to provide accurate forecasts.
 
+## Security Features
+- User authentication and authorization.
+- Data encryption both at rest and in transit.
 
+## Irrigation Algorithm
+An intelligent algorithm that optimizes water usage based on weather predictions and soil moisture data.
 
-#backend
-cd backend
-venv\Scripts\activate
-uvicorn main:app --reload
+## UI Components
+Responsive components designed with React to provide a seamless user experience.
 
-#frontend
-cd frontend
-npm run dev
+## Configuration
+Environment variables are used to configure the application settings.
+
+## Deployment Instructions
+1. Build Docker images: `docker-compose build`
+2. Start the application: `docker-compose up`
+
+## Debugging Tips
+- Use `print` statements strategically.
+- Check server logs for errors.
+
+## Statistics
+The system tracks key statistics on resource usage and crop yield.
+
+## Contributing Guidelines
+1. Fork the repository.
+2. Create a new branch: `git checkout -b feature-branch`
+3. Submit a pull request.
+
+## License
+This project is licensed under the MIT License.
+
+## Author Info
+Maintained by Sardorcodev.
+
+## Future Roadmap
+- Integration of more weather data sources.
+- Enhanced machine learning models for better predictions.
