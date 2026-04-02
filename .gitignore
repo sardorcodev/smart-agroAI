@@ -1,0 +1,16 @@
+# Node.js (Frontend)
+node_modules/
+dist/
+.env
+
+# Python (Backend)
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+env/
+.pytest_cache/
+
+# Operatsion tizim fayllari
+.DS_Store
+Thumbs.db
