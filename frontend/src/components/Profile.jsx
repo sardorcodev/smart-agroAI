@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { User, Mail, ShieldCheck, MapPin, Calendar, Award, CheckCircle, Leaf, Camera, Sprout, Building2, Lock, Settings, Download } from 'lucide-react';
+import DemoBadge from './ui/DemoBadge';
+import Notice from './ui/Notice';
 
 export default function Profile({ user }) {
+  const [notice, setNotice] = useState('');
+
   // Agar ma'lumot yetib kelmasa (xavfsizlik uchun)
   if (!user) return <div className="p-8 text-center text-slate-500 bg-slate-50 h-screen">Yuklanmoqda...</div>;
 
@@ -34,7 +38,7 @@ export default function Profile({ user }) {
               <User className="w-12 h-12" />
             </div>
             {/* Rasm almashtirish tugmasi */}
-            <button className="absolute bottom-0 right-0 p-2 bg-green-600 rounded-full text-white shadow-md hover:bg-green-700 transition-all opacity-0 group-hover:opacity-100 scale-75 group-hover:scale-100 border-2 border-white">
+            <button type="button" aria-label="Profil rasmi yuklash demo amali" onClick={() => setNotice("Profil rasmi yuklash hozircha demo. Fayl saqlash backendga ulanmagan.")} className="absolute bottom-0 right-0 p-2 bg-green-600 rounded-full text-white shadow-md hover:bg-green-700 transition-all opacity-0 group-hover:opacity-100 scale-75 group-hover:scale-100 border-2 border-white focus:opacity-100 focus:scale-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500">
                 <Camera className="w-4 h-4" />
             </button>
           </div>
@@ -142,7 +146,7 @@ export default function Profile({ user }) {
           {/* Obuna kartasi */}
           <div className={`rounded-3xl shadow-sm border p-8 ${isAdmin ? 'bg-slate-900 border-slate-800 text-white' : 'bg-gradient-to-br from-green-50 to-emerald-100 border-green-200'}`}>
             <h3 className={`text-lg font-bold mb-4 flex items-center gap-2 ${isAdmin ? 'text-white' : 'text-slate-800'}`}>
-              <Award className={`w-5 h-5 ${isAdmin ? 'text-slate-400' : 'text-green-600'}`} /> Akkaunt Tarifi
+              <Award className={`w-5 h-5 ${isAdmin ? 'text-slate-400' : 'text-green-600'}`} /> Akkaunt Tarifi <DemoBadge />
             </h3>
             
             <div className="mb-6 flex items-baseline gap-2">
@@ -155,7 +159,17 @@ export default function Profile({ user }) {
                 {isAdmin ? 'Butun respublika bo\'yicha tahlillar va cheklanmagan boshqaruv huquqi.' : 'Barcha AI tahlil xizmatlari, avtomatik sug\'orish va rasmiy xisobotlar yoniq.'}
             </p>
 
-            <button className={`w-full py-3 px-4 rounded-xl font-bold transition-all text-sm tracking-wide ${isAdmin ? 'bg-white/10 text-white hover:bg-white/20 border border-white/10' : 'bg-green-600 text-white hover:bg-green-700 shadow-md hover:shadow-lg'}`}>
+            {notice && (
+              <Notice variant="warning" className={`mb-4 ${isAdmin ? 'bg-white/10 text-slate-200 border-white/10' : ''}`}>
+                {notice}
+              </Notice>
+            )}
+
+            <button
+              type="button"
+              onClick={() => setNotice(isAdmin ? "Admin boshqaruv amallari hozircha demo." : "Tarif yangilash hozircha demo. To'lov backendga ulanmagan.")}
+              className={`w-full py-3 px-4 rounded-xl font-bold transition-all text-sm tracking-wide ${isAdmin ? 'bg-white/10 text-white hover:bg-white/20 border border-white/10' : 'bg-green-600 text-white hover:bg-green-700 shadow-md hover:shadow-lg'}`}
+            >
               {isAdmin ? 'Tizimni Boshqarish' : 'Tarifni Yangilash'}
             </button>
           </div>
@@ -164,13 +178,13 @@ export default function Profile({ user }) {
           <div className="bg-white rounded-3xl shadow-sm border border-slate-200 p-6">
             <h3 className="text-base font-bold text-slate-800 mb-4">Xavfsizlik</h3>
             <div className="space-y-2">
-                <button className="w-full flex items-center justify-between gap-3 p-3 bg-slate-50 rounded-xl text-slate-600 hover:bg-slate-100 border border-slate-100 transition-all">
+                <button type="button" onClick={() => setNotice("Parol almashtirish hali ulanmagan. Bu Phase 3B doirasida demo sifatida belgilandi.")} className="w-full flex items-center justify-between gap-3 p-3 bg-slate-50 rounded-xl text-slate-600 hover:bg-slate-100 border border-slate-100 transition-all">
                     <div className="flex items-center gap-3">
                         <Lock className="w-4 h-4 text-blue-500"/>
                         <span className="font-semibold text-sm">Parolni O'zgartirish</span>
                     </div>
                 </button>
-                <button className="w-full flex items-center justify-between gap-3 p-3 bg-slate-50 rounded-xl text-slate-600 hover:bg-red-50 hover:text-red-600 border border-slate-100 hover:border-red-100 transition-all">
+                <button type="button" onClick={() => setNotice("Chiqish amali yon paneldagi 'Tizimdan chiqish' tugmasi orqali bajariladi.")} className="w-full flex items-center justify-between gap-3 p-3 bg-slate-50 rounded-xl text-slate-600 hover:bg-red-50 hover:text-red-600 border border-slate-100 hover:border-red-100 transition-all">
                     <div className="flex items-center gap-3">
                         <User className="w-4 h-4"/>
                         <span className="font-semibold text-sm">Tizimdan Chiqish</span>

@@ -1,18 +1,18 @@
 import React from 'react';
 import { Maximize, Navigation, Droplets, Thermometer } from 'lucide-react';
 
-export default function LiveSensors({ formData, monitoringData, handleMonitorChange, locationStatus }) {
+export default function LiveSensors({ formData, monitoringData, handleMonitorChange }) {
   return (
     <div className="flex flex-col h-full animate-in fade-in duration-300 gap-5">
       
       <div className="flex flex-col bg-slate-50 p-3 rounded-xl border border-slate-100 min-h-[220px]">
         <div className="flex justify-between items-center mb-3 px-1">
           <h3 className="font-bold text-slate-600 text-[11px] uppercase tracking-wider">Haqiqiy Xarita (GPS)</h3>
-          {locationStatus === 'success' && <span className="text-[10px] bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-bold flex items-center gap-1"><span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span> {formData.lat?.toFixed(4)}, {formData.lon?.toFixed(4)}</span>}
+          {Number.isFinite(Number(formData.lat)) && Number.isFinite(Number(formData.lon)) && <span className="text-[10px] bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-bold flex items-center gap-1"><span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span> {Number(formData.lat).toFixed(4)}, {Number(formData.lon).toFixed(4)}</span>}
         </div>
         
         <div className="w-full h-48 bg-slate-200 rounded-lg overflow-hidden border border-slate-200 relative shadow-inner">
-          {locationStatus === 'success' ? (
+          {Number.isFinite(Number(formData.lat)) && Number.isFinite(Number(formData.lon)) ? (
             <iframe 
               title="Farm Location" width="100%" height="100%" 
               style={{ border: 0, position: 'absolute', top: 0, left: 0 }}
@@ -22,7 +22,7 @@ export default function LiveSensors({ formData, monitoringData, handleMonitorCha
           ) : (
             <div className="absolute inset-0 flex flex-col items-center justify-center text-slate-400">
               <Navigation className="w-8 h-8 mb-2 animate-bounce" />
-              <p className="text-xs font-bold">Joylashuv qidirilmoqda...</p>
+              <p className="text-xs font-bold">Joylashuv kiritilmagan</p>
             </div>
           )}
         </div>
@@ -32,10 +32,11 @@ export default function LiveSensors({ formData, monitoringData, handleMonitorCha
         
         <div>
           <div className="flex justify-between mb-2">
-            <label className="text-[11px] font-bold text-slate-600 uppercase flex items-center gap-1.5"><Maximize className="w-4 h-4 text-blue-500"/> Sug'orish Maydoni</label>
+            <label htmlFor="sensor-area" className="text-[11px] font-bold text-slate-600 uppercase flex items-center gap-1.5"><Maximize className="w-4 h-4 text-blue-500"/> Sug'orish Maydoni</label>
           </div>
           <div className="relative">
             <input 
+              id="sensor-area"
               type="number" name="area" min="1" 
               value={monitoringData.area} onChange={handleMonitorChange} 
               className="w-full border border-slate-200 rounded-lg p-3 pl-3 pr-10 text-sm focus:ring-2 focus:ring-blue-500 outline-none bg-white font-black text-blue-700 shadow-sm transition-all" 
@@ -48,12 +49,13 @@ export default function LiveSensors({ formData, monitoringData, handleMonitorCha
 
         <div>
           <div className="flex justify-between mb-2 items-end">
-            <label className="text-[11px] font-bold text-slate-600 uppercase flex items-center gap-1.5">
+            <label htmlFor="sensor-moisture" className="text-[11px] font-bold text-slate-600 uppercase flex items-center gap-1.5">
               <Droplets className="w-4 h-4 text-blue-500"/> Tuproq Namligi
             </label>
             <span className="font-black text-blue-600 bg-blue-100 px-2 py-0.5 rounded text-xs">{monitoringData.moisture}%</span>
           </div>
           <input 
+            id="sensor-moisture"
             type="range" name="moisture" min="0" max="100" 
             value={monitoringData.moisture} onChange={handleMonitorChange} 
             className="w-full h-2.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-500 mt-1" 
@@ -62,12 +64,13 @@ export default function LiveSensors({ formData, monitoringData, handleMonitorCha
 
         <div>
           <div className="flex justify-between mb-2 items-end">
-            <label className="text-[11px] font-bold text-slate-600 uppercase flex items-center gap-1.5">
+            <label htmlFor="sensor-temp" className="text-[11px] font-bold text-slate-600 uppercase flex items-center gap-1.5">
               <Thermometer className="w-4 h-4 text-orange-500"/> Jonli Harorat
             </label>
             <span className="font-black text-orange-600 bg-orange-100 px-2 py-0.5 rounded text-xs">{monitoringData.current_temp}°C</span>
           </div>
           <input 
+            id="sensor-temp"
             type="range" name="current_temp" min="-10" max="60" 
             value={monitoringData.current_temp} onChange={handleMonitorChange} 
             className="w-full h-2.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-orange-500 mt-1" 

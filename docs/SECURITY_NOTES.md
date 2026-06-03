@@ -25,10 +25,29 @@ Do not commit demo users, real users, password hashes, or admin accounts.
 
 ## Current Auth Limitations
 
-- Login/register are demo-only.
-- No JWT/session system is implemented yet.
-- Admin access is not protected by backend authorization.
-- Do not use this auth model in production.
+- Login/register use a JWT access-token MVP flow.
+- `/api/me` requires a valid bearer token and returns safe user metadata.
+- Admin role assignment is controlled by `ADMIN_EMAILS`; clients cannot self-select admin role.
+- Role authorization helpers exist for future protected routes.
+- Do not use this auth model as-is for production.
+
+Production or shared deployments must set a strong `JWT_SECRET_KEY`. The development fallback secret is only for local work and tests.
+
+The current backend does basic email normalization, password length validation, password hashing, JWT signing, JWT validation, and safe current-user lookup. It does not yet include refresh tokens, rate limiting, account verification, password reset, multi-factor auth, or a full production admin authorization system.
+
+The frontend stores the MVP access token in `localStorage`, restores sessions with `/api/me`, and clears stale tokens after `401` responses. This keeps the demo flow simple, but it increases exposure if frontend XSS is introduced and should be revisited before production use.
+
+Frontend protected-view guards are for user experience only. Backend token validation and role dependencies remain the actual security boundary.
+
+Frontend API errors are formatted into short user-facing messages. Raw backend error objects, stack traces, and long details should not be rendered in the UI.
+
+Dashboard location fallback is explicit: users may retry GPS, manually enter coordinates, or choose labeled demo coordinates. The frontend should not silently substitute fake location data.
+
+## Weather and AI Fallbacks
+
+`POST /api/analyze` does not require Gemini or any external AI key. It uses local model artifacts when available.
+
+If weather lookup fails, the backend returns fallback weather values and marks the response with a warning. This is suitable for MVP continuity, not for production agronomic advice.
 
 ## Responsible Disclosure
 

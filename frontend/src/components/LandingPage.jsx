@@ -153,7 +153,7 @@ export default function LandingPage({ onStart }) {
                 <li className="flex items-start gap-3 text-slate-600 font-medium text-sm"><CheckCircle2 className="w-5 h-5 text-blue-500 shrink-0"/> "Super Admin" boshqaruv paneli</li>
                 <li className="flex items-start gap-3 text-slate-600 font-medium text-sm"><CheckCircle2 className="w-5 h-5 text-blue-500 shrink-0"/> Umumiy nazorati tizimi integratsiyasi</li>
               </ul>
-              <button className="w-full py-3.5 bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold rounded-xl transition-colors border border-slate-200">Hamkorlik qilish</button>
+              <a href="mailto:info@smartagro.uz" className="block text-center w-full py-3.5 bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold rounded-xl transition-colors border border-slate-200">Hamkorlik qilish</a>
             </div>
           </div>
         </div>
@@ -171,7 +171,7 @@ export default function LandingPage({ onStart }) {
             {/* Sardorbek - Full-Stack Developer */}
             <div className="flex flex-col items-center text-center group">
               <div className="w-36 h-36 mb-6 rounded-full overflow-hidden bg-slate-50 shadow-xl shadow-slate-200/50 border-4 border-white group-hover:border-green-400 transition-all duration-300 relative">
-                <img src="../public/sardor.jpg" alt="Sardorbek Musurmonov" className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" />
+                <img src="/sardor.jpg" alt="Sardorbek Musurmonov" className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" />
                 <div className="absolute bottom-1 right-1 bg-slate-900 p-2 rounded-full shadow-md"><Code className="w-3.5 h-3.5 text-white" /></div>
               </div>
               <h3 className="text-2xl font-black text-slate-800">Sardorbek</h3>
@@ -182,7 +182,7 @@ export default function LandingPage({ onStart }) {
             {/* Dildora - UI/UX & QA (Markazda, qiz bola) */}
             <div className="flex flex-col items-center text-center group md:-translate-y-6">
               <div className="w-36 h-36 mb-6 rounded-full overflow-hidden bg-slate-50 shadow-xl shadow-slate-200/50 border-4 border-white group-hover:border-blue-400 transition-all duration-300 relative">
-                <img src="../public/dildora.jpg" alt="Qarshiyeva Dildora" className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" />
+                <img src="/dildora.jpg" alt="Qarshiyeva Dildora" className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" />
                 <div className="absolute bottom-1 right-1 bg-blue-600 p-2 rounded-full shadow-md"><Presentation className="w-3.5 h-3.5 text-white" /></div>
               </div>
               <h3 className="text-2xl font-black text-slate-800">Dildora</h3>
@@ -193,7 +193,9 @@ export default function LandingPage({ onStart }) {
             {/* Muhammad - AI & Business */}
             <div className="flex flex-col items-center text-center group">
               <div className="w-36 h-36 mb-6 rounded-full overflow-hidden bg-slate-50 shadow-xl shadow-slate-200/50 border-4 border-white group-hover:border-purple-400 transition-all duration-300 relative">
-                <img src="../public/muhammad.jpg" alt="Muhammad Safarov" className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" />
+                <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-purple-100 to-slate-100 text-purple-700 text-4xl font-black transform group-hover:scale-110 transition-transform duration-500" aria-label="Muhammad Safarov">
+                  MS
+                </div>
                 <div className="absolute bottom-1 right-1 bg-purple-600 p-2 rounded-full shadow-md"><Server className="w-3.5 h-3.5 text-white" /></div>
               </div>
               <h3 className="text-2xl font-black text-slate-800">Muhammad</h3>

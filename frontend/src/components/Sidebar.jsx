@@ -2,7 +2,7 @@ import React from 'react';
 // YANGI: ShoppingCart ikonkasi qo'shildi
 import { LayoutDashboard, History, User, HelpCircle, LogOut, Leaf, ShieldAlert, ShoppingCart, MessageSquare, MapPin } from 'lucide-react';
 
-export default function Sidebar({ currentMenu, setCurrentMenu, onLogout }) {
+export default function Sidebar({ currentMenu, setCurrentMenu, onLogout, user }) {
   const menuItems = [
     { id: 'dashboard', icon: LayoutDashboard, label: 'Asosiy Panel' },
     // YANGI: Market menyusi qo'shildi
@@ -12,15 +12,15 @@ export default function Sidebar({ currentMenu, setCurrentMenu, onLogout }) {
     { id: 'support', icon: HelpCircle, label: 'Yordam / Support' },
     { id: 'map', icon: MapPin, label: 'Do\'konlar Xaritasi' },
     { id: 'admin', icon: ShieldAlert, label: 'Tizim Administratori' },
-  ];
+  ].filter((item) => item.id !== 'admin' || user?.role === 'admin');
 
   return (
     <aside className="w-64 bg-slate-900 h-screen flex flex-col transition-all duration-300 hidden md:flex flex-shrink-0 relative z-50 shadow-xl">
       
-      <div className="h-16 flex items-center px-6 border-b border-slate-800 bg-slate-950/50 cursor-pointer" onClick={() => setCurrentMenu('dashboard')}>
+      <button type="button" className="h-16 flex items-center px-6 border-b border-slate-800 bg-slate-950/50 cursor-pointer text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500" onClick={() => setCurrentMenu('dashboard')}>
         <Leaf className="w-6 h-6 text-green-500 mr-2" />
         <h1 className="text-white font-black text-lg tracking-wide">SMART AGRO <span className="text-green-500">AI</span></h1>
-      </div>
+      </button>
 
       <nav className="flex-1 px-4 py-6 space-y-2">
         <p className="px-2 text-xs font-bold text-slate-500 uppercase tracking-widest mb-4">Menyu</p>
@@ -31,8 +31,10 @@ export default function Sidebar({ currentMenu, setCurrentMenu, onLogout }) {
           
           return (
             <button
+              type="button"
               key={item.id}
               onClick={() => setCurrentMenu(item.id)}
+              aria-current={isActive ? 'page' : undefined}
               className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 group
                 ${isActive 
                   ? 'bg-green-500/10 text-green-400' 
@@ -64,17 +66,17 @@ export default function Sidebar({ currentMenu, setCurrentMenu, onLogout }) {
       </nav>
 
       <div className="p-4 border-t border-slate-800">
-        <div className="bg-slate-800 rounded-xl p-3 mb-2 flex items-center gap-3 border border-slate-700 cursor-pointer hover:bg-slate-700 transition-colors" onClick={() => setCurrentMenu('profile')}>
+        <button type="button" className="w-full bg-slate-800 rounded-xl p-3 mb-2 flex items-center gap-3 border border-slate-700 cursor-pointer hover:bg-slate-700 transition-colors text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500" onClick={() => setCurrentMenu('profile')} aria-current={currentMenu === 'profile' ? 'page' : undefined}>
           <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-green-400 to-blue-500 flex items-center justify-center text-white font-bold text-xs shadow-inner">
             🧑‍🌾
           </div>
           <div className="flex-1 overflow-hidden">
             <p className="text-sm font-bold text-white truncate">Fermer profil</p>
-            <p className="text-[10px] text-green-400 font-bold tracking-wider uppercase truncate">PRO Tarif</p>
+            <p className="text-[10px] text-green-400 font-bold tracking-wider uppercase truncate">{user?.role || 'fermer'}</p>
           </div>
-        </div>
+        </button>
         
-        <button onClick={onLogout} className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-400 hover:bg-red-500/10 hover:text-red-400 transition-all">
+        <button type="button" onClick={onLogout} className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-400 hover:bg-red-500/10 hover:text-red-400 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500">
           <LogOut className="w-5 h-5" />
           Tizimdan chiqish
         </button>

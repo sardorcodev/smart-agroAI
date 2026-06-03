@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Calendar, Droplets, CheckCircle, Clock, Filter, ChevronDown, DollarSign, Leaf, History as HistoryIcon } from 'lucide-react';
+import DemoBadge from './ui/DemoBadge';
+import Notice from './ui/Notice';
 
 export default function History() {
+  const [notice, setNotice] = useState('');
   const historyData = [
     { id: 1, date: 'Bugun, 08:30', duration: '45 daqiqa', water: 120, saved: 45, status: 'Muvaffaqiyatli', type: 'Avto (AI)' },
     { id: 2, date: 'Kecha, 19:15', duration: '30 daqiqa', water: 80, saved: 30, status: 'Muvaffaqiyatli', type: 'Avto (AI)' },
@@ -15,13 +18,19 @@ export default function History() {
       
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
         <div>
-          <h2 className="text-xl font-black text-slate-800 flex items-center gap-2"><HistoryIcon className="text-blue-500 w-6 h-6" /> Sug'orish Tarixi Jurnali</h2>
+          <h2 className="text-xl font-black text-slate-800 flex items-center gap-2"><HistoryIcon className="text-blue-500 w-6 h-6" /> Sug'orish Tarixi Jurnali <DemoBadge /></h2>
           <p className="text-slate-500 text-sm mt-1">O'tgan 30 kun ichidagi barcha nasos faolligi va iqtisod qilingan resurslar.</p>
         </div>
-        <button className="flex items-center gap-2 px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm font-bold text-slate-600 hover:bg-slate-100 transition-all">
+        <button type="button" onClick={() => setNotice("Tarix filtrlari hozircha demo. Ma'lumotlar backenddan yuklanmaydi.")} className="flex items-center gap-2 px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm font-bold text-slate-600 hover:bg-slate-100 transition-all">
           <Calendar className="w-4 h-4" /> Mart, 2026 <ChevronDown className="w-4 h-4" />
         </button>
       </div>
+
+      {notice && (
+        <Notice variant="warning">
+          {notice}
+        </Notice>
+      )}
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div className="bg-gradient-to-br from-blue-500 to-blue-600 p-5 rounded-2xl text-white shadow-md border border-blue-400">
@@ -44,7 +53,7 @@ export default function History() {
       <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
         <div className="p-4 border-b border-slate-100 flex justify-between items-center bg-slate-50">
           <h3 className="font-bold text-slate-700">So'nggi amaliyotlar</h3>
-          <button className="text-slate-500 hover:text-slate-800"><Filter className="w-4 h-4" /></button>
+          <button type="button" onClick={() => setNotice("Filtrlash hozircha demo rejimida.")} className="text-slate-500 hover:text-slate-800" aria-label="Filtrlash"><Filter className="w-4 h-4" /></button>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm text-slate-600">

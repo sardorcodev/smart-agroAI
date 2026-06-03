@@ -12,7 +12,7 @@ The current repository is suitable as a public open-source baseline, but it is n
 | Backend API | Implemented MVP with FastAPI, SQLAlchemy, SQLite, and model inference. |
 | Crop recommendation | Implemented with local XGBoost and LabelEncoder artifacts. |
 | Weather lookup | Implemented through Open-Meteo archive API with fallback values. |
-| Authentication | Demo-only email/password registration and login. Not production auth. |
+| Authentication | JWT-based MVP registration, login, current-user lookup, and frontend session restore. Not production auth. |
 | Virtual Agronom | Mocked frontend assistant. Gemini is not currently integrated. |
 | Agro Market | Static/demo product catalog with local cart state only. |
 | IoT/sensors | Simulated through frontend sliders. No real IoT ingestion yet. |
@@ -42,6 +42,7 @@ Backend:
 - scikit-learn
 - Joblib
 - NumPy
+- python-jose
 
 ## Repository Structure
 
@@ -52,6 +53,16 @@ smart-agro/
     ISSUE_TEMPLATE/
   backend/
     main.py
+    app/
+      main.py
+      config.py
+      database.py
+      models.py
+      schemas.py
+      security.py
+      ml.py
+      routers/
+      services/
     requirements.txt
     tests/
     .env.example
@@ -127,6 +138,9 @@ Backend environment variables:
 | `DATABASE_URL` | `sqlite:///backend/smartagro_local.db` | Database connection URL. |
 | `ALLOWED_CORS_ORIGINS` | `http://localhost:5173,http://127.0.0.1:5173` | Comma-separated frontend origins. |
 | `ADMIN_EMAILS` | empty | Optional comma-separated demo admin emails. Leave empty for public use. |
+| `JWT_SECRET_KEY` | development-only fallback | Secret used to sign JWT access tokens. Set a strong value for any shared or deployed environment. |
+| `JWT_ALGORITHM` | `HS256` | JWT signing algorithm. |
+| `ACCESS_TOKEN_EXPIRE_MINUTES` | `60` | Access token lifetime in minutes. |
 | `GEMINI_API_KEY` | empty | Reserved for future Gemini integration. Not used by the current MVP. |
 
 Run the backend:
@@ -135,7 +149,7 @@ Run the backend:
 uvicorn main:app --reload
 ```
 
-The backend should also import correctly from the repository root because model and database paths are anchored to `backend/main.py`.
+The backend application lives in `backend/app/`. `backend/main.py` remains a compatibility entrypoint so `uvicorn main:app --reload` still works from the `backend/` directory.
 
 ## Frontend Setup
 
@@ -157,6 +171,17 @@ Frontend environment variables:
 | Variable | Default | Purpose |
 | --- | --- | --- |
 | `VITE_API_BASE_URL` | `http://127.0.0.1:8000` | Backend API base URL. |
+
+Frontend auth behavior:
+
+- Login stores the backend access token in `localStorage`.
+- App startup checks for a stored token and calls `/api/me` to restore the current user.
+- Invalid or expired tokens are cleared and the user is returned to the login view.
+- Protected app views require a restored or freshly logged-in user in frontend state.
+- Core app errors are shown as bounded inline messages instead of browser alerts.
+- Dashboard analysis supports GPS, manual latitude/longitude entry, or explicitly selected demo coordinates.
+- Static marketplace, support, profile, history, IoT, and admin actions are labeled as demo/MVP where they are not persisted.
+- Shared frontend helpers provide accessible notices, demo badges, and readable loading states.
 
 Run the frontend:
 
@@ -199,13 +224,20 @@ Current endpoints:
 | Method | Path | Description |
 | --- | --- | --- |
 | `POST` | `/api/register` | Demo user registration. |
-| `POST` | `/api/login` | Demo user login. |
+| `POST` | `/api/login` | User login. Returns a bearer access token and safe user metadata. |
+| `GET` | `/api/me` | Returns the current authenticated user from a bearer token. |
 | `POST` | `/api/analyze` | Crop recommendation and irrigation estimate. |
+| `GET` | `/health` | Basic service health. |
+| `GET` | `/ready` | Database and model readiness check. |
 
 FastAPI also exposes generated docs when the backend is running:
 
 - `http://127.0.0.1:8000/docs`
 - `http://127.0.0.1:8000/openapi.json`
+
+Backend validation rules and the current `/api/analyze` response contract are documented in [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md).
+
+The frontend stores the MVP access token in `localStorage`, restores sessions with `/api/me`, and sends API calls with an `Authorization: Bearer ...` header. This keeps the current demo flow simple, but it is not the recommended storage strategy for high-security production systems.
 
 ## AI/ML Notes
 
@@ -221,6 +253,7 @@ Known limitations:
 - Dataset provenance and licensing still need documentation.
 - Some crop-label mappings still need reliability work.
 - The model is for MVP demonstration and should not be treated as agronomic advice.
+- Weather API failures are returned with fallback indicators and warning messages.
 
 ## What Is Demo-Only
 

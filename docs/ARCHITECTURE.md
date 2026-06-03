@@ -24,33 +24,70 @@ Responsibilities:
 - Render the MVP user interface.
 - Collect soil, date, location, and simulated sensor inputs.
 - Call backend APIs through `src/api.js`.
+- Store the MVP JWT access token in `localStorage` and attach it to API requests.
+- Restore stored sessions on app startup by calling `/api/me`.
+- Clear stale tokens and return users to the auth screen after `401` responses.
+- Guard app views in frontend state so unauthenticated users cannot navigate directly into protected MVP screens.
+- Convert common API failures into bounded inline messages through the shared API client helper.
+- Allow dashboard analysis to proceed with GPS coordinates, manually entered coordinates, or explicitly selected demo coordinates.
+- Provide a compact mobile menu selector while the desktop sidebar remains hidden on small screens.
+- Use small shared UI helpers for accessible notices, demo labels, and loading states.
 - Display analysis results, simulated irrigation controls, maps, marketplace demo data, and reports.
 
 Current limitations:
 
 - Navigation is app-state based, not route based.
 - Several screens are static or simulated.
-- Authentication state is held in frontend memory only.
-- Mobile navigation still needs improvement.
+- Access token storage is MVP-only and should be revisited before production use.
+- Frontend guards are UX controls only; backend authorization remains the security boundary.
+- Mobile navigation has a minimal fallback selector, but the overall mobile experience still needs deeper responsive QA.
+- Accessibility has a baseline pass for core controls and notices, but full WCAG audit coverage is still future work.
 
 ## Backend Boundary
 
-The backend lives in `backend/main.py`.
+The backend lives in `backend/app/`. `backend/main.py` remains a compatibility entrypoint for existing `uvicorn main:app` commands.
+
+Current backend package layout:
+
+```text
+backend/
+  main.py                 # compatibility export
+  app/
+    main.py               # FastAPI app factory and router registration
+    config.py             # environment/config defaults
+    database.py           # SQLAlchemy engine/session/base
+    models.py             # SQLAlchemy models
+    schemas.py            # Pydantic request validation
+    security.py           # password hashing and JWT helpers
+    dependencies.py       # current-user and role authorization dependencies
+    ml.py                 # model/encoder loading and prediction helper
+    routers/
+      health.py
+      auth.py
+      analyze.py
+    services/
+      weather.py
+      irrigation.py
+      analysis.py
+```
 
 Responsibilities:
 
-- Provide FastAPI endpoints for registration, login, health, OpenAPI, and farm analysis.
+- Provide FastAPI endpoints for registration, login, current user lookup, health, OpenAPI, and farm analysis.
 - Initialize a local SQLite database from `DATABASE_URL`.
+- Generate and validate JWT access tokens for the current MVP auth flow.
+- Assign admin role only from configured `ADMIN_EMAILS`.
 - Load model artifacts from stable paths relative to `backend/main.py`.
 - Estimate crop recommendation probabilities and irrigation need.
+- Validate auth and analysis inputs before business logic runs.
+- Expose `/health` for basic service status and `/ready` for database/model readiness.
 
 Current limitations:
 
-- The backend is intentionally still a single-file MVP.
-- Authentication is demo-only.
-- Admin authorization is not production-ready.
-- Input validation and error handling need hardening.
+- Authentication uses short-lived JWT access tokens, but there are no refresh tokens, email verification, password reset, multi-factor auth, or production rate limits yet.
+- Admin authorization helpers exist for future protected routes, but there is no complete admin API yet.
 - No database migrations are present yet.
+- The package structure is intentionally small and should not be treated as a complete production architecture yet.
 
 ## AI/ML Boundary
 
@@ -61,7 +98,8 @@ Model artifacts:
 
 Current behavior:
 
-- The backend loads the XGBoost classifier and label encoder at import time.
+- `backend/app/ml.py` loads the XGBoost classifier and label encoder at import time.
+- `backend/app/services/analysis.py` orchestrates weather lookup, prediction, irrigation calculation, and response shaping.
 - `/api/analyze` builds a seven-feature input and returns a top-3 recommendation list.
 
 Current limitations:
@@ -85,10 +123,33 @@ Local database files are ignored by git. The repository must not contain real us
 Real MVP flows:
 
 - Frontend app shell and dashboard.
-- Demo registration/login backed by SQLite.
+- Registration/login backed by SQLite with JWT access tokens.
+- `/api/me` authenticated current-user lookup.
+- Frontend session restore from stored MVP token.
+- Frontend protected-view guards for dashboard, profile, market, analysis, history, support, map, and admin views.
+- Inline dashboard analysis errors and PDF export messages.
+- Demo-only labels/messages for static marketplace, support, profile, history, IoT, and admin actions.
+- Accessible notice roles for error/status messages and readable loading states.
 - Crop recommendation API using local model artifacts.
 - OpenAPI docs and health endpoint.
+- Readiness endpoint for DB/model checks.
 - Client-side PDF report generation.
+
+## API Contract Notes
+
+`POST /api/analyze` returns both legacy MVP keys and the newer hardened contract fields:
+
+- `recommended_crop`
+- `top_predictions`
+- `top_3_recommendations` for backward compatibility
+- `irrigation`
+- `weather_summary`
+- `weather` for backward compatibility
+- `model_status`
+- `inference_mode`
+- `warnings`
+
+Weather lookup falls back to default values when provider data is unavailable. The response marks this with `weather_summary.fallback_used` and a warning string.
 
 Demo/static flows:
 

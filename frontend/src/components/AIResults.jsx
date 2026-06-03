@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Leaf, Thermometer, CloudRain, Zap, Settings, Power, Droplets, CheckCircle, Activity, Target } from 'lucide-react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine } from 'recharts';
 import { EKIN_BAZASI } from '../utils/constants';
+import DemoBadge from './ui/DemoBadge';
+import Notice from './ui/Notice';
 
 export default function AIResults({ analysisResult, monitoringData }) {
   const [controlMode, setControlMode] = useState('auto');
@@ -22,6 +24,8 @@ export default function AIResults({ analysisResult, monitoringData }) {
   }
 
   const recommendedCrop = analysisResult.recommended_crop || '';
+  const topRecommendations = analysisResult.top_3_recommendations || analysisResult.top_predictions || [];
+  const weather = analysisResult.weather || analysisResult.weather_summary || {};
   const cropInfo = EKIN_BAZASI[recommendedCrop]
     || Object.entries(EKIN_BAZASI).find(([crop]) => crop.toLowerCase() === recommendedCrop.toLowerCase())?.[1]
     || EKIN_BAZASI['default'];
@@ -63,24 +67,30 @@ export default function AIResults({ analysisResult, monitoringData }) {
           <div className="bg-white/10 backdrop-blur-md p-3 rounded-lg text-center border border-white/10 shadow-inner">
             <Thermometer className="w-5 h-5 mx-auto mb-1 text-orange-300" />
             <p className="text-[10px] text-green-100 uppercase mb-0.5 font-black">Mavsum</p>
-            <p className="text-lg font-black">{analysisResult.weather.temp}°C</p>
+            <p className="text-lg font-black">{weather.temp ?? weather.temperature ?? '-'}°C</p>
           </div>
           <div className="bg-white/10 backdrop-blur-md p-3 rounded-lg text-center border border-white/10 shadow-inner">
             <CloudRain className="w-5 h-5 mx-auto mb-1 text-cyan-300" />
             <p className="text-[10px] text-green-100 uppercase mb-0.5 font-black">Yomg'ir</p>
-            <p className="text-lg font-black">{analysisResult.weather.rain}mm</p>
+            <p className="text-lg font-black">{weather.rain ?? weather.precipitation ?? '-'}mm</p>
           </div>
         </div>
       </div>
 
+      {analysisResult.warnings?.length > 0 && (
+        <Notice variant="warning" className="rounded-2xl p-4 text-xs">
+          {analysisResult.warnings.join(' ')}
+        </Notice>
+      )}
+
       {/* 2. YANGI: TOP-3 EKINLAR PROGRESS BARI (AI Foizlari bilan) */}
-      {analysisResult.top_3_recommendations && (
+      {topRecommendations.length > 0 && (
         <div className="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex-shrink-0">
           <h3 className="text-[10px] text-slate-500 font-black mb-4 uppercase tracking-widest flex items-center gap-1.5 border-b border-slate-100 pb-2">
             <Target className="w-3.5 h-3.5 text-green-500" /> AI Ehtimollik Tahlili (Top-3 Ekin)
           </h3>
           <div className="space-y-4">
-            {analysisResult.top_3_recommendations.map((item, index) => (
+            {topRecommendations.map((item, index) => (
               <div key={index} className="relative">
                 <div className="flex justify-between items-end mb-1.5">
                   <span className={`text-sm font-bold flex items-center gap-1.5 ${index === 0 ? 'text-green-700' : 'text-slate-600'}`}>
@@ -112,16 +122,21 @@ export default function AIResults({ analysisResult, monitoringData }) {
             <Zap className={isPumpActuallyOn ? "text-blue-500 animate-pulse" : "text-slate-400"} strokeWidth={2.5} width={20} height={20} /> 
             Nasos Stansiyasi
           </h3>
+          <DemoBadge label="Demo/MVP simulyatsiya" />
           
           <div className="flex items-center bg-slate-100 p-0.5 rounded-lg border border-slate-200 shadow-inner">
             <button 
+              type="button"
               onClick={() => setControlMode('auto')} 
+              aria-pressed={controlMode === 'auto'}
               className={`px-3 py-1 rounded-md text-xs font-black transition-all flex items-center gap-1 ${controlMode === 'auto' ? 'bg-white text-green-600 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}
             >
               <Activity className="w-3.5 h-3.5"/> AI Avto
             </button>
             <button 
+              type="button"
               onClick={() => setControlMode('manual')} 
+              aria-pressed={controlMode === 'manual'}
               className={`px-3 py-1 rounded-md text-xs font-black transition-all flex items-center gap-1 ${controlMode === 'manual' ? 'bg-white text-slate-800 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}
             >
               <Settings className="w-3.5 h-3.5"/> Qo'lda
@@ -131,8 +146,10 @@ export default function AIResults({ analysisResult, monitoringData }) {
 
         <div className="flex flex-col sm:flex-row items-center gap-5">
           <button 
+            type="button"
             disabled={controlMode === 'auto'}
             onClick={() => setManualPumpOn(!manualPumpOn)}
+            aria-label={manualPumpOn ? "Qo'lda nasosni o'chirish" : "Qo'lda nasosni yoqish"}
             className={`relative flex-shrink-0 w-28 h-28 rounded-full flex flex-col items-center justify-center transition-all duration-300 border-4 outline-none
               ${controlMode === 'auto' ? 'cursor-not-allowed opacity-90' : 'cursor-pointer hover:scale-105 active:scale-95'}
               ${isPumpActuallyOn 

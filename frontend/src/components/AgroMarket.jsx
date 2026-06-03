@@ -1,5 +1,7 @@
 import { Check, Filter, Package, Plus, Search, ShoppingCart, Star } from 'lucide-react';
 import { useState } from 'react';
+import DemoBadge from './ui/DemoBadge';
+import Notice from './ui/Notice';
 
 // 1. Dastlabki Mahsulotlar Bazasi (Hakamlar uchun zo'r ro'yxat)
 const PRODUCTS = [
@@ -20,6 +22,7 @@ export default function AgroMarket() {
   const [searchQuery, setSearchQuery] = useState("");
   const [cart, setCart] = useState([]);
   const [addedItems, setAddedItems] = useState({});
+  const [demoNotice, setDemoNotice] = useState('');
 
   const filteredProducts = PRODUCTS.filter(product => {
     const matchesCategory = activeCategory === "Barchasi" || product.category === activeCategory;
@@ -29,6 +32,7 @@ export default function AgroMarket() {
 
   const addToCart = (product) => {
     setCart([...cart, product]);
+    setDemoNotice("Savat demo rejimida ishlaydi. Xarid backendga yuborilmaydi.");
     
     setAddedItems({ ...addedItems, [product.id]: true });
     setTimeout(() => {
@@ -49,12 +53,13 @@ export default function AgroMarket() {
         <div>
           <h1 className="text-2xl font-black text-slate-800 flex items-center gap-2">
             <Package className="text-green-600 w-8 h-8" /> Smart Agro Market
+            <DemoBadge />
           </h1>
           <p className="text-sm text-slate-500 mt-1">Sizning hosilingiz uchun eng yaxshi vositalar</p>
         </div>
         
         <div className="flex items-center gap-4">
-          <div className="relative bg-slate-100 p-3 rounded-xl cursor-pointer hover:bg-slate-200 transition">
+          <div className="relative bg-slate-100 p-3 rounded-xl" aria-label={`Savatda ${cart.length} ta mahsulot bor`}>
             <ShoppingCart className="text-slate-700 w-6 h-6" />
             {cart.length > 0 && (
               <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded-full animate-bounce">
@@ -66,16 +71,29 @@ export default function AgroMarket() {
             <p className="text-xs text-slate-500 font-bold uppercase">Jami summa:</p>
             <p className="text-lg font-black text-green-700">{formatPrice(cartTotal)}</p>
           </div>
-          <button className="bg-green-600 hover:bg-green-700 text-white px-5 py-2.5 rounded-xl font-bold shadow-md transition-all active:scale-95">
+          <button
+            type="button"
+            onClick={() => setDemoNotice("Checkout hozircha demo. To'lov va buyurtma backendga ulanmagan.")}
+            disabled={cart.length === 0}
+            className="bg-green-600 hover:bg-green-700 text-white px-5 py-2.5 rounded-xl font-bold shadow-md transition-all active:scale-95 disabled:bg-slate-200 disabled:text-slate-400 disabled:cursor-not-allowed"
+          >
             Xarid qilish
           </button>
         </div>
       </div>
 
+      {demoNotice && (
+        <Notice variant="warning" className="mb-6">
+          {demoNotice}
+        </Notice>
+      )}
+
       <div className="flex flex-col md:flex-row gap-4 mb-8">
         <div className="relative flex-1">
+          <label htmlFor="market-search" className="sr-only">Mahsulot qidirish</label>
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
           <input 
+            id="market-search"
             type="text" 
             placeholder="Mahsulot qidirish (masalan: O'g'it yoki Urug')..." 
             value={searchQuery}
@@ -139,7 +157,9 @@ export default function AgroMarket() {
                   </div>
                   
                   <button 
+                    type="button"
                     onClick={() => addToCart(product)}
+                    aria-label={`${product.name} savatga qo'shish`}
                     className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 ${
                       addedItems[product.id] 
                         ? 'bg-green-500 text-white rotate-12 scale-110 shadow-lg shadow-green-500/30' 

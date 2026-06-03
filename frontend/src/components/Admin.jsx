@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Users, Droplets, Zap, TrendingUp, ShieldAlert, CheckCircle, MapPin, BarChart3 } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import DemoBadge from './ui/DemoBadge';
+import Notice from './ui/Notice';
 
 export default function Admin() {
+  const [notice, setNotice] = useState('');
   const statsData = [
     { month: 'Yanvar', tejalgan_suv: 4500 },
     { month: 'Fevral', tejalgan_suv: 5200 },
@@ -16,7 +19,7 @@ export default function Admin() {
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-slate-900 p-6 rounded-2xl shadow-lg border border-slate-800 text-white relative overflow-hidden">
         <div className="absolute top-0 right-0 w-64 h-64 bg-red-500/10 rounded-full blur-3xl pointer-events-none"></div>
         <div>
-          <h2 className="text-2xl font-black flex items-center gap-2"><ShieldAlert className="text-red-500" /> Boshqaruv Markazi (Super Admin)</h2>
+          <h2 className="text-2xl font-black flex items-center gap-2"><ShieldAlert className="text-red-500" /> Boshqaruv Markazi (Super Admin) <DemoBadge /></h2>
           <p className="text-slate-400 text-sm mt-1">O'zbekiston bo'yicha barcha ulangan fermer xo'jaliklari va IoT datchiklar holati.</p>
         </div>
         <div className="bg-green-500/20 border border-green-500/30 text-green-400 px-4 py-2 rounded-lg font-bold flex items-center gap-2 shadow-inner">
@@ -76,6 +79,11 @@ export default function Admin() {
         </div>
         <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
           <h3 className="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2"><Zap className="text-orange-500"/> Jonli Datchiklar Holati</h3>
+          {notice && (
+            <Notice variant="warning" className="mb-4 text-xs">
+              {notice}
+            </Notice>
+          )}
           
           <div className="space-y-4">
             <div className="p-3 bg-slate-50 rounded-xl border border-slate-100 flex items-center justify-between">
@@ -108,11 +116,11 @@ export default function Admin() {
                   <p className="text-[10px] text-red-500 flex items-center gap-1">Datchik uzildi!</p>
                 </div>
               </div>
-              <button className="text-[10px] font-bold text-white bg-red-500 hover:bg-red-600 px-2 py-1 rounded shadow-sm">Tekshirish</button>
+              <button type="button" onClick={() => setNotice("Datchik tekshirish amali hozircha demo. Real IoT backend ulanmagan.")} className="text-[10px] font-bold text-white bg-red-500 hover:bg-red-600 px-2 py-1 rounded shadow-sm">Tekshirish</button>
             </div>
           </div>
           
-          <button className="w-full mt-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold text-sm rounded-lg transition-colors">
+          <button type="button" onClick={() => setNotice("Barcha datchiklarni ko'rish sahifasi hozircha demo.")} className="w-full mt-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold text-sm rounded-lg transition-colors">
             Barchasini ko'rish
           </button>
         </div>
