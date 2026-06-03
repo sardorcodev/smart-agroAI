@@ -1,181 +1,254 @@
-# 🌾 Smart Agro AI
+# Smart Agro AI
 
-> Qishloq xo‘jaligi uchun sun’iy intellektga asoslangan aqlli tahlil, sug‘orish monitoringi, virtual agronom va agro-market ekotizimi.
+Smart Agro AI is an MVP agriculture decision-support platform in active development. It combines a React frontend, a FastAPI backend, a local SQLite development database, and an XGBoost crop recommendation model artifact.
 
-![Version](https://img.shields.io/badge/version-1.0.0-blue)
-![Frontend](https://img.shields.io/badge/frontend-React%20%2B%20Vite-61DAFB)
-![Backend](https://img.shields.io/badge/backend-FastAPI-009688)
-![AI](https://img.shields.io/badge/AI-XGBoost%20%7C%20Gemini-orange)
-![License](https://img.shields.io/badge/license-MIT-green)
+The current repository is suitable as a public open-source baseline, but it is not production-ready. Some screens are real MVP flows, while others are static demo views intended to show the planned platform direction.
 
----
+## Current Status
 
-## 📌 Mundarija
+| Area | Status |
+| --- | --- |
+| Frontend app | Implemented MVP with React, Vite, Tailwind CSS, Recharts, and React Leaflet. |
+| Backend API | Implemented MVP with FastAPI, SQLAlchemy, SQLite, and model inference. |
+| Crop recommendation | Implemented with local XGBoost and LabelEncoder artifacts. |
+| Weather lookup | Implemented through Open-Meteo archive API with fallback values. |
+| Authentication | Demo-only email/password registration and login. Not production auth. |
+| Virtual Agronom | Mocked frontend assistant. Gemini is not currently integrated. |
+| Agro Market | Static/demo product catalog with local cart state only. |
+| IoT/sensors | Simulated through frontend sliders. No real IoT ingestion yet. |
+| Support tickets | Static/demo form only. |
+| Admin dashboard | Static/demo metrics with frontend-only role display. |
+| PDF report | Client-side report export for completed analysis. |
 
-- [Loyiha haqida](#-loyiha-haqida)
-- [Muammo](#-muammo)
-- [Yechim](#-yechim)
-- [Asosiy imkoniyatlar](#-asosiy-imkoniyatlar)
-- [Texnologiyalar steki](#-texnologiyalar-steki)
-- [Tizim arxitekturasi](#-tizim-arxitekturasi)
-- [Foydalanish ssenariysi](#-foydalanish-ssenariysi)
-- [O‘rnatish va ishga tushirish](#-ornatish-va-ishga-tushirish)
-- [API va modul tavsifi](#-api-va-modul-tavsifi)
-- [Loyiha strukturasi](#-loyiha-strukturasi)
-- [Biznes modeli](#-biznes-modeli)
-- [Kelajakdagi rivojlantirishlar](#-kelajakdagi-rivojlantirishlar)
-- [Jamoa](#-jamoa)
-- [Litsenziya](#-litsenziya)
+## Tech Stack
 
----
+Frontend:
 
-## 🚀 Loyiha haqida
+- React
+- Vite
+- Tailwind CSS
+- Axios
+- Recharts
+- React Leaflet
+- Lucide React
 
-**Smart Agro AI** — bu fermerlar, dehqonlar va agro-soha vakillari uchun mo‘ljallangan aqlli raqamli platforma bo‘lib, tuproq va iqlim ma’lumotlari asosida ekin tavsiya qiladi, sug‘orish jarayonini monitoring qiladi, AI yordamida agronomik maslahat beradi va kerakli mahsulotlarni bitta tizim ichida topish imkonini yaratadi.
+Backend:
 
-Loyiha maqsadi — qishloq xo‘jaligida qaror qabul qilish jarayonini **ma’lumotga asoslangan**, **tezkor**, **aniq** va **foydali** qilish.
+- FastAPI
+- SQLAlchemy
+- SQLite for local development
+- Pydantic
+- XGBoost
+- scikit-learn
+- Joblib
+- NumPy
 
----
-
-## ❗ Muammo
-
-Ko‘plab fermerlar quyidagi qiyinchiliklarga duch keladi:
-
-- Tuproq tarkibini to‘liq tahlil qila olmaydi
-- Ma’lum hududga qaysi ekin mosligini bilmaydi
-- Suv resurslaridan samarasiz foydalanadi
-- Kasalliklar yoki agrotexnik muammolar bo‘yicha tezkor maslahatga ega emas
-- O‘g‘it, urug‘ va boshqa resurslarni topishda vaqt yo‘qotadi
-
-Natijada:
-
-- hosildorlik pasayadi
-- xarajat ortadi
-- noto‘g‘ri ekin tanlanadi
-- suv va resurslar isrof bo‘ladi
-
----
-
-## ✅ Yechim
-
-**Smart Agro AI** ushbu muammolarni bitta integratsiyalashgan platforma orqali hal qiladi:
-
-1. **Tuproq va iqlim tahlili asosida ekin tavsiyasi**
-2. **Sug‘orish monitoringi va avtomatlashtirilgan qaror**
-3. **Virtual AI agronom yordamchisi**
-4. **Agro-market orqali kerakli mahsulotlarni xarid qilish**
-5. **Xarita orqali yaqin distribyutor yoki do‘konlarni topish**
-
----
-
-## 🌟 Asosiy imkoniyatlar
-
-### 1. AI asosidagi ekin tavsiya moduli
-Foydalanuvchi quyidagi ma’lumotlarni kiritadi:
-
-- Azot (N)
-- Fosfor (P)
-- Kaliy (K)
-- pH
-- namlik
-- harorat
-- yog‘ingarchilik yoki iqlim ma’lumotlari
-
-Tizim ushbu ma’lumotlarni tahlil qilib, foydalanuvchiga:
-
-- eng mos ekinlar ro‘yxati
-- tavsiya etilgan top-3 variant
-- ehtimollik yoki ishonchlilik ko‘rsatkichi
-
-ni qaytaradi.
-
-### 2. Smart sug‘orish monitoringi
-Tizim tuproq namligi va ob-havo holatiga qarab:
-
-- sug‘orish kerak yoki kerak emasligini aniqlaydi
-- suv sarfini hisoblaydi
-- IoT uskunalar bilan integratsiya qilinadigan mantiqiy asos yaratadi
-- namlikning dinamik holatini grafikda ko‘rsatadi
-
-### 3. Virtual Agronom
-Foydalanuvchi tabiiy tilda savol beradi:
-
-- “Pomidor bargida dog‘ tushdi, nima qilay?”
-- “Paxtaga qaysi o‘g‘itni qachon berish kerak?”
-- “Bodring uchun optimal sug‘orish rejasi qanday?”
-
-AI agronom:
-
-- muammoni tahlil qiladi
-- tavsiya beradi
-- ehtiyot choralari haqida yozadi
-- amaliy maslahatlar beradi
-
-### 4. Agro Market
-Platforma ichida foydalanuvchi:
-
-- urug‘lar
-- mineral o‘g‘itlar
-- pestitsidlar
-- aqlli sensorlar
-- nasoslar va agro-uskunalar
-
-ni ko‘rishi va xarid qilishi mumkin.
-
-### 5. Geolokatsiya xaritasi
-Xarita moduli orqali foydalanuvchi:
-
-- eng yaqin agro-do‘konni topadi
-- distribyutor manzilini ko‘radi
-- marshrut qurishi mumkin
-- hududiy xizmat nuqtalarini ko‘rishi mumkin
-
----
-
-## 🛠 Texnologiyalar steki
-
-### Frontend
-- **React.js**
-- **Vite**
-- **Tailwind CSS**
-- **Recharts**
-- **React Leaflet**
-
-### Backend
-- **FastAPI**
-- **Python**
-- **Uvicorn**
-- **Pydantic**
-- **SQLAlchemy**
-
-### AI / ML
-- **Scikit-learn**
-- **XGBoost**
-- **Joblib**
-- **NumPy**
-- **Google Gemini API**
-
-### Database
-- **SQLite** (MVP uchun)
-- Keyinchalik: **PostgreSQL**
-
-### Qo‘shimcha
-- REST API
-- JSON asosidagi ma’lumot almashinuvi
-- Modul asosidagi arxitektura
-- Kengayishga tayyor backend struktura
-
----
-
-## 🧱 Tizim arxitekturasi
+## Repository Structure
 
 ```text
-Frontend (React + Vite)
-        │
-        ▼
-Backend API (FastAPI)
-        │
- ┌──────┼───────────────┬───────────────┐
- ▼      ▼               ▼               ▼
-ML Model   Gemini API   Database        Map / Store Data
-(XGBoost)  (Virtual AI) (SQLite)        (Leaflet / JSON)
+smart-agro/
+  .github/
+    workflows/
+    ISSUE_TEMPLATE/
+  backend/
+    main.py
+    requirements.txt
+    tests/
+    .env.example
+    xgboost_model.joblib
+    encoder.joblib
+  docs/
+    ARCHITECTURE.md
+    DEVELOPMENT.md
+    SECURITY_NOTES.md
+    audits/
+  frontend/
+    src/
+    public/
+    package.json
+    .env.example
+  dataset/
+    Crop_recommendation.csv
+  README.md
+  LICENSE
+  SECURITY.md
+  CONTRIBUTING.md
+  ROADMAP.md
+  CHANGELOG.md
+```
+
+## Documentation
+
+- [Architecture](docs/ARCHITECTURE.md)
+- [Development guide](docs/DEVELOPMENT.md)
+- [Security notes](docs/SECURITY_NOTES.md)
+- [Contributing](CONTRIBUTING.md)
+- [Roadmap](ROADMAP.md)
+- [Changelog](CHANGELOG.md)
+- [Full repository audit](docs/audits/FULL_REPOSITORY_AUDIT.md)
+
+## Security Notice
+
+Never commit:
+
+- `.env` files
+- API keys
+- access tokens
+- local SQLite database files
+- password hashes
+- real user records
+- production credentials
+
+If a secret was ever committed, rotate it immediately. Local database files are ignored by git and should be recreated by each developer.
+
+## Backend Setup
+
+From the repository root:
+
+```bash
+cd backend
+python -m venv venv
+venv\Scripts\activate
+pip install -r requirements.txt
+```
+
+Optional local configuration:
+
+```bash
+copy .env.example .env
+```
+
+The current backend reads configuration from environment variables. It does not automatically load `.env`; use your shell, IDE, or process manager to export variables if needed.
+
+Backend environment variables:
+
+| Variable | Default | Purpose |
+| --- | --- | --- |
+| `DATABASE_URL` | `sqlite:///backend/smartagro_local.db` | Database connection URL. |
+| `ALLOWED_CORS_ORIGINS` | `http://localhost:5173,http://127.0.0.1:5173` | Comma-separated frontend origins. |
+| `ADMIN_EMAILS` | empty | Optional comma-separated demo admin emails. Leave empty for public use. |
+| `GEMINI_API_KEY` | empty | Reserved for future Gemini integration. Not used by the current MVP. |
+
+Run the backend:
+
+```bash
+uvicorn main:app --reload
+```
+
+The backend should also import correctly from the repository root because model and database paths are anchored to `backend/main.py`.
+
+## Frontend Setup
+
+From the repository root:
+
+```bash
+cd frontend
+npm install
+```
+
+Optional local configuration:
+
+```bash
+copy .env.example .env
+```
+
+Frontend environment variables:
+
+| Variable | Default | Purpose |
+| --- | --- | --- |
+| `VITE_API_BASE_URL` | `http://127.0.0.1:8000` | Backend API base URL. |
+
+Run the frontend:
+
+```bash
+npm run dev
+```
+
+Build the frontend:
+
+```bash
+npm run build
+```
+
+Lint the frontend:
+
+```bash
+npm run lint
+```
+
+Test the frontend:
+
+```bash
+npm test
+```
+
+## Backend Tests
+
+From the repository root:
+
+```bash
+python -m pytest backend/tests
+```
+
+Backend tests use temporary SQLite databases and do not require real API keys.
+
+## API Overview
+
+Current endpoints:
+
+| Method | Path | Description |
+| --- | --- | --- |
+| `POST` | `/api/register` | Demo user registration. |
+| `POST` | `/api/login` | Demo user login. |
+| `POST` | `/api/analyze` | Crop recommendation and irrigation estimate. |
+
+FastAPI also exposes generated docs when the backend is running:
+
+- `http://127.0.0.1:8000/docs`
+- `http://127.0.0.1:8000/openapi.json`
+
+## AI/ML Notes
+
+The model artifacts are included in `backend/`:
+
+- `xgboost_model.joblib`
+- `encoder.joblib`
+
+Known limitations:
+
+- No training script is included yet.
+- No model card or metrics are included yet.
+- Dataset provenance and licensing still need documentation.
+- Some crop-label mappings still need reliability work.
+- The model is for MVP demonstration and should not be treated as agronomic advice.
+
+## What Is Demo-Only
+
+The following areas are currently static or simulated:
+
+- Virtual Agronom AI chat
+- Agro Market checkout
+- IoT device integration
+- Sensor ingestion
+- Support ticket submission
+- Admin analytics
+- Irrigation history persistence
+- Subscription/payment flows
+
+## Open-Source Baseline
+
+This repository now includes:
+
+- MIT `LICENSE`
+- `SECURITY.md`
+- `CONTRIBUTING.md`
+- `ROADMAP.md`
+- `CHANGELOG.md`
+- GitHub issue templates and pull request template
+- GitHub Actions CI for frontend and backend checks
+
+Planned next steps are listed in `ROADMAP.md`.
+
+## License
+
+Smart Agro AI is released under the MIT License. See `LICENSE`.

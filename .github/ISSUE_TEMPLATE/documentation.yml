@@ -1,0 +1,27 @@
+name: Documentation issue
+description: Report missing, outdated, or unclear documentation
+title: "[Docs]: "
+labels: ["documentation", "needs-triage"]
+body:
+  - type: input
+    id: section
+    attributes:
+      label: Documentation section
+      description: Which file or section is affected?
+      placeholder: docs/DEVELOPMENT.md, README.md setup section, etc.
+    validations:
+      required: true
+  - type: textarea
+    id: issue
+    attributes:
+      label: What is missing or unclear?
+      description: Describe the documentation problem.
+    validations:
+      required: true
+  - type: textarea
+    id: improvement
+    attributes:
+      label: Suggested improvement
+      description: If you know the fix, describe it.
+    validations:
+      required: false

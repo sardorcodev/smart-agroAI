@@ -21,7 +21,10 @@ export default function AIResults({ analysisResult, monitoringData }) {
     );
   }
 
-  const cropInfo = EKIN_BAZASI[analysisResult.recommended_crop?.toLowerCase()] || EKIN_BAZASI['default'];
+  const recommendedCrop = analysisResult.recommended_crop || '';
+  const cropInfo = EKIN_BAZASI[recommendedCrop]
+    || Object.entries(EKIN_BAZASI).find(([crop]) => crop.toLowerCase() === recommendedCrop.toLowerCase())?.[1]
+    || EKIN_BAZASI['default'];
   const minHum = cropInfo.min_hum;
   let aiPumpDecision = false;
   let waterNeeded = 0;
@@ -180,7 +183,7 @@ export default function AIResults({ analysisResult, monitoringData }) {
             <LineChart data={chartData}>
               <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" vertical={false} />
               <XAxis dataKey="time" tick={{fontSize: 9, fill: '#64748b'}} stroke="#cbd5e1" tickLine={false} axisLine={false} />
-              <YAxis domain={''} tick={{fontSize: 9, fill: '#64748b'}} stroke="#cbd5e1" tickLine={false} axisLine={false} width={25} />
+              <YAxis domain={[0, 100]} tick={{fontSize: 9, fill: '#64748b'}} stroke="#cbd5e1" tickLine={false} axisLine={false} width={25} />
               <Tooltip cursor={{stroke: '#cbd5e1', strokeWidth: 1, strokeDasharray: '3 3'}} contentStyle={{borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)'}} />
               <ReferenceLine y={minHum} stroke="#ef4444" strokeDasharray="3 3" label={{position: 'insideTopLeft', value: 'Crit.', fill: '#ef4444', fontSize: 9, fontWeight: 'bold'}} />
               <Line type="monotone" dataKey="namlik" stroke={isPumpActuallyOn ? "#3b82f6" : "#f59e0b"} strokeWidth={3} dot={{r: 3, fill: '#fff', strokeWidth: 2}} activeDot={{r: 5}} animationDuration={500} />

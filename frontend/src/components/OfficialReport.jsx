@@ -1,6 +1,26 @@
 import React from 'react';
 import { EKIN_BAZASI } from '../utils/constants';
 
+const createDocumentNumber = (formData, monitoringData, analysisResult) => {
+  const source = JSON.stringify({
+    n: formData.n,
+    p: formData.p,
+    k: formData.k,
+    ph: formData.ph,
+    lat: formData.lat,
+    lon: formData.lon,
+    area: monitoringData.area,
+    crop: analysisResult.recommended_crop,
+  });
+
+  let hash = 0;
+  for (let index = 0; index < source.length; index += 1) {
+    hash = (hash * 31 + source.charCodeAt(index)) % 90000;
+  }
+
+  return hash + 10000;
+};
+
 const OfficialReport = React.forwardRef(({ formData, monitoringData, analysisResult }, ref) => {
   
   if (!analysisResult) return <div ref={ref}></div>;
@@ -19,6 +39,7 @@ const OfficialReport = React.forwardRef(({ formData, monitoringData, analysisRes
   const savedMoney = (savedWater / 1000) * 50;
 
   const bugun = new Date().toLocaleDateString('uz-UZ');
+  const documentNumber = createDocumentNumber(formData, monitoringData, analysisResult);
 
   return (
     <div 
@@ -33,7 +54,7 @@ const OfficialReport = React.forwardRef(({ formData, monitoringData, analysisRes
       <h1 className="text-2xl font-black text-center mb-10">DALANING AGROKIMYOVIY VA IQLIMIY TAHLILI<br/>X I S O B O T I</h1>
 
       <div className="flex justify-between mb-8 text-sm font-bold">
-        <p>Hujjat raqami: #{Math.floor(Math.random() * 90000) + 10000}</p>
+        <p>Hujjat raqami: #{documentNumber}</p>
         <p>Sana: {bugun}</p>
       </div>
 

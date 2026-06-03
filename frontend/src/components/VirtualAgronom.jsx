@@ -1,5 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Send, Bot, User, Sparkles, Sprout, AlertCircle, ShoppingBag } from 'lucide-react';
+import { Send, Bot, User, Sparkles, Sprout, AlertCircle } from 'lucide-react';
+
+const renderMessageText = (text) => {
+  return text.split(/(\*\*.*?\*\*)/g).map((part, index) => {
+    if (part.startsWith('**') && part.endsWith('**')) {
+      return <strong key={index}>{part.slice(2, -2)}</strong>;
+    }
+    return <React.Fragment key={index}>{part}</React.Fragment>;
+  });
+};
 
 export default function VirtualAgronom() {
   const [messages, setMessages] = useState([
@@ -13,6 +22,7 @@ export default function VirtualAgronom() {
   const [inputValue, setInputValue] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef(null);
+  const nextMessageId = useRef(2);
 
   // Xabar qo'shilganda eng pastga avtomat tushish
   const scrollToBottom = () => {
@@ -52,11 +62,12 @@ export default function VirtualAgronom() {
 
     // 1. Foydalanuvchi xabarini qo'shish
     const newUserMsg = {
-      id: Date.now(),
+      id: nextMessageId.current,
       sender: 'user',
       text: text,
       time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     };
+    nextMessageId.current += 1;
     setMessages(prev => [...prev, newUserMsg]);
     setInputValue('');
     setIsTyping(true);
@@ -65,11 +76,12 @@ export default function VirtualAgronom() {
     setTimeout(() => {
       const aiResponseText = generateAIResponse(text);
       const newAiMsg = {
-        id: Date.now() + 1,
+        id: nextMessageId.current,
         sender: 'ai',
         text: aiResponseText,
         time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       };
+      nextMessageId.current += 1;
       setMessages(prev => [...prev, newAiMsg]);
       setIsTyping(false);
     }, 1500);
@@ -115,8 +127,7 @@ export default function VirtualAgronom() {
                   ? 'bg-green-600 text-white rounded-br-none' 
                   : 'bg-white text-slate-700 border border-slate-200 rounded-bl-none'
               }`}>
-                {/* Agar tekst ichida ** qalin yozuvlar bo'lsa uni formatlash */}
-                <p className="text-[15px] leading-relaxed" dangerouslySetInnerHTML={{ __html: msg.text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }}></p>
+                <p className="text-[15px] leading-relaxed">{renderMessageText(msg.text)}</p>
               </div>
               <span className="text-[10px] text-slate-400 mt-1 font-semibold px-1">{msg.time}</span>
             </div>

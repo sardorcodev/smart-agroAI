@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { Mail, Lock, User, ArrowRight, ArrowLeft, Leaf, Loader2, ShieldCheck } from 'lucide-react';
+import { api } from '../api';
 
 export default function Auth({ onLogin, onBack }) {
   const [isLogin, setIsLogin] = useState(true);
@@ -27,14 +27,14 @@ export default function Auth({ onLogin, onBack }) {
     try {
       if (isLogin) {
         // TIZIMGA KIRISH (LOGIN)
-        const res = await axios.post('http://127.0.0.1:8000/api/login', {
+        const res = await api.post('/api/login', {
           email: formData.email,
           password: formData.password
         });
         onLogin(res.data.user); // App.jsx ga user ma'lumotlarini uzatamiz
       } else {
         // RO'YXATDAN O'TISH (REGISTER)
-        await axios.post('http://127.0.0.1:8000/api/register', formData);
+        await api.post('/api/register', formData);
         alert("Muvaffaqiyatli ro'yxatdan o'tdingiz! Endi tizimga kiring.");
         setIsLogin(true); // Login oynasiga o'tkazish
       }

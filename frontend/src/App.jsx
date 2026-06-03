@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Download, Home, Loader2, Database, Map, ShieldAlert } from 'lucide-react';
 import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
+import { api } from './api';
 
 // Komponentlar
 import Sidebar from './components/Sidebar';
@@ -48,13 +48,7 @@ function App() {
     moisture: 30, current_temp: 25, area: 10
   });
 
-  useEffect(() => {
-    if (currentPage === 'dashboard' && locationStatus === 'idle') {
-      getUserLocation();
-    }
-  }, [currentPage]);
-
-  const getUserLocation = () => {
+  const getUserLocation = useCallback(() => {
     setLocationStatus('locating');
     if (!navigator.geolocation) {
       setLocationStatus('error');
@@ -71,7 +65,17 @@ function App() {
         setLocationErrorMsg(error.code === error.PERMISSION_DENIED ? "GPS xatosi." : "GPS xatosi.");
       }
     );
-  };
+  }, []);
+
+  useEffect(() => {
+    if (currentPage === 'dashboard' && locationStatus === 'idle') {
+      const locationTimer = window.setTimeout(() => {
+        getUserLocation();
+      }, 0);
+
+      return () => window.clearTimeout(locationTimer);
+    }
+  }, [currentPage, locationStatus, getUserLocation]);
 
   const handleFormChange = (e) => {
     const { name, value } = e.target;
@@ -88,11 +92,11 @@ function App() {
     setLoading(true);
     try {
       const reqData = { ...formData, current_soil_moisture: monitoringData.moisture, area_m2: monitoringData.area };
-      const res = await axios.post('http://127.0.0.1:8000/api/analyze', reqData);
+      const res = await api.post('/api/analyze', reqData);
       setAnalysisResult(res.data);
       
       setActiveDashboardTab('sensors'); 
-    } catch (error) {
+    } catch {
       alert("Xatolik! FastAPI server ishlayotganini tekshiring.");
     }
     setLoading(false);
@@ -112,7 +116,7 @@ function App() {
       const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
       pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
       pdf.save(`SmartAgro_Rasmiy_Xisobot.pdf`);
-    } catch (error) {
+    } catch {
       alert("Xisobotni yuklashda xatolik yuz berdi.");
     }
     setIsExporting(false);

@@ -1,11 +1,12 @@
-from fastapi import FastAPI, HTTPException, Depends
+﻿from fastapi import FastAPI, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from datetime import datetime
+from pathlib import Path
+import os
 import requests
 import joblib
 import numpy as np
-# import google.generativeai as genai
 
 # --- 1. MA'LUMOTLAR BAZASI VA XAVFSIZLIK ---
 from sqlalchemy import create_engine, Column, Integer, String
@@ -13,14 +14,30 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, Session
 from passlib.context import CryptContext
 
-SQLALCHEMY_DATABASE_URL = "sqlite:///./smartagro.db"
-engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False})
+BASE_DIR = Path(__file__).resolve().parent
+DEFAULT_DATABASE_PATH = BASE_DIR / "smartagro_local.db"
+DEFAULT_DATABASE_URL = f"sqlite:///{DEFAULT_DATABASE_PATH.as_posix()}"
+
+
+def get_env_list(name: str, default: str) -> list[str]:
+    value = os.getenv(name, default)
+    return [item.strip() for item in value.split(",") if item.strip()]
+
+
+SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL", DEFAULT_DATABASE_URL)
+ALLOWED_CORS_ORIGINS = get_env_list(
+    "ALLOWED_CORS_ORIGINS",
+    "http://localhost:5173,http://127.0.0.1:5173",
+)
+ADMIN_EMAILS = {email.lower() for email in get_env_list("ADMIN_EMAILS", "")}
+
+engine_kwargs = {}
+if SQLALCHEMY_DATABASE_URL.startswith("sqlite"):
+    engine_kwargs["connect_args"] = {"check_same_thread": False}
+
+engine = create_engine(SQLALCHEMY_DATABASE_URL, **engine_kwargs)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
-
-# GEMINI_API_KEY = "AIzaSyB0vHD_c0tTUTnDDSXxbCs4OwcTZpEeCIE"
-# genai.configure(api_key=GEMINI_API_KEY)
-# model_ai = genai.GenerativeModel('gemini-1.5-flash')
 
 class UserDB(Base):
     __tablename__ = "users"
@@ -49,17 +66,25 @@ app = FastAPI(title="Smart Agro AI API", version="2.0.0")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=ALLOWED_CORS_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
 
+@app.get("/health")
+def health_check():
+    return {"status": "ok", "models_loaded": MODELS_LOADED}
+
+
 # --- 3. AI MODELLARNI YUKLASH ---
+MODEL_PATH = BASE_DIR / "xgboost_model.joblib"
+ENCODER_PATH = BASE_DIR / "encoder.joblib"
+
 try:
-    model = joblib.load('xgboost_model.joblib')
-    encoder = joblib.load('encoder.joblib')
+    model = joblib.load(MODEL_PATH)
+    encoder = joblib.load(ENCODER_PATH)
     MODELS_LOADED = True
 except Exception as e:
     print(f"DIQQAT: Modellar topilmadi. Simulyatsiya rejimida ishlaymiz. Xato: {e}")
@@ -84,9 +109,6 @@ class LoginReq(BaseModel):
     email: str
     password: str
 
-class ChatRequest(BaseModel):
-    message: str
-
 class FarmData(BaseModel):
     n: float
     p: float
@@ -106,7 +128,7 @@ def register_user(user: RegisterReq, db: Session = Depends(get_db)):
     if db.query(UserDB).filter(UserDB.email == user.email).first():
         raise HTTPException(status_code=400, detail="Bu email allaqachon ro'yxatdan o'tgan!")
     
-    assigned_role = "admin" if user.email == "admin@smartagro.uz" else "fermer"
+    assigned_role = "admin" if user.email.lower() in ADMIN_EMAILS else "fermer"
     new_user = UserDB(fullname=user.fullname, email=user.email, password_hash=get_password_hash(user.password), role=assigned_role)
     db.add(new_user)
     db.commit()
@@ -160,7 +182,7 @@ def get_weather(lat: float, lon: float, user_start_date: str, user_end_date: str
             "hum": round(sum(hums) / len(hums), 1),
             "rain": round(sum(rains) / target_years, 1)
         }
-    except:
+    except Exception:
         return {"temp": 28.0, "hum": 45.0, "rain": 5.0} # API ishlamay qolsa ehtiyot sharti
 
 
@@ -230,26 +252,6 @@ async def analyze_farm(data: FarmData):
             }
         }
     except Exception as e:
-        print(f"🚨 AI XATOSI: {repr(e)}")
+        print(f"ðŸš¨ AI XATOSI: {repr(e)}")
         raise HTTPException(status_code=500, detail=str(e))
 
-
-# @app.post("/api/chat")
-# async def chat_with_agronom(req: ChatRequest):
-#     try:
-#         prompt = f"""
-#         Sen O'zbekistonlik fermerlar uchun yaratilgan 'Virtual Agronom' sun'iy intellektisan. 
-#         Javoblaring qisqa, aniq, do'stona va o'zbek tilida bo'lsin.
-#         Agar foydalanuvchi dori, o'g'it, urug' yoki smart qurilmalar haqida so'rasa, 
-#         ularni 'Smart Agro Market' dan topishi mumkinligini eslatib o't.
-        
-#         Fermerning savoli: {req.message}
-#         """
-        
-#         # Yangi kutubxona orqali eng so'nggi modelga so'rov yuborish
-#         response = model_ai.generate_content(prompt)
-        
-#         return {"status": "success", "reply": response.text}
-#     except Exception as e:
-#         print(f"🚨 Gemini API Xatosi: {e}")
-#         return {"status": "error", "reply": "Kechirasiz, fermer aka! Hozir internet tarmog'ida muammo bor. Iltimos birozdan so'ng qayta urinib ko'ring."}
