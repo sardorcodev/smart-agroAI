@@ -32,7 +32,7 @@ Phase 4B added a reproducible candidate training workflow without changing produ
 
 Phase 4D status: no repository-local dataset source/license evidence was found. The dataset remains temporarily tracked with explicit unresolved-license warnings, but model promotion stays blocked.
 
-Phase 4E status: a local dataset fingerprint exists at `docs/ml/artifacts/dataset_fingerprint.json`, but no confirmed external source/license match is documented. The recommended public-release path is download-only workflow or a confirmed open replacement.
+Phase 4F status: the dataset is download-only/user-provided. Place an authorized CSV at `dataset/Crop_recommendation.csv` before running validation, fingerprinting, or training commands. No confirmed external source/license match is documented.
 
 ## Training Strategy
 

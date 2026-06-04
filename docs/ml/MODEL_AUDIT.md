@@ -16,6 +16,7 @@ This audit documents the current MVP model layer before any training pipeline ch
 | Comparison report | `docs/ml/artifacts/latest_comparison.json` | Production-vs-candidate review generated in Phase 4C |
 | Data policy | `docs/ml/DATA_POLICY.md` | Dataset governance policy added in Phase 4D |
 | Dataset fingerprint | `docs/ml/artifacts/dataset_fingerprint.json` | Local source-matching fingerprint added in Phase 4E |
+| Source match report | `docs/ml/artifacts/source_match_report.json` | Source verification status recorded in Phase 4F |
 | Model card | `docs/ml/MODEL_CARD.md` | Documentation-only baseline |
 | Dataset card | `docs/ml/DATASET_CARD.md` | Documentation-only baseline |
 
@@ -72,6 +73,7 @@ The dataset labels are English. Phase 4B adds an explicit English-to-Uzbek label
 - The model is MVP-only and should not be used as production agronomic advice.
 - Dataset provenance and license are unknown; Phase 4D found no repository-local source/license evidence.
 - Phase 4E added fingerprinting, but no confirmed external source/license match exists.
+- Phase 4F moved the CSV to download-only/user-provided handling.
 - Label language differs between dataset labels and encoder classes.
 - No calibration, confidence thresholding, feature importance, fairness review, regional validation, or agronomist validation is documented.
 - Weather context comes from historical archive summaries or fallback defaults, not field-specific sensor truth.

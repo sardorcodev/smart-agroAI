@@ -306,10 +306,18 @@ ML audit, reproducibility, release-gate, and data-governance documentation lives
 
 The repository MIT license must not be assumed to grant redistribution rights for the dataset. See `docs/ml/DATA_POLICY.md`.
 
+`dataset/Crop_recommendation.csv` is download-only/user-provided and ignored by Git. Backend runtime does not require it, but validation/training/fingerprinting commands do.
+
 Generate the local dataset fingerprint for source matching:
 
 ```powershell
 .\backend\venv\Scripts\python.exe -m backend.ml.fingerprint_dataset --output docs\ml\artifacts\dataset_fingerprint.json
+```
+
+Compare an authorized candidate source CSV:
+
+```powershell
+.\backend\venv\Scripts\python.exe -m backend.ml.compare_dataset_source --local dataset\Crop_recommendation.csv --candidate path\to\candidate.csv --candidate-source-name "Source name" --candidate-url "https://example.invalid/source" --candidate-license "License name" --output docs\ml\artifacts\source_match_report.json
 ```
 
 Validate the dataset:

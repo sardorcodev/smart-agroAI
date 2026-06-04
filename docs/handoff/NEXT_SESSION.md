@@ -35,6 +35,7 @@ The following phases are complete:
 - Phase 4C: model review and artifact release gate.
 - Phase 4D: dataset provenance resolution and data policy.
 - Phase 4E: dataset source matching and public handling decision.
+- Phase 4F: dataset source verification and download-only safety.
 
 ## 3. Current Technical State
 
@@ -52,9 +53,9 @@ The following phases are complete:
 - Candidate metadata captures Python/package versions and artifact checksums.
 - Phase 4D found no repository-local source/license evidence for `dataset/Crop_recommendation.csv`.
 - Dataset provenance/license remains unresolved and must not be assumed open for redistribution.
-- The dataset remains temporarily tracked with explicit warnings; model promotion stays blocked.
+- The dataset is download-only/user-provided and ignored by Git; model promotion stays blocked.
 - Phase 4E added `docs/ml/artifacts/dataset_fingerprint.json` for future source matching.
-- Final release should use download-only workflow or a confirmed open replacement if source/license remains unresolved.
+- Phase 4F added `backend/ml/compare_dataset_source.py` and `docs/ml/artifacts/source_match_report.json`.
 - Frontend restores sessions from a stored MVP token using `/api/me`.
 - Frontend uses shared `Notice`, `DemoBadge`, and `LoadingState` helpers.
 - Frontend browser smoke tests live under `frontend/e2e/` and mock backend API responses.
@@ -65,7 +66,7 @@ The following phases are complete:
 
 ## 4. Latest Known Passing Checks
 
-Latest known passing checks after Phase 4E:
+Latest known passing checks after Phase 4F:
 
 - `npm run lint`
 - `npm test`
@@ -86,7 +87,7 @@ Known verification details:
 
 - Frontend unit tests: 11 passing.
 - Playwright smoke tests: 9 passing with mocked backend responses.
-- Backend tests: 70 passing when run with the local backend venv.
+- Backend tests: 72 passing and 2 skipped when run with the local backend venv without the optional local dataset CSV.
 - Vite build no longer emits the previous large chunk warning.
 - `frontend/dist`, `frontend/test-results`, and `backend/smartagro_local.db` may exist locally but are ignored and must not be committed.
 
@@ -111,11 +112,11 @@ Known verification details:
 
 ## 6. Next Planned Phase
 
-Next phase: **Phase 4F - Dataset Download Workflow Or Replacement**
+Next phase: **Phase 5A - Deployment Readiness And Public Demo Planning**
 
-Goal: confirm a redistributable dataset source, replace the dataset, or move to a documented download-only workflow if rights remain unresolved.
+Goal: prepare deployment configuration and public demo planning while keeping dataset/model limitations clearly documented.
 
-Important instruction: do not start Phase 4F automatically. A new session should first inspect the repo, read this file, run git status/log, and summarize readiness.
+Important instruction: do not start Phase 5A automatically. A new session should first inspect the repo, read this file, run git status/log, and summarize readiness.
 
 ## 7. Recommended Startup Checklist
 
@@ -155,7 +156,7 @@ Summarize:
 - current repo state
 - completed phases
 - whether the working tree is clean
-- whether Phase 4F can safely start
+- whether Phase 5A can safely start
 - any unexpected risks
 
-Wait for confirmation before implementing Phase 4F.
+Wait for confirmation before implementing Phase 5A.

@@ -116,7 +116,7 @@ Current limitations:
 - Dataset provenance and licensing are unknown and need confirmation before assuming open redistribution rights.
 - Phase 4C found the candidate artifacts backend-compatible but blocked promotion because dataset source/license is unresolved.
 - Phase 4D found no repository-local source/license evidence for the current dataset; it remains temporarily tracked with explicit warnings.
-- Phase 4E added dataset fingerprinting for future source matching; final release should use download-only workflow or a confirmed open replacement if source/license remains unresolved.
+- Phase 4F moved the unresolved dataset to download-only/user-provided handling while preserving backend runtime through existing production artifacts.
 - Crop label mappings have an MVP normalization layer and a training label contract, but source-data provenance still needs confirmation.
 
 ## Database Boundary

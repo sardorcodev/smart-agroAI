@@ -1,0 +1,39 @@
+{
+  "candidate_sources_reviewed": [
+    {
+      "license_claim_seen": "CC BY 4.0 page metadata observed, not accepted without file fingerprint match",
+      "name": "Figshare Crop Recommendation dataset",
+      "url": "https://figshare.com/articles/dataset/Crop_Recommendation_dataset/26308696"
+    },
+    {
+      "license_claim_seen": "not verified locally",
+      "name": "Kaggle Crop Recommendation Dataset attributed to Atharva Ingle",
+      "url": "https://www.kaggle.com/datasets/atharvaingle/crop-recommendation-dataset"
+    }
+  ],
+  "decision": "unresolved",
+  "local_dataset_fingerprint": {
+    "class_count": 22,
+    "columns": [
+      "N",
+      "P",
+      "K",
+      "temperature",
+      "humidity",
+      "ph",
+      "rainfall",
+      "label"
+    ],
+    "numeric_summary_checksum": "396b7af6f4e227bfaaacce67d427a9ece32225a50492f395a0aade868586c320",
+    "row_count": 2200,
+    "sha256": "54a5a6e5408668e668667efc50de2fc867c1b875e0431b4f54dd331b0a109a4e"
+  },
+  "match_status": "not_verified",
+  "notes": [
+    "No external candidate CSV was committed or accepted as source evidence.",
+    "No exact fingerprint comparison was completed against an external candidate file.",
+    "Public-source claims remain unresolved until a maintainer supplies a candidate CSV and license evidence.",
+    "The repository moved the local CSV to download-only/user-provided handling."
+  ],
+  "recommended_command": "python -m backend.ml.compare_dataset_source --local dataset/Crop_recommendation.csv --candidate path/to/candidate.csv --candidate-source-name \"SOURCE\" --candidate-url \"URL\" --candidate-license \"LICENSE\" --output docs/ml/artifacts/source_match_report.json"
+}

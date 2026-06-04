@@ -104,4 +104,4 @@ Model artifacts derived from unresolved datasets are MVP/demo-only. They must no
 
 ## Current Decision
 
-The current dataset may remain tracked temporarily with explicit warnings because this phase does not remove or replace data without approval. The repository should move to download-only workflow or a confirmed open replacement before making final public release claims, model-promotion claims, or dataset redistribution claims.
+Phase 4F decision: the current dataset is handled as download-only/user-provided data. `dataset/Crop_recommendation.csv` is ignored by Git. Maintainers may use a local authorized copy for validation and training, but the repository must not claim redistribution rights or promote derived model artifacts until source/license evidence and a matching fingerprint are documented.

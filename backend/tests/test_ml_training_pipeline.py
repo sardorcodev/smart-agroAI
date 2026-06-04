@@ -16,6 +16,9 @@ def write_dataset(path: Path, labels: list[str]) -> None:
 
 
 def test_current_dataset_validation_succeeds():
+    if not DEFAULT_DATASET_PATH.exists():
+        pytest.skip("Local dataset is download-only and not present")
+
     result = validate_dataset(DEFAULT_DATASET_PATH)
 
     assert result["valid"] is True
@@ -40,6 +43,9 @@ def test_dataset_validation_fails_for_missing_required_column(tmp_path):
 
 
 def test_label_mapping_covers_current_dataset_labels():
+    if not DEFAULT_DATASET_PATH.exists():
+        pytest.skip("Local dataset is download-only and not present")
+
     validation = validate_dataset(DEFAULT_DATASET_PATH)
     mapping_check = validate_label_mapping(set(validation["label_counts"]))
 

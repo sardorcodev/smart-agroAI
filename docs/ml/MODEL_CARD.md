@@ -70,6 +70,7 @@ If model inference fails at runtime, the backend returns stable simulation predi
 - Phase 4C blocked promotion because dataset source/license is unresolved.
 - Phase 4D found no repository-local source/license evidence for the dataset.
 - Phase 4E added a dataset fingerprint but did not confirm an external source/license match.
+- Phase 4F moved the dataset to download-only/user-provided handling.
 - Metrics are a reproducibility baseline, not field validation.
 - No calibration analysis.
 - No feature importance report.
@@ -83,4 +84,4 @@ If model inference fails at runtime, the backend returns stable simulation predi
 
 This model is not production-ready. Results should be treated as demo recommendations and reviewed by qualified agronomy experts before any real farming decision.
 
-The current production and candidate artifacts remain MVP/demo-only while dataset source and license status are unresolved.
+The current production and candidate artifacts remain MVP/demo-only while dataset source and license status are unresolved. Backend runtime can continue using existing production artifacts without the dataset CSV.

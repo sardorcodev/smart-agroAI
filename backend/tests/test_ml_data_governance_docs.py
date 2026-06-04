@@ -16,6 +16,7 @@ def test_data_policy_exists_and_blocks_license_assumptions():
     assert "Do not assume" in text
     assert "source and license" in text
     assert "Public model release status: blocked" in text
+    assert "download-only/user-provided" in text
 
 
 def test_promotion_checklist_keeps_dataset_license_required():
@@ -24,3 +25,11 @@ def test_promotion_checklist_keeps_dataset_license_required():
     assert "- [ ] Dataset source is known and cited." in text
     assert "- [ ] Dataset license is known." in text
     assert "blocked for production promotion" in text
+
+
+def test_dataset_readme_documents_download_only_path():
+    text = Path("dataset/README.md").read_text(encoding="utf-8")
+
+    assert "Crop_recommendation.csv" in text
+    assert "intentionally not tracked" in text
+    assert "Source And License Responsibility" in text

@@ -312,7 +312,7 @@ Known limitations:
 - Phase 4C reviewed the candidate artifacts and did not promote them because dataset provenance/license remains unresolved.
 - Dataset provenance and licensing are unknown and must be confirmed before assuming open redistribution rights.
 - Phase 4D found no repository-local source/license evidence for `dataset/Crop_recommendation.csv`; the project MIT license must not be assumed to cover upstream dataset redistribution rights.
-- Phase 4E added a local dataset fingerprint for future source matching, but no confirmed source/license match exists. Before final release claims, move to a download-only dataset workflow or replace the dataset with a confirmed open alternative.
+- Phase 4F moved `dataset/Crop_recommendation.csv` to download-only/user-provided handling. No confirmed source/license match exists, and dataset redistribution rights are not claimed.
 - Common English and Uzbek crop labels are normalized for backend irrigation lookup, but full model-label provenance still belongs in the future ML reliability phase.
 - The model is for MVP demonstration and should not be treated as agronomic advice.
 - Weather API failures, malformed provider responses, and model fallback paths are returned with explicit fallback indicators and warning messages.
@@ -328,6 +328,7 @@ See:
 - [Model release notes](docs/ml/MODEL_RELEASE_NOTES.md)
 - [Data policy](docs/ml/DATA_POLICY.md)
 - [Dataset fingerprint](docs/ml/artifacts/dataset_fingerprint.json)
+- [Source match report](docs/ml/artifacts/source_match_report.json)
 
 ## What Is Demo-Only
 
@@ -360,4 +361,4 @@ Planned next steps are listed in `ROADMAP.md`.
 
 Smart Agro AI is released under the MIT License. See `LICENSE`.
 
-Dataset note: the project license does not resolve the source/license status of `dataset/Crop_recommendation.csv`. That dataset remains documented as source/license unresolved.
+Dataset note: the project license does not resolve the source/license status of `dataset/Crop_recommendation.csv`. The CSV is download-only/user-provided and intentionally ignored by Git.

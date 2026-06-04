@@ -2,13 +2,13 @@
 
 Dataset: `dataset/Crop_recommendation.csv`
 
-This card documents the dataset currently tracked in the repository. Phase 4D found no repository-local source or dataset-specific license evidence.
+This card documents the expected local dataset used for training workflows. Phase 4F moved `dataset/Crop_recommendation.csv` to download-only/user-provided handling because source/license status remains unresolved.
 
 ## Basic Facts
 
 | Field | Value |
 | --- | --- |
-| Path | `dataset/Crop_recommendation.csv` |
+| Expected local path | `dataset/Crop_recommendation.csv` |
 | Format | CSV |
 | Rows | 2,200 |
 | Columns | `N`, `P`, `K`, `temperature`, `humidity`, `ph`, `rainfall`, `label` |
@@ -17,6 +17,7 @@ This card documents the dataset currently tracked in the repository. Phase 4D fo
 | Label language | English |
 | SHA256 | `54a5a6e5408668e668667efc50de2fc867c1b875e0431b4f54dd331b0a109a4e` |
 | Fingerprint | `docs/ml/artifacts/dataset_fingerprint.json` |
+| Source match report | `docs/ml/artifacts/source_match_report.json` |
 
 ## Label Classes
 
@@ -43,19 +44,19 @@ Each class has 100 rows:
 - Redistribution status: unresolved.
 - Repository-local evidence: no dataset source/license evidence found beyond documentation that marks the status unresolved.
 - Project `LICENSE`: applies to project code/docs unless otherwise stated; it must not be assumed to grant rights for this dataset's upstream contents.
-- Source matching status: unresolved; no repository-local or user-provided fingerprint match to an external source is documented.
+- Source matching status: unresolved; no exact external candidate CSV fingerprint match is documented.
 
 Because the license is unknown, this dataset should be treated as a public-release risk until the source and redistribution rights are confirmed. If rights cannot be confirmed, the project should replace it with a dataset that has clear license terms or document a download-only workflow that does not redistribute restricted data.
 
 ## Public Repository Handling Decision
 
-Current Phase 4E decision: **temporarily tracked with explicit unresolved-license warnings**.
+Current Phase 4F decision: **download-only/user-provided dataset workflow**.
 
-Reason: no repository-local or user-provided evidence confirms source/license, and no compatible replacement dataset was documented locally. The repository must not claim open redistribution rights for this dataset. Before final release claims, the project should move to download-only workflow or replace the dataset with a confirmed open alternative.
+Reason: no repository-local or user-provided evidence confirms source/license, and no compatible replacement dataset was documented locally. The repository must not claim open redistribution rights for this dataset. The CSV is ignored by Git; maintainers/users must place an authorized copy at the expected local path before running training or validation commands.
 
 ## Known Limitations
 
-- No source citation is included in the repository.
+- No confirmed source citation is included in the repository.
 - No collection method is documented.
 - No geography, date range, sampling method, or agronomist validation is documented.
 - No split into train/validation/test files is documented.
@@ -66,4 +67,4 @@ Reason: no repository-local or user-provided evidence confirms source/license, a
 
 ## Current Use
 
-The dataset defines the seven model input features and crop classes used by the MVP crop recommendation model. Phase 4B adds validation and candidate training scripts, but the current production artifacts are not automatically replaced by generated candidates.
+The dataset defines the seven model input features and crop classes used by the MVP crop recommendation workflow. Backend runtime uses the existing production model artifacts and does not require the CSV. Training, validation, fingerprinting, and candidate artifact generation require a user-provided CSV at the expected local path.
