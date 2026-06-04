@@ -33,6 +33,7 @@ Responsibilities:
 - Provide a compact mobile menu selector while the desktop sidebar remains hidden on small screens.
 - Use small shared UI helpers for accessible notices, demo labels, and loading states.
 - Display analysis results, simulated irrigation controls, maps, marketplace demo data, and reports.
+- Provide a Playwright smoke-test surface for public landing, mocked auth/session restore, mocked analysis, mobile navigation, and basic accessibility roles.
 
 Current limitations:
 
@@ -42,6 +43,7 @@ Current limitations:
 - Frontend guards are UX controls only; backend authorization remains the security boundary.
 - Mobile navigation has a minimal fallback selector, but the overall mobile experience still needs deeper responsive QA.
 - Accessibility has a baseline pass for core controls and notices, but full WCAG audit coverage is still future work.
+- Browser QA is smoke-level and uses mocked backend responses; it is not a substitute for full production integration or visual regression testing.
 
 ## Backend Boundary
 
@@ -160,3 +162,15 @@ Demo/static flows:
 - Admin analytics.
 - Irrigation history persistence.
 - Payments/subscriptions.
+
+## Browser QA Boundary
+
+Playwright tests live under `frontend/e2e/`. They start the Vite frontend locally and intercept backend API calls in the browser test process.
+
+Mocked browser-test endpoints include:
+
+- `GET /api/me` for session restore and stale-token checks.
+- `POST /api/login` for MVP login smoke coverage.
+- `POST /api/analyze` for dashboard result rendering.
+
+The browser QA suite intentionally does not start FastAPI, create SQLite databases, call Open-Meteo, require real geolocation, load production secrets, or depend on live model inference. Backend behavior remains covered by backend tests; Playwright verifies that the frontend handles the documented API contracts in a real browser.

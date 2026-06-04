@@ -187,7 +187,14 @@ function App() {
   const analyzeData = async (e) => {
     e.preventDefault();
     if (loading) return;
-    if (!Number.isFinite(Number(formData.lat)) || !Number.isFinite(Number(formData.lon))) {
+    const hasCoordinates = formData.lat !== null
+      && formData.lat !== ''
+      && formData.lon !== null
+      && formData.lon !== ''
+      && Number.isFinite(Number(formData.lat))
+      && Number.isFinite(Number(formData.lon));
+
+    if (!hasCoordinates) {
       setAnalysisError("Tahlil uchun latitude va longitude qiymatlarini kiriting.");
       return;
     }

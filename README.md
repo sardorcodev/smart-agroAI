@@ -31,6 +31,7 @@ Frontend:
 - Recharts
 - React Leaflet
 - Lucide React
+- Playwright for browser smoke testing
 
 Backend:
 
@@ -207,6 +208,15 @@ Test the frontend:
 npm test
 ```
 
+Run browser smoke tests:
+
+```bash
+npx playwright install chromium
+npm run test:e2e
+```
+
+The Playwright suite starts the Vite dev server automatically and mocks backend API calls. It does not require a real backend, database, weather API, model inference, browser geolocation permission, API keys, or secrets.
+
 ## Backend Tests
 
 From the repository root:
@@ -216,6 +226,23 @@ python -m pytest backend/tests
 ```
 
 Backend tests use temporary SQLite databases and do not require real API keys.
+
+## Browser QA
+
+Phase 3D adds a focused Playwright smoke baseline under `frontend/e2e/`.
+
+Covered flows:
+
+- public landing page rendering and primary navigation
+- login/logout with mocked `/api/login`
+- stored-token session restore with mocked `/api/me`
+- stale-token handling and friendly auth notice
+- dashboard analysis with mocked `/api/analyze`
+- manual/demo location fallback without real geolocation
+- mobile compact navigation
+- lightweight keyboard, form-label, alert, and status-role checks
+
+Generated Playwright reports, traces, screenshots, videos, and test results are ignored by git.
 
 ## API Overview
 

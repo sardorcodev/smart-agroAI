@@ -129,6 +129,8 @@ cd frontend
 npm run lint
 npm run build
 npm test
+npx playwright install chromium
+npm run test:e2e
 ```
 
 Backend:
@@ -146,6 +148,36 @@ When the backend is running:
 - `GET /ready` checks database connectivity and model/encoder artifact availability.
 
 Neither endpoint calls external weather or AI services.
+
+## Browser QA Smoke Tests
+
+Playwright tests live in `frontend/e2e/` and are configured by `frontend/playwright.config.js`.
+
+Local setup:
+
+```bash
+cd frontend
+npm ci
+npx playwright install chromium
+npm run test:e2e
+```
+
+`npm run test:e2e` starts the Vite dev server automatically on a local test port. The tests use Chromium plus a focused mobile Chromium project.
+
+The browser QA baseline mocks backend calls with Playwright route interception:
+
+- `GET /api/me`
+- `POST /api/login`
+- `POST /api/analyze`
+
+The suite does not require a real backend, SQLite database, weather provider, browser geolocation permission, model artifacts, Gemini key, or production secrets. It verifies public landing behavior, MVP login/logout, session restore, stale-token handling, dashboard analysis rendering, mobile navigation, and lightweight accessibility/keyboard behavior.
+
+Current limitations:
+
+- This is a smoke baseline, not full WCAG certification.
+- API mocks intentionally cover stable frontend contracts, not backend integration behavior.
+- Visual regression testing is not included.
+- Route-based navigation is not introduced; tests follow the current app-state navigation model.
 
 ## Authentication Flow
 

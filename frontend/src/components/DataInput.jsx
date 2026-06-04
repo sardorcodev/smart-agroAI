@@ -14,7 +14,12 @@ export default function DataInput({
   analysisError,
   analysisSuccess,
 }) {
-  const hasLocation = Number.isFinite(Number(formData.lat)) && Number.isFinite(Number(formData.lon));
+  const hasLocation = formData.lat !== null
+    && formData.lat !== ''
+    && formData.lon !== null
+    && formData.lon !== ''
+    && Number.isFinite(Number(formData.lat))
+    && Number.isFinite(Number(formData.lon));
 
   return (
     <div className="flex flex-col h-full animate-in fade-in duration-300">
