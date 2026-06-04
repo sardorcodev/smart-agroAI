@@ -73,3 +73,42 @@ class FarmData(BaseModel):
             raise ValueError(f"date range must not exceed {MAX_ANALYSIS_DATE_RANGE_DAYS} days")
 
         return self
+
+
+class PredictionItem(BaseModel):
+    crop: str
+    probability: float = Field(ge=0, le=100)
+
+
+class WeatherSummary(BaseModel):
+    temp: float
+    hum: float
+    rain: float
+    fallback_used: bool = False
+    source: str | None = None
+
+
+class WeatherCompat(BaseModel):
+    temp: float
+    hum: float
+    rain: float
+
+
+class IrrigationDetails(BaseModel):
+    pump_on: bool
+    water_liters: float = Field(ge=0)
+    message: str
+
+
+class AnalyzeResponse(BaseModel):
+    status: str = "success"
+    recommended_crop: str
+    top_predictions: list[PredictionItem]
+    top_3_recommendations: list[PredictionItem]
+    optimal_humidity: float
+    weather_summary: WeatherSummary
+    weather: WeatherCompat
+    model_status: str
+    inference_mode: str
+    warnings: list[str] = []
+    irrigation: IrrigationDetails

@@ -61,6 +61,52 @@ Copy `backend/.env.example` to a local `.env` file if needed. The app reads envi
 | `JWT_ALGORITHM` | JWT signing algorithm. Defaults to `HS256`. |
 | `ACCESS_TOKEN_EXPIRE_MINUTES` | Access token lifetime in minutes. Defaults to `60`. |
 | `GEMINI_API_KEY` | Reserved for future integration. Not used by the current MVP. |
+| `DEMO_SEED_PASSWORD` | Optional local-only password for demo seed users. Defaults to `demo-password-123`. |
+| `DEMO_FARMER_EMAIL` | Optional local-only demo farmer email. |
+| `DEMO_FARMER_NAME` | Optional local-only demo farmer display name. |
+| `DEMO_ADMIN_EMAIL` | Optional local-only demo admin email. Created only when also listed in `ADMIN_EMAILS`. |
+
+## Database Migrations and Seed Data
+
+Alembic migrations live in `backend/alembic/`.
+
+Run migrations from the repository root:
+
+```bash
+python -m alembic -c backend/alembic.ini upgrade head
+```
+
+Windows virtual environment variant:
+
+```powershell
+.\backend\venv\Scripts\python.exe -m alembic -c backend\alembic.ini upgrade head
+```
+
+The initial migration creates the current `users` table only. It does not add marketplace, support, IoT, report, payment, or admin-domain tables.
+
+Local demo seed data is optional and never runs automatically:
+
+```bash
+python -m backend.scripts.seed_demo
+```
+
+Windows virtual environment variant:
+
+```powershell
+.\backend\venv\Scripts\python.exe -m backend.scripts.seed_demo
+```
+
+Seed behavior:
+
+- Creates a clearly fake demo farmer by default.
+- Uses `DEMO_SEED_PASSWORD` or the documented local-only default `demo-password-123`.
+- Hashes passwords with the backend password helper.
+- Is idempotent for existing demo users.
+- Prints only created/skipped user emails and roles.
+- Does not print passwords or password hashes.
+- Creates a demo admin only when `DEMO_ADMIN_EMAIL` is also listed in `ADMIN_EMAILS`.
+
+Local SQLite files such as `backend/smartagro_local.db` are ignored by git. Do not commit local databases, real users, password hashes, or `.env` files.
 
 ## Frontend Setup
 
@@ -129,6 +175,8 @@ cd frontend
 npm run lint
 npm run build
 npm test
+npm audit
+npm audit --omit=dev
 npx playwright install chromium
 npm run test:e2e
 ```
@@ -139,6 +187,14 @@ Backend:
 python -m pip check
 python -m pytest backend/tests
 ```
+
+Migration smoke check:
+
+```bash
+DATABASE_URL=sqlite:///backend/smartagro_migration_smoke.db python -m alembic -c backend/alembic.ini upgrade head
+```
+
+Remove the smoke database afterward; SQLite database files are ignored and should not be committed.
 
 ## Backend Health and Readiness
 
@@ -178,6 +234,14 @@ Current limitations:
 - API mocks intentionally cover stable frontend contracts, not backend integration behavior.
 - Visual regression testing is not included.
 - Route-based navigation is not introduced; tests follow the current app-state navigation model.
+
+## Frontend Bundle and Audit Notes
+
+The frontend should keep `npm audit` and `npm audit --omit=dev` clean. Avoid `npm audit fix --force` unless a breaking upgrade has been reviewed and tested.
+
+The app intentionally lazy-loads heavier authenticated sections and dynamically imports PDF export libraries only when a user exports a report. This keeps the public landing/auth path smaller without changing the current state-based navigation.
+
+If the Vite large chunk warning returns, inspect whether new eager imports pull in charting, mapping, PDF, or large feature-section dependencies.
 
 ## Authentication Flow
 
@@ -234,7 +298,9 @@ Farm analysis:
 - `inference_mode`
 - `warnings`
 
-Weather API failures use fallback weather data and are marked with `weather_summary.fallback_used`.
+Weather API failures use fallback weather data and are marked with `weather_summary.fallback_used`, `weather_summary.source`, and `warnings`. Backend tests mock provider responses and must not call real weather APIs.
+
+Model recommendations expose `model_status` and `inference_mode`. Missing model artifacts and runtime inference failures return stable simulation predictions with warning metadata instead of failing the request. Crop labels are normalized for irrigation lookup across common English and Uzbek labels while preserving the display label returned in `recommended_crop`.
 
 ## Common Troubleshooting
 

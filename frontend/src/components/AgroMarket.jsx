@@ -32,7 +32,7 @@ export default function AgroMarket() {
 
   const addToCart = (product) => {
     setCart([...cart, product]);
-    setDemoNotice("Savat demo rejimida ishlaydi. Xarid backendga yuborilmaydi.");
+    setDemoNotice("Savat MVP demo rejimida ishlaydi. Xarid backendga yuborilmaydi.");
     
     setAddedItems({ ...addedItems, [product.id]: true });
     setTimeout(() => {
@@ -55,7 +55,7 @@ export default function AgroMarket() {
             <Package className="text-green-600 w-8 h-8" /> Smart Agro Market
             <DemoBadge />
           </h1>
-          <p className="text-sm text-slate-500 mt-1">Sizning hosilingiz uchun eng yaxshi vositalar</p>
+          <p className="text-sm text-slate-500 mt-1">Demo mahsulot katalogi. Xarid va to'lov backendga ulanmagan.</p>
         </div>
         
         <div className="flex items-center gap-4">
@@ -73,7 +73,7 @@ export default function AgroMarket() {
           </div>
           <button
             type="button"
-            onClick={() => setDemoNotice("Checkout hozircha demo. To'lov va buyurtma backendga ulanmagan.")}
+            onClick={() => setDemoNotice("Checkout MVP demo rejimida. To'lov va buyurtma backendga ulanmagan.")}
             disabled={cart.length === 0}
             className="bg-green-600 hover:bg-green-700 text-white px-5 py-2.5 rounded-xl font-bold shadow-md transition-all active:scale-95 disabled:bg-slate-200 disabled:text-slate-400 disabled:cursor-not-allowed"
           >

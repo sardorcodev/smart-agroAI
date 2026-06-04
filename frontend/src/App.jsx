@@ -1,26 +1,29 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { Suspense, lazy, useState, useEffect, useRef, useCallback } from 'react';
 import { Download, Home, Loader2, Database, Map, ShieldAlert } from 'lucide-react';
-import html2canvas from 'html2canvas';
-import { jsPDF } from 'jspdf';
 import { api, clearAuthToken, fetchCurrentUser, formatApiError, getStoredToken, setAuthFailureHandler } from './api';
 
 // Komponentlar
 import Sidebar from './components/Sidebar';
 import DataInput from './components/DataInput';
-import LiveSensors from './components/LiveSensors';
-import AIResults from './components/AIResults';
 import LandingPage from './components/LandingPage';
 import OfficialReport from './components/OfficialReport';
-import Profile from './components/Profile';
-import Admin from './components/Admin';
-import History from './components/History';
-import Support from './components/Support';
 import Auth from './components/Auth';
-import AgroMarket from './components/AgroMarket';
-import VirtualAgronom from './components/VirtualAgronom';
-import AgroMap from './components/AgroMap';
 import LoadingState from './components/ui/LoadingState';
 import Notice from './components/ui/Notice';
+
+const LiveSensors = lazy(() => import('./components/LiveSensors'));
+const AIResults = lazy(() => import('./components/AIResults'));
+const Profile = lazy(() => import('./components/Profile'));
+const Admin = lazy(() => import('./components/Admin'));
+const History = lazy(() => import('./components/History'));
+const Support = lazy(() => import('./components/Support'));
+const AgroMarket = lazy(() => import('./components/AgroMarket'));
+const VirtualAgronom = lazy(() => import('./components/VirtualAgronom'));
+const AgroMap = lazy(() => import('./components/AgroMap'));
+
+const SectionLoading = () => (
+  <LoadingState message="Bo'lim yuklanmoqda..." className="min-h-[240px] text-slate-500" />
+);
 
 function App() {
   const [currentPage, setCurrentPage] = useState('landing');
@@ -180,7 +183,7 @@ function App() {
   const useDemoLocation = () => {
     setFormData((prev) => ({ ...prev, lat: 38.861, lon: 67.93 }));
     setLocationStatus('success');
-    setLocationErrorMsg("Demo koordinatalar tanlandi. Real tahlil uchun o'z joylashuvingizni kiriting.");
+    setLocationErrorMsg("Demo koordinatalar tanlandi. Aniq tahlil uchun o'z joylashuvingizni kiriting.");
     setAnalysisError('');
   };
 
@@ -222,12 +225,16 @@ function App() {
     setReportMessage('');
     setReportError('');
     if (!analysisResult) {
-      setReportError("PDF xisobot uchun avval AI tahlilni yakunlang.");
+      setReportError("PDF hisobot uchun avval AI tahlilni yakunlang.");
       return;
     }
     if (!reportRef.current) return;
     setIsExporting(true);
     try {
+      const [{ default: html2canvas }, { jsPDF }] = await Promise.all([
+        import('html2canvas'),
+        import('jspdf'),
+      ]);
       const canvas = await html2canvas(reportRef.current, { scale: 2, backgroundColor: '#ffffff' });
       const imgData = canvas.toDataURL('image/png');
       const pdf = new jsPDF('p', 'mm', 'a4'); 
@@ -235,7 +242,7 @@ function App() {
       const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
       pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
       pdf.save(`SmartAgro_Rasmiy_Xisobot.pdf`);
-      setReportMessage("PDF xisobot yaratildi.");
+      setReportMessage("PDF hisobot yaratildi.");
     } catch {
       setReportError("Xisobotni yuklashda xatolik yuz berdi.");
     }
@@ -330,7 +337,7 @@ return (
             </button>
             {currentMenu === 'dashboard' && (
               <button type="button" onClick={downloadOfficialPDF} disabled={isExporting} aria-busy={isExporting} className={`flex items-center gap-2 px-3 md:px-4 py-2 rounded-lg text-xs md:text-sm font-bold text-white transition-all shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500 ${isExporting ? 'bg-green-600 cursor-not-allowed' : 'bg-green-700 hover:bg-green-800'}`}>
-                {isExporting ? <Loader2 className="w-4 h-4 animate-spin" aria-hidden="true" /> : <Download className="w-4 h-4" aria-hidden="true" />} {isExporting ? 'PDF tayyorlanmoqda...' : 'Rasmiy Xisobot (PDF)'}
+                {isExporting ? <Loader2 className="w-4 h-4 animate-spin" aria-hidden="true" /> : <Download className="w-4 h-4" aria-hidden="true" />} {isExporting ? 'PDF tayyorlanmoqda...' : 'Rasmiy Hisobot (PDF)'}
               </button>
             )}
           </div>
@@ -384,29 +391,37 @@ return (
                       analysisSuccess={analysisSuccess}
                     />
                   ) : (
-                    <LiveSensors formData={formData} monitoringData={monitoringData} handleMonitorChange={handleMonitorChange} locationStatus={locationStatus} />
+                    <Suspense fallback={<SectionLoading />}>
+                      <LiveSensors formData={formData} monitoringData={monitoringData} handleMonitorChange={handleMonitorChange} locationStatus={locationStatus} />
+                    </Suspense>
                   )}
                 </div>
               </div>
 
               <div className="lg:col-span-7 h-full">
-                <AIResults analysisResult={analysisResult} monitoringData={monitoringData} />
+                <Suspense fallback={<SectionLoading />}>
+                  <AIResults analysisResult={analysisResult} monitoringData={monitoringData} />
+                </Suspense>
               </div>
 
             </div>
           )}
 
-          {currentMenu === 'profile' && <Profile user={user} />}
-          {currentMenu === 'history' && <History />}
-          {currentMenu === 'support' && <Support />}
-          {currentMenu === 'market' && (<AgroMarket />)}
-          {currentMenu === 'agronom' && <VirtualAgronom />}
-          {currentMenu === 'map' && <AgroMap />}
+          <Suspense fallback={<SectionLoading />}>
+            {currentMenu === 'profile' && <Profile user={user} />}
+            {currentMenu === 'history' && <History />}
+            {currentMenu === 'support' && <Support />}
+            {currentMenu === 'market' && (<AgroMarket />)}
+            {currentMenu === 'agronom' && <VirtualAgronom />}
+            {currentMenu === 'map' && <AgroMap />}
+          </Suspense>
           
           {/* FAQAT ADMIN KO'RA OLADIGAN SAHIFA */}
           {currentMenu === 'admin' && (
             user?.role === 'admin' ? (
-              <Admin />
+              <Suspense fallback={<SectionLoading />}>
+                <Admin />
+              </Suspense>
             ) : (
               <div className="flex flex-col items-center justify-center h-full text-slate-400 animate-in fade-in zoom-in duration-300">
                 <div className="w-20 h-20 mb-4 flex items-center justify-center rounded-full bg-red-50 text-red-500 shadow-inner">

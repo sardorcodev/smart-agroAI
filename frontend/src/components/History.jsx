@@ -21,7 +21,7 @@ export default function History() {
           <h2 className="text-xl font-black text-slate-800 flex items-center gap-2"><HistoryIcon className="text-blue-500 w-6 h-6" /> Sug'orish Tarixi Jurnali <DemoBadge /></h2>
           <p className="text-slate-500 text-sm mt-1">O'tgan 30 kun ichidagi barcha nasos faolligi va iqtisod qilingan resurslar.</p>
         </div>
-        <button type="button" onClick={() => setNotice("Tarix filtrlari hozircha demo. Ma'lumotlar backenddan yuklanmaydi.")} className="flex items-center gap-2 px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm font-bold text-slate-600 hover:bg-slate-100 transition-all">
+        <button type="button" onClick={() => setNotice("Tarix filtrlari MVP demo rejimida. Ma'lumotlar backenddan yuklanmaydi.")} className="flex items-center gap-2 px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm font-bold text-slate-600 hover:bg-slate-100 transition-all">
           <Calendar className="w-4 h-4" /> Mart, 2026 <ChevronDown className="w-4 h-4" />
         </button>
       </div>
@@ -53,7 +53,7 @@ export default function History() {
       <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
         <div className="p-4 border-b border-slate-100 flex justify-between items-center bg-slate-50">
           <h3 className="font-bold text-slate-700">So'nggi amaliyotlar</h3>
-          <button type="button" onClick={() => setNotice("Filtrlash hozircha demo rejimida.")} className="text-slate-500 hover:text-slate-800" aria-label="Filtrlash"><Filter className="w-4 h-4" /></button>
+          <button type="button" onClick={() => setNotice("Filtrlash MVP demo rejimida.")} className="text-slate-500 hover:text-slate-800" aria-label="Filtrlash"><Filter className="w-4 h-4" /></button>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm text-slate-600">

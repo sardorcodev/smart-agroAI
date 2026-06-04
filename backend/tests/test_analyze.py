@@ -70,6 +70,7 @@ def test_analyze_success_response_shape(client, backend_app, monkeypatch):
             "rain": 100.0,
             "fallback_used": False,
             "warning": None,
+            "source": "test-provider",
         },
     )
 
@@ -86,6 +87,7 @@ def test_analyze_success_response_shape(client, backend_app, monkeypatch):
         "hum": 70.0,
         "rain": 100.0,
         "fallback_used": False,
+        "source": "test-provider",
     }
     assert payload["weather"] == {"temp": 25.0, "hum": 70.0, "rain": 100.0}
     assert payload["model_status"] in {"loaded", "unavailable"}
@@ -108,6 +110,7 @@ def test_analyze_reports_weather_fallback(client, backend_app, monkeypatch):
             "rain": 5.0,
             "fallback_used": True,
             "warning": "Weather lookup failed: Timeout",
+            "source": "fallback",
         },
     )
 
@@ -116,4 +119,42 @@ def test_analyze_reports_weather_fallback(client, backend_app, monkeypatch):
     assert response.status_code == 200
     payload = response.json()
     assert payload["weather_summary"]["fallback_used"] is True
-    assert payload["warnings"] == ["Weather lookup failed: Timeout"]
+    assert "Weather lookup failed: Timeout" in payload["warnings"]
+
+
+def test_analyze_reports_runtime_model_fallback(client, backend_app, monkeypatch):
+    import backend.app.services.analysis as analysis_service
+
+    monkeypatch.setattr(
+        analysis_service,
+        "get_weather",
+        lambda lat, lon, start, end: {
+            "temp": 25.0,
+            "hum": 70.0,
+            "rain": 100.0,
+            "fallback_used": False,
+            "warning": None,
+            "source": "test-provider",
+        },
+    )
+    monkeypatch.setattr(analysis_service.ml, "MODELS_LOADED", True)
+    monkeypatch.setattr(
+        analysis_service.ml,
+        "predict_top_crops_with_metadata",
+        lambda features: {
+            "predictions": [{"crop": "Paxta", "probability": 88.8}],
+            "model_status": "error",
+            "inference_mode": "simulation",
+            "warning": "Model inference failed; simulation recommendations were used",
+        },
+    )
+
+    response = client.post("/api/analyze", json=valid_payload())
+
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["recommended_crop"] == "Paxta"
+    assert payload["model_status"] == "error"
+    assert payload["inference_mode"] == "simulation"
+    assert "Model inference failed; simulation recommendations were used" in payload["warnings"]
+    assert payload["optimal_humidity"] == 50

@@ -15,7 +15,7 @@ export default function VirtualAgronom() {
     {
       id: 1,
       sender: 'ai',
-      text: "Assalomu alaykum! Men sizning shaxsiy Virtual Agronomingizman 🤖. Ekinlaringiz, o'g'itlash, kasalliklar yoki sug'orish bo'yicha qanday savollaringiz bor?",
+      text: "Assalomu alaykum! Men Smart Agro AI demo agronom yordamchisiman. Ekinlaringiz, o'g'itlash, kasalliklar yoki sug'orish bo'yicha qanday savollaringiz bor?",
       time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     }
   ]);
@@ -40,17 +40,17 @@ export default function VirtualAgronom() {
     "Pomidorda fitoftoroz kasalligi boshlandi"
   ];
 
-  // 🧠 XAKATON UCHUN AQLLI SIMULYATOR (MOCK LLM)
+  // Xakaton uchun aqlli simulyator (mock LLM)
   const generateAIResponse = (userText) => {
     const text = userText.toLowerCase();
     let response = "";
 
     if (text.includes("sarg'ay") || text.includes("paxta")) {
-      response = "Barglarning sarg'ayishi asosan azot yetishmasligi yoki o'rgimchakkana tushgani belgisidir. Hozirgi iqlimni hisobga olib, sizga tezkor ta'sir qiluvchi **Karbamid (Azotli o'g'it)** berishni va bargidan maxsus dori sepishni tavsiya qilaman. Bularni yon menyudagi Market bo'limimizdan xarid qilishingiz mumkin! 🛒";
+      response = "Barglarning sarg'ayishi asosan azot yetishmasligi yoki o'rgimchakkana tushgani belgisi bo'lishi mumkin. Demo tavsiya sifatida **Karbamid (Azotli o'g'it)** va bargdan ishlov berishni ko'rib chiqing. Yakuniy qaror uchun agronom bilan maslahatlashing.";
     } else if (text.includes("bug'doy") || text.includes("azot")) {
       response = "Kuzgi bug'doy uchun azotli o'g'itlarni asosan erta bahorda, o'simlik trubkaga chiqish fazasida berish eng samarali hisoblanadi. Gektariga 150-200 kg fiz-vaznda tavsiya etiladi. Tahlil bo'limidan yeringizdagi namlikni tekshirib oling!";
     } else if (text.includes("pomidor") || text.includes("fitoftoroz") || text.includes("kasal")) {
-      response = "Fitoftoroz juda xavfli zamburug'li kasallik! Darhol sug'orishni to'xtating (namlikni kamaytiring). Tarkibida Mis (Medy) bo'lgan preparatlar, masalan **Ridomil Gold** yoki **Bordo suyuqligi** sepishni boshlang. Smart Agro AI sizga doim yordamga tayyor! 🛡️";
+      response = "Fitoftoroz xavfli zamburug'li kasallik bo'lishi mumkin. Demo tavsiya: namlikni kamaytiring va tarkibida mis bo'lgan preparatlarni ko'rib chiqing. Aniq tashxis uchun agronomga murojaat qiling.";
     } else {
       response = "Juda yaxshi savol! Yeringizning aniq tahlilini (N, P, K va pH) bilmasdan turib aniq dorini yozib berish qiyin. Iltimos, oldin 'Asosiy Panel' da yeringiz tahlilini qiling yoki Marketdan universal biostimulyatorlarni ko'rib chiqing.";
     }
@@ -103,7 +103,7 @@ export default function VirtualAgronom() {
             <h1 className="text-xl font-black text-white tracking-wide flex items-center gap-2">
               Virtual Agronom <Sparkles className="w-4 h-4 text-yellow-300" />
             </h1>
-            <p className="text-green-100 text-xs font-medium">Sun'iy intellekt doim onlayn</p>
+            <p className="text-green-100 text-xs font-medium">Mock javoblar bilan demo yordamchi</p>
           </div>
         </div>
       </div>
@@ -192,7 +192,7 @@ export default function VirtualAgronom() {
         </form>
         <div className="text-center mt-3">
           <p className="text-[10px] text-slate-400 uppercase font-bold tracking-widest flex items-center justify-center gap-1">
-            <Bot className="w-3 h-3" /> Smart Agro LLM Engine v1.0
+            <Bot className="w-3 h-3" /> Smart Agro mock agronom demo
           </p>
         </div>
       </div>

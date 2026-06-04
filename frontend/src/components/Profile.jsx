@@ -156,7 +156,7 @@ export default function Profile({ user }) {
             </div>
 
             <p className={`text-sm mb-6 font-medium ${isAdmin ? 'text-slate-400' : 'text-green-700/80'}`}>
-                {isAdmin ? 'Butun respublika bo\'yicha tahlillar va cheklanmagan boshqaruv huquqi.' : 'Barcha AI tahlil xizmatlari, avtomatik sug\'orish va rasmiy xisobotlar yoniq.'}
+                {isAdmin ? 'Admin ko\'rinishi demo ma\'lumotlar bilan cheklangan.' : 'AI tahlil, sug\'orish tavsiyalari va PDF hisobotlar MVP demo rejimida.'}
             </p>
 
             {notice && (
@@ -178,7 +178,7 @@ export default function Profile({ user }) {
           <div className="bg-white rounded-3xl shadow-sm border border-slate-200 p-6">
             <h3 className="text-base font-bold text-slate-800 mb-4">Xavfsizlik</h3>
             <div className="space-y-2">
-                <button type="button" onClick={() => setNotice("Parol almashtirish hali ulanmagan. Bu Phase 3B doirasida demo sifatida belgilandi.")} className="w-full flex items-center justify-between gap-3 p-3 bg-slate-50 rounded-xl text-slate-600 hover:bg-slate-100 border border-slate-100 transition-all">
+                <button type="button" onClick={() => setNotice("Parol almashtirish hozircha demo. Backend amali ulanmagan.")} className="w-full flex items-center justify-between gap-3 p-3 bg-slate-50 rounded-xl text-slate-600 hover:bg-slate-100 border border-slate-100 transition-all">
                     <div className="flex items-center gap-3">
                         <Lock className="w-4 h-4 text-blue-500"/>
                         <span className="font-semibold text-sm">Parolni O'zgartirish</span>

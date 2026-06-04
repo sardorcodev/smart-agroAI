@@ -7,7 +7,7 @@ export default function LiveSensors({ formData, monitoringData, handleMonitorCha
       
       <div className="flex flex-col bg-slate-50 p-3 rounded-xl border border-slate-100 min-h-[220px]">
         <div className="flex justify-between items-center mb-3 px-1">
-          <h3 className="font-bold text-slate-600 text-[11px] uppercase tracking-wider">Haqiqiy Xarita (GPS)</h3>
+          <h3 className="font-bold text-slate-600 text-[11px] uppercase tracking-wider">GPS Xarita (Demo)</h3>
           {Number.isFinite(Number(formData.lat)) && Number.isFinite(Number(formData.lon)) && <span className="text-[10px] bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-bold flex items-center gap-1"><span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span> {Number(formData.lat).toFixed(4)}, {Number(formData.lon).toFixed(4)}</span>}
         </div>
         

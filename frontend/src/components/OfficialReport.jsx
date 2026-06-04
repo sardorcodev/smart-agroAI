@@ -48,10 +48,10 @@ const OfficialReport = React.forwardRef(({ formData, monitoringData, analysisRes
     >
       <div className="text-center border-b-2 border-black pb-6 mb-8">
         <h2 className="text-xl font-bold uppercase tracking-widest mb-2">"Smart Agro AI" Elektron Boshqaruv Tizimi</h2>
-        <p className="text-sm font-semibold uppercase">Avtomatlashtirilgan Dala monitoringi va Tahlil markazi</p>
+        <p className="text-sm font-semibold uppercase">MVP demo dala monitoringi va tahlil markazi</p>
       </div>
 
-      <h1 className="text-2xl font-black text-center mb-10">DALANING AGROKIMYOVIY VA IQLIMIY TAHLILI<br/>X I S O B O T I</h1>
+      <h1 className="text-2xl font-black text-center mb-10">DALANING AGROKIMYOVIY VA IQLIMIY TAHLILI<br/>H I S O B O T I</h1>
 
       <div className="flex justify-between mb-8 text-sm font-bold">
         <p>Hujjat raqami: #{documentNumber}</p>
@@ -147,7 +147,7 @@ const OfficialReport = React.forwardRef(({ formData, monitoringData, analysisRes
       </div>
       
       <p className="text-center text-[10px] text-gray-500 mt-12">
-        Ushbu xujjat Smart Agro AI tizimi tomonidan avtomatik ravishda generatsiya qilindi. Hujjatning haqiqiyligini tekshirish uchun tizim bazasiga murojaat qiling.
+        Ushbu hujjat Smart Agro AI MVP demo tizimi tomonidan avtomatik ravishda generatsiya qilindi. Natijalar agronomik qaror o'rnini bosmaydi.
       </p>
 
     </div>

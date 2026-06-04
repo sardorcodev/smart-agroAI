@@ -97,7 +97,7 @@ smart-agro/
 - [Contributing](CONTRIBUTING.md)
 - [Roadmap](ROADMAP.md)
 - [Changelog](CHANGELOG.md)
-- [Full repository audit](docs/audits/FULL_REPOSITORY_AUDIT.md)
+- [Historical repository audit](docs/audits/FULL_REPOSITORY_AUDIT.md)
 
 ## Security Notice
 
@@ -143,6 +143,30 @@ Backend environment variables:
 | `JWT_ALGORITHM` | `HS256` | JWT signing algorithm. |
 | `ACCESS_TOKEN_EXPIRE_MINUTES` | `60` | Access token lifetime in minutes. |
 | `GEMINI_API_KEY` | empty | Reserved for future Gemini integration. Not used by the current MVP. |
+| `DEMO_SEED_PASSWORD` | `demo-password-123` | Optional local-only password for demo seed users. Never use real credentials. |
+| `DEMO_FARMER_EMAIL` | `demo.farmer@example.com` | Optional local-only demo farmer email. |
+| `DEMO_FARMER_NAME` | `Demo Farmer` | Optional local-only demo farmer display name. |
+| `DEMO_ADMIN_EMAIL` | empty | Optional local-only demo admin email. Created only when also listed in `ADMIN_EMAILS`. |
+
+Run database migrations from the repository root:
+
+```bash
+python -m alembic -c backend/alembic.ini upgrade head
+```
+
+On Windows with the project virtual environment:
+
+```powershell
+.\backend\venv\Scripts\python.exe -m alembic -c backend\alembic.ini upgrade head
+```
+
+Seed local demo data only after migrations:
+
+```bash
+python -m backend.scripts.seed_demo
+```
+
+The seed script is idempotent, hashes demo passwords, does not print passwords or hashes, and never creates an admin user unless `DEMO_ADMIN_EMAIL` is also allowed through `ADMIN_EMAILS`.
 
 Run the backend:
 
@@ -227,6 +251,8 @@ python -m pytest backend/tests
 
 Backend tests use temporary SQLite databases and do not require real API keys.
 
+Backend migrations use Alembic under `backend/alembic/`. The current app still keeps a local/test `create_all` fallback for MVP developer ergonomics, but shared and production-like databases should be initialized with Alembic migrations.
+
 ## Browser QA
 
 Phase 3D adds a focused Playwright smoke baseline under `frontend/e2e/`.
@@ -243,6 +269,12 @@ Covered flows:
 - lightweight keyboard, form-label, alert, and status-role checks
 
 Generated Playwright reports, traces, screenshots, videos, and test results are ignored by git.
+
+## Frontend Quality Notes
+
+The frontend dependency audit is expected to be clean after removing an unused React Router dependency. Run `npm audit` and `npm audit --omit=dev` from `frontend/` when changing packages.
+
+The app uses small lazy-loaded chunks for heavier authenticated sections such as maps, charts, market, support, admin, and PDF export helpers. This keeps the landing/auth path smaller while preserving the current app-state navigation model.
 
 ## API Overview
 
@@ -278,15 +310,15 @@ Known limitations:
 - No training script is included yet.
 - No model card or metrics are included yet.
 - Dataset provenance and licensing still need documentation.
-- Some crop-label mappings still need reliability work.
+- Common English and Uzbek crop labels are normalized for backend irrigation lookup, but full model-label provenance still belongs in the future ML reliability phase.
 - The model is for MVP demonstration and should not be treated as agronomic advice.
-- Weather API failures are returned with fallback indicators and warning messages.
+- Weather API failures, malformed provider responses, and model fallback paths are returned with explicit fallback indicators and warning messages.
 
 ## What Is Demo-Only
 
 The following areas are currently static or simulated:
 
-- Virtual Agronom AI chat
+- Virtual Agronom mocked chat
 - Agro Market checkout
 - IoT device integration
 - Sensor ingestion

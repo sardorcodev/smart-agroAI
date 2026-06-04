@@ -34,6 +34,7 @@ Responsibilities:
 - Use small shared UI helpers for accessible notices, demo labels, and loading states.
 - Display analysis results, simulated irrigation controls, maps, marketplace demo data, and reports.
 - Provide a Playwright smoke-test surface for public landing, mocked auth/session restore, mocked analysis, mobile navigation, and basic accessibility roles.
+- Lazy-load heavier authenticated sections and dynamically import PDF export libraries to keep the initial frontend bundle smaller.
 
 Current limitations:
 
@@ -44,6 +45,7 @@ Current limitations:
 - Mobile navigation has a minimal fallback selector, but the overall mobile experience still needs deeper responsive QA.
 - Accessibility has a baseline pass for core controls and notices, but full WCAG audit coverage is still future work.
 - Browser QA is smoke-level and uses mocked backend responses; it is not a substitute for full production integration or visual regression testing.
+- Bundle splitting is intentionally minimal; the app still uses state-based navigation rather than route-level architecture.
 
 ## Backend Boundary
 
@@ -67,6 +69,8 @@ backend/
       health.py
       auth.py
       analyze.py
+  scripts/
+    seed_demo.py          # local-only demo seed helper
     services/
       weather.py
       irrigation.py
@@ -77,6 +81,7 @@ Responsibilities:
 
 - Provide FastAPI endpoints for registration, login, current user lookup, health, OpenAPI, and farm analysis.
 - Initialize a local SQLite database from `DATABASE_URL`.
+- Support Alembic migrations for shared and production-like database initialization.
 - Generate and validate JWT access tokens for the current MVP auth flow.
 - Assign admin role only from configured `ADMIN_EMAILS`.
 - Load model artifacts from stable paths relative to `backend/main.py`.
@@ -88,7 +93,7 @@ Current limitations:
 
 - Authentication uses short-lived JWT access tokens, but there are no refresh tokens, email verification, password reset, multi-factor auth, or production rate limits yet.
 - Admin authorization helpers exist for future protected routes, but there is no complete admin API yet.
-- No database migrations are present yet.
+- Alembic migration support exists for the current users table, but the schema remains intentionally small.
 - The package structure is intentionally small and should not be treated as a complete production architecture yet.
 
 ## AI/ML Boundary
@@ -119,6 +124,10 @@ Local development uses SQLite by default:
 - Configurable through `DATABASE_URL`
 
 Local database files are ignored by git. The repository must not contain real user records, password hashes, or local DB artifacts.
+
+Alembic migrations live in `backend/alembic/`. The initial migration creates the current MVP `users` table. The FastAPI app still keeps a `create_all` fallback for local/test ergonomics, but migration commands are the documented path for shared or production-like databases.
+
+Optional demo seed data lives in `backend/scripts/seed_demo.py`. It is local-only, idempotent, does not run at startup, hashes demo passwords, and never prints passwords or password hashes.
 
 ## Real vs Demo/Static
 
@@ -151,7 +160,9 @@ Real MVP flows:
 - `inference_mode`
 - `warnings`
 
-Weather lookup falls back to default values when provider data is unavailable. The response marks this with `weather_summary.fallback_used` and a warning string.
+Weather lookup uses the Open-Meteo archive API with an explicit timeout and provider-response validation. Network failures, timeouts, malformed provider payloads, or unusable seasonal data fall back to stable MVP default values. The response marks this with `weather_summary.fallback_used`, `weather_summary.source`, and a warning string.
+
+Model inference is explicit about runtime mode. When artifacts are unavailable, or when loaded artifacts fail during prediction, `/api/analyze` returns stable simulation predictions with `inference_mode: "simulation"`, a non-success `model_status`, and a warning. Crop labels are normalized for irrigation lookup so common English and Uzbek labels such as `Cotton`/`Paxta`, `Rice`/`Sholi`, `Maize`/`Makkajo'xori`, and `Tomato`/`Pomidor` use the intended irrigation rule while preserving the user-facing recommended crop label.
 
 Demo/static flows:
 

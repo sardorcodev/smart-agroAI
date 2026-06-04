@@ -68,7 +68,7 @@ export default function Sidebar({ currentMenu, setCurrentMenu, onLogout, user })
       <div className="p-4 border-t border-slate-800">
         <button type="button" className="w-full bg-slate-800 rounded-xl p-3 mb-2 flex items-center gap-3 border border-slate-700 cursor-pointer hover:bg-slate-700 transition-colors text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500" onClick={() => setCurrentMenu('profile')} aria-current={currentMenu === 'profile' ? 'page' : undefined}>
           <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-green-400 to-blue-500 flex items-center justify-center text-white font-bold text-xs shadow-inner">
-            🧑‍🌾
+            <User className="w-4 h-4" />
           </div>
           <div className="flex-1 overflow-hidden">
             <p className="text-sm font-bold text-white truncate">Fermer profil</p>

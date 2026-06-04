@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Leaf, Thermometer, CloudRain, Zap, Settings, Power, Droplets, CheckCircle, Activity, Target } from 'lucide-react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ReferenceLine } from 'recharts';
 import { EKIN_BAZASI } from '../utils/constants';
 import DemoBadge from './ui/DemoBadge';
 import Notice from './ui/Notice';
@@ -193,19 +193,17 @@ export default function AIResults({ analysisResult, monitoringData }) {
       </div>
 
       {/* 4. GRAFIK (O'zgartirishsiz qoldi) */}
-      <div className="bg-white min-h-[180px] rounded-2xl p-4 shadow-sm border border-slate-100 flex-shrink-0 flex flex-col">
+      <div className="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 flex-shrink-0 flex flex-col">
         <p className="text-[10px] text-slate-500 font-black mb-3 uppercase tracking-widest text-center">Namlik Prognozi (Grafik)</p>
-        <div className="flex-1">
-          <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={chartData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" vertical={false} />
-              <XAxis dataKey="time" tick={{fontSize: 9, fill: '#64748b'}} stroke="#cbd5e1" tickLine={false} axisLine={false} />
-              <YAxis domain={[0, 100]} tick={{fontSize: 9, fill: '#64748b'}} stroke="#cbd5e1" tickLine={false} axisLine={false} width={25} />
-              <Tooltip cursor={{stroke: '#cbd5e1', strokeWidth: 1, strokeDasharray: '3 3'}} contentStyle={{borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)'}} />
-              <ReferenceLine y={minHum} stroke="#ef4444" strokeDasharray="3 3" label={{position: 'insideTopLeft', value: 'Crit.', fill: '#ef4444', fontSize: 9, fontWeight: 'bold'}} />
-              <Line type="monotone" dataKey="namlik" stroke={isPumpActuallyOn ? "#3b82f6" : "#f59e0b"} strokeWidth={3} dot={{r: 3, fill: '#fff', strokeWidth: 2}} activeDot={{r: 5}} animationDuration={500} />
-            </LineChart>
-          </ResponsiveContainer>
+        <div className="w-full overflow-x-auto">
+          <LineChart width={640} height={160} data={chartData}>
+            <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" vertical={false} />
+            <XAxis dataKey="time" tick={{fontSize: 9, fill: '#64748b'}} stroke="#cbd5e1" tickLine={false} axisLine={false} />
+            <YAxis domain={[0, 100]} tick={{fontSize: 9, fill: '#64748b'}} stroke="#cbd5e1" tickLine={false} axisLine={false} width={25} />
+            <Tooltip cursor={{stroke: '#cbd5e1', strokeWidth: 1, strokeDasharray: '3 3'}} contentStyle={{borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)'}} />
+            <ReferenceLine y={minHum} stroke="#ef4444" strokeDasharray="3 3" label={{position: 'insideTopLeft', value: 'Crit.', fill: '#ef4444', fontSize: 9, fontWeight: 'bold'}} />
+            <Line type="monotone" dataKey="namlik" stroke={isPumpActuallyOn ? "#3b82f6" : "#f59e0b"} strokeWidth={3} dot={{r: 3, fill: '#fff', strokeWidth: 2}} activeDot={{r: 5}} animationDuration={500} />
+          </LineChart>
         </div>
       </div>
 

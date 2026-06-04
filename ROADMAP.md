@@ -2,43 +2,36 @@
 
 Smart Agro AI is moving from a hackathon-style MVP toward a safer open-source agriculture platform.
 
-## Phase 0: Security and Runtime Cleanup
+## Completed
 
-- Remove hardcoded secrets and unsafe references.
-- Stop committing local databases.
-- Stabilize backend model and database paths.
-- Add environment-based configuration.
-- Fix frontend API configuration and unsafe rendering.
-- Add minimum OSS files and truthful README documentation.
+- Phase 0: Security and runtime cleanup.
+- Phase 1: OSS polish and CI baseline.
+- Phase 2A: Backend validation and API contract hardening.
+- Phase 2B: Backend modularization.
+- Phase 2C: JWT-based MVP authentication.
+- Phase 2D: Database migrations and seed strategy.
+- Phase 2E: Backend service hardening for weather fallback, analyze contract stability, model fallback metadata, and crop-label normalization.
+- Phase 3A: Frontend JWT session restore and protected view polish.
+- Phase 3B: Frontend API/error-state polish.
+- Phase 3C: Frontend component stability and accessibility pass.
+- Phase 3D: Playwright browser smoke test baseline.
+- Phase 3E: Frontend dependency audit, bundle splitting, and chart stability.
+- Phase 3F: Frontend production demo copy and presentation QA.
 
-## Phase 1: OSS Polish
+## Next
 
-- Add CI, issue templates, and pull request template.
-- Add clear architecture and API documentation.
-- Add test instructions and maintainer workflow.
-
-## Phase 2: Backend Stabilization
-
-- Split the FastAPI app into focused modules.
-- Add validation, auth hardening, migrations, and tests.
-- Add health/readiness endpoints.
-
-## Phase 3: Frontend Stabilization
-
-- Add mobile navigation and stronger error states.
-- Centralize API/error handling.
-- Add component and integration tests.
-
-## Phase 4: AI/ML Reliability
+### Phase 4: AI/ML Reliability
 
 - Add training scripts, model metrics, dataset provenance, and model card.
-- Align crop label mappings across backend, frontend, and model artifacts.
+- Continue aligning model artifact labels with backend/frontend display labels.
 
-## Phase 5: Deployment and Demo
+## Future Phases
+
+### Phase 5: Deployment and Public Demo
 
 - Add Docker and deployment docs.
 - Publish a safe demo with seed data only.
 
-## Phase 6: Codex for OSS Readiness
+### Phase 6: Codex for OSS Application Package
 
 - Ensure clean public repo state, passing CI, clear roadmap, and contributor-ready issues.

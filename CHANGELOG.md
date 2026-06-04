@@ -4,11 +4,21 @@ All notable changes to Smart Agro AI will be documented here.
 
 ## Unreleased
 
-- Added Phase 0 security and runtime cleanup baseline.
-- Added environment examples for backend and frontend.
-- Added minimum OSS documentation files.
-- Removed local database artifact from the active project state.
-- Updated README to describe the current MVP truthfully.
+### Modernization Baseline
+
+- Completed Phase 0 security/runtime cleanup, environment examples, and local artifact hygiene.
+- Added Phase 1 OSS polish with CI, issue templates, PR template, and maintainer docs.
+- Hardened backend validation and API response contracts in Phase 2A.
+- Modularized the FastAPI backend under `backend/app/` in Phase 2B.
+- Added JWT-based MVP registration, login, and `/api/me` session lookup in Phase 2C.
+- Added frontend JWT session restore, protected-view guards, and stale-token handling in Phase 3A.
+- Improved frontend API error states, inline notices, and demo/static action messaging in Phase 3B.
+- Added shared accessible UI helpers and component stability/accessibility polish in Phase 3C.
+- Added Playwright browser smoke tests with mocked backend responses in Phase 3D.
+- Removed an unused vulnerable router dependency, cleaned the frontend audit, split heavy frontend chunks, and stabilized chart rendering in Phase 3E.
+- Polished public/demo copy and clarified MVP/demo labels across visible frontend flows in Phase 3F.
+- Added Alembic migration support, an initial users-table migration, and a safe idempotent local demo seed workflow in Phase 2D.
+- Hardened backend weather fallback handling, `/api/analyze` response schemas, model fallback metadata, and crop-label normalization in Phase 2E.
 
 ## 0.1.0
 

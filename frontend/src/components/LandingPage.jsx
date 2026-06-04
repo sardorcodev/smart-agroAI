@@ -43,7 +43,7 @@ export default function LandingPage({ onStart }) {
           </h1>
           
           <p className="text-lg md:text-2xl text-slate-100 mb-12 max-w-3xl mx-auto font-medium leading-relaxed drop-shadow-md">
-            Tuproq tahlili, jonli iqlim monitoringi va aqlli sug'orish tizimi yordamida hosildorlikni 40% ga oshiring va suv resurslarini 30-60% gacha tejang.
+            Tuproq tahlili, iqlim ma'lumotlari va sug'orish tavsiyalari uchun ochiq manbali MVP platforma.
           </p>
           
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
@@ -65,7 +65,7 @@ export default function LandingPage({ onStart }) {
               O'zbekistonda chuchuk suv zaxiralarining 90% qishloq xo'jaligiga sarflanadi va uning katta qismi an'anaviy, ko'r-ko'rona sug'orish oqibatida isrof bo'ladi. 
             </p>
             <p className="text-slate-600 text-lg leading-relaxed">
-              Bizning missiyamiz — FAO standartlarini XGBoost Machine Learning bilan birlashtirib, fermerlarga "qachon va qancha" suv quyish kerakligini matematik aniqlikda aytib beruvchi ekotizim yaratish.
+              Bizning missiyamiz - ochiq ma'lumotlar, XGBoost Machine Learning va tushunarli interfeys orqali fermerlarga demo tahlil va sug'orish tavsiyalarini ko'rsatadigan ekotizim yaratish.
             </p>
             <div className="grid grid-cols-2 gap-6 pt-6">
               <div className="bg-slate-50 p-5 rounded-2xl border border-slate-100 hover:shadow-md transition-shadow">
@@ -88,7 +88,7 @@ export default function LandingPage({ onStart }) {
               <div className="h-full w-full bg-white/80 backdrop-blur-md rounded-2xl border border-white shadow-xl p-6 sm:p-8 flex flex-col justify-center relative z-10">
                 <div className="flex items-center gap-5 mb-8 border-b border-slate-100 pb-8 hover:translate-x-2 transition-transform cursor-default">
                   <div className="bg-blue-50 p-4 rounded-2xl border border-blue-100 shadow-sm"><Droplets className="w-8 h-8 text-blue-600"/></div>
-                  <div><p className="font-black text-xl text-slate-800 mb-1">Suv sarfi nazorati</p><p className="text-slate-500 text-sm font-medium">Jonli IoT datchiklar yordamida</p></div>
+                  <div><p className="font-black text-xl text-slate-800 mb-1">Suv sarfi nazorati</p><p className="text-slate-500 text-sm font-medium">Demo sensorlar va ob-havo ma'lumotlari asosida</p></div>
                 </div>
                 <div className="flex items-center gap-5 mb-8 border-b border-slate-100 pb-8 hover:translate-x-2 transition-transform cursor-default">
                   <div className="bg-orange-50 p-4 rounded-2xl border border-orange-100 shadow-sm"><Cpu className="w-8 h-8 text-orange-600"/></div>
@@ -108,12 +108,12 @@ export default function LandingPage({ onStart }) {
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16 max-w-3xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-black text-slate-800 mb-4">Moslashuvchan Biznes Model</h2>
-            <p className="text-slate-500 text-lg font-medium">Platformamiz barcha turdagi mijozlar — kichik fermerlardan tortib yirik davlat klasterlarigacha moslashtirilgan.</p>
+            <p className="text-slate-500 text-lg font-medium">Platforma hozir MVP/demo bosqichida: kichik fermerlar, klasterlar va hamkorlar uchun kelajak modelini ko'rsatadi.</p>
           </div>
           {/* Tariflar */}
           <div className="grid md:grid-cols-3 gap-8">
             <div className="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col">
-              <p className="text-slate-400 font-bold tracking-widest uppercase text-[10px] mb-2">B2C • Kichik Fermer</p>
+              <p className="text-slate-400 font-bold tracking-widest uppercase text-[10px] mb-2">B2C / Kichik Fermer</p>
               <h3 className="text-2xl font-black text-slate-800 mb-2">Boshlang'ich</h3>
               <div className="flex items-baseline gap-1 mb-8">
                 <span className="text-5xl font-black text-slate-900">0</span><span className="text-slate-500 font-bold text-sm">So'm</span>
@@ -128,29 +128,29 @@ export default function LandingPage({ onStart }) {
 
             <div className="bg-slate-900 rounded-3xl p-8 border-2 border-green-500 shadow-2xl shadow-green-500/20 relative transform md:-translate-y-4 flex flex-col z-10">
               <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-gradient-to-r from-green-500 to-emerald-500 text-white px-6 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase shadow-lg shadow-green-500/30">Eng foydali</div>
-              <p className="text-green-400 font-bold tracking-widest uppercase text-[10px] mb-2">B2B • Yirik Fermerlar va Klasterlar</p>
+              <p className="text-green-400 font-bold tracking-widest uppercase text-[10px] mb-2">B2B / Yirik Fermerlar va Klasterlar</p>
               <h4 className="text-xl font-black text-white mb-2">Bir martalik to'lov</h4>
               <div className="flex items-baseline gap-1 mb-8">
                 <span className="text-5xl font-black text-white">49 990</span><span className="text-slate-400 font-bold text-sm">So'm</span>
               </div>
               <ul className="space-y-4 mb-8 flex-1">
-                <li className="flex items-start gap-3 text-slate-300 font-medium text-sm"><CheckCircle2 className="w-5 h-5 text-green-400 shrink-0"/> Haqiqiy IoT Datchik ulash va vizualizatsiya</li>
+                <li className="flex items-start gap-3 text-slate-300 font-medium text-sm"><CheckCircle2 className="w-5 h-5 text-green-400 shrink-0"/> IoT datchik integratsiyasi uchun demo konsept</li>
                 <li className="flex items-start gap-3 text-slate-300 font-medium text-sm"><CheckCircle2 className="w-5 h-5 text-green-400 shrink-0"/> AI orqali suv ehtiyojini hisoblash va nasos boshqaruvi</li>
-                <li className="flex items-start gap-3 text-slate-300 font-medium text-sm"><CheckCircle2 className="w-5 h-5 text-green-400 shrink-0"/> Qishloq xo'jaligi vazirligi uchun avto-PDF xisobot</li>
+                <li className="flex items-start gap-3 text-slate-300 font-medium text-sm"><CheckCircle2 className="w-5 h-5 text-green-400 shrink-0"/> Qishloq xo'jaligi uchun demo PDF hisobot</li>
                 <li className="flex items-start gap-3 text-slate-300 font-medium text-sm"><CheckCircle2 className="w-5 h-5 text-green-400 shrink-0"/> AI orqali ekin o'g'itlar bo'yicha chatbot yordami</li>
               </ul>
               <button onClick={onStart} className="w-full py-3.5 bg-green-500 hover:bg-green-400 text-slate-900 font-black rounded-xl transition-colors shadow-lg shadow-green-500/20 hover:-translate-y-0.5">Sotib olish</button>
             </div>
 
             <div className="bg-gray-300 rounded-3xl p-8 border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col">
-              <p className="text-blue-500 font-bold tracking-widest uppercase text-[10px] mb-2">B2B • Agro-Marketlar uchun</p>
+              <p className="text-blue-500 font-bold tracking-widest uppercase text-[10px] mb-2">B2B / Agro-Marketlar uchun</p>
               <h3 className="text-2xl font-black text-green-600 mb-2">Agro-Servis</h3>
               <div className="flex items-baseline gap-1 mb-8">
                 <span className="text-2xl font-black text-slate-900">Tuproq tahlili va IoT qurilmalar</span>
               </div>
               <ul className="space-y-4 mb-8 flex-1">
-                <li className="flex items-start gap-3 text-slate-600 font-medium text-sm"><CheckCircle2 className="w-5 h-5 text-blue-500 shrink-0"/> Marketlardagi mobil labaratoriya orqali aniq N P K pH tahlili</li>
-                <li className="flex items-start gap-3 text-slate-600 font-medium text-sm"><CheckCircle2 className="w-5 h-5 text-blue-500 shrink-0"/> "Super Admin" boshqaruv paneli</li>
+                <li className="flex items-start gap-3 text-slate-600 font-medium text-sm"><CheckCircle2 className="w-5 h-5 text-blue-500 shrink-0"/> Marketlardagi mobil laboratoriya konsepti</li>
+                <li className="flex items-start gap-3 text-slate-600 font-medium text-sm"><CheckCircle2 className="w-5 h-5 text-blue-500 shrink-0"/> Admin demo boshqaruv paneli</li>
                 <li className="flex items-start gap-3 text-slate-600 font-medium text-sm"><CheckCircle2 className="w-5 h-5 text-blue-500 shrink-0"/> Umumiy nazorati tizimi integratsiyasi</li>
               </ul>
               <a href="mailto:info@smartagro.uz" className="block text-center w-full py-3.5 bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold rounded-xl transition-colors border border-slate-200">Hamkorlik qilish</a>
@@ -224,7 +224,7 @@ export default function LandingPage({ onStart }) {
           </div>
 
           <div className="text-slate-500 text-xs font-semibold uppercase tracking-wider">
-            © 2026 SURXONDARYO XAKATONI UCHUN.
+            2026 SURXONDARYO XAKATONI UCHUN.
           </div>
 
           <div className="flex items-center gap-4 font-mono text-xs font-bold text-slate-400">

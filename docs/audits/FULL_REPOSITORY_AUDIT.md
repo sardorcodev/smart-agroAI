@@ -3,11 +3,13 @@
 Audit date: 2026-06-03  
 Repository root: repository root
 
+Historical note: this audit is preserved as context from an earlier cleanup phase. Some findings have since been addressed; use the root `README.md`, `docs/ARCHITECTURE.md`, `docs/DEVELOPMENT.md`, and `docs/SECURITY_NOTES.md` for the current repository status.
+
 ## Executive Summary
 
-Smart Agro AI is currently a promising hackathon/MVP-style demo, not yet a serious public open-source platform. The repository contains a working React + Vite frontend, a single-file FastAPI backend, a trained XGBoost model artifact, a SQLite database, and a crop recommendation dataset. The core crop analysis flow can work when the backend is started from the `backend/` directory, and the frontend production build succeeds.
+Smart Agro AI was audited as a promising hackathon/MVP-style demo that needed cleanup before public presentation. At the time of this historical audit, the repository contained a working React + Vite frontend, a single-file FastAPI backend, a trained XGBoost model artifact, a SQLite database, and a crop recommendation dataset.
 
-The project is not ready for public GitHub presentation, production demo deployment, or an OpenAI Codex for OSS application without cleanup. The main blockers are security exposure, incomplete documentation, missing open-source governance files, no tests, fragile runtime paths, a committed SQLite database with user records, incomplete README setup sections, and several features that are documented as AI/platform capabilities but are actually static or mocked UI.
+The main blockers identified then were security exposure, incomplete documentation, missing open-source governance files, missing tests, fragile runtime paths, a committed SQLite database with user records, incomplete README setup sections, and several features that were documented as AI/platform capabilities but were actually static or mocked UI.
 
 Scores:
 
@@ -20,10 +22,10 @@ Scores:
 ## Critical Risks
 
 1. A Gemini API key is present in source comments at `backend/main.py:21`. Even commented secrets must be treated as compromised and revoked before public release.
-2. `backend/smartagro.db` is tracked and contains a `users` table with 3 user records, including 1 admin and 2 farmer users. Passwords are hashed, but account data and password hashes should not be committed.
+2. `backend/smartagro.db` was tracked and contained demo user records. Account data and password hashes should not be committed.
 3. The backend uses wildcard CORS with credentials enabled at `backend/main.py:52`, which is unsafe for deployment.
 4. Authentication is not production-grade: login returns user data but no signed token/session; frontend state alone controls logged-in UI; backend admin authorization is absent.
-5. Admin role assignment is based only on registering the exact email `admin@smartagro.uz`.
+5. Admin role assignment was based on a hardcoded demo email address.
 6. The frontend renders chat messages with `dangerouslySetInnerHTML` in `frontend/src/components/VirtualAgronom.jsx:119`, so user input can become an XSS vector.
 7. Backend model and database paths are relative to the process working directory. Importing/running from the repo root fails model loading and creates/uses a root-level SQLite database instead of `backend/smartagro.db`.
 8. The README claims Gemini, setup docs, API docs, license, project structure, and other sections that are missing or not implemented.

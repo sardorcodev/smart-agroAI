@@ -16,22 +16,24 @@ def analyze_farm_data(data: FarmData) -> dict:
         "hum": weather["hum"],
         "rain": weather["rain"],
         "fallback_used": bool(weather.get("fallback_used", False)),
+        "source": weather.get("source"),
     }
     warnings = []
 
     if weather_summary["fallback_used"]:
         warnings.append(weather.get("warning") or "Fallback weather data was used")
 
-    inference_mode = "model" if ml.MODELS_LOADED else "simulation"
-    model_status = "loaded" if ml.MODELS_LOADED else "unavailable"
-
     if not ml.MODELS_LOADED:
         logger.warning("Analyze endpoint is using simulation mode because model artifacts are unavailable")
-        warnings.append("Model artifacts are unavailable; simulation recommendations were used")
 
     features = [data.n, data.p, data.k, weather["temp"], weather["hum"], data.ph, weather["rain"]]
-    top_predictions = ml.predict_top_crops(features)
-    primary_crop = top_predictions[0]["crop"].lower() if top_predictions else "mango"
+    prediction_result = ml.predict_top_crops_with_metadata(features)
+    top_predictions = prediction_result["predictions"]
+    model_status = prediction_result["model_status"]
+    inference_mode = prediction_result["inference_mode"]
+    if prediction_result.get("warning"):
+        warnings.append(prediction_result["warning"])
+    primary_crop = top_predictions[0]["crop"] if top_predictions else "Mango"
 
     irrigation_result = calculate_irrigation(
         primary_crop,
@@ -39,10 +41,13 @@ def analyze_farm_data(data: FarmData) -> dict:
         data.area_m2,
         weather["temp"],
     )
+    if irrigation_result["fallback_used"]:
+        logger.warning("Using default irrigation rule for unmapped crop label")
+        warnings.append(f"Default irrigation rule was used for crop label: {primary_crop}")
 
     return {
         "status": "success",
-        "recommended_crop": primary_crop.capitalize(),
+        "recommended_crop": primary_crop,
         "top_predictions": top_predictions,
         "top_3_recommendations": top_predictions,
         "optimal_humidity": irrigation_result["optimal_humidity"],

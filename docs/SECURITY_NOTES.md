@@ -19,6 +19,8 @@ Local SQLite files are development artifacts and are ignored by git:
 
 Do not commit demo users, real users, password hashes, or admin accounts.
 
+Run Alembic migrations for shared or production-like databases instead of committing SQLite files. Local demo seed data is optional, uses fake accounts only, and must never contain real credentials. The seed script does not print passwords or password hashes.
+
 ## API Keys
 
 `GEMINI_API_KEY` is documented only as a future integration variable. The current Virtual Agronom UI is mocked and does not require a real API key.
@@ -48,6 +50,8 @@ Dashboard location fallback is explicit: users may retry GPS, manually enter coo
 `POST /api/analyze` does not require Gemini or any external AI key. It uses local model artifacts when available.
 
 If weather lookup fails, the backend returns fallback weather values and marks the response with a warning. This is suitable for MVP continuity, not for production agronomic advice.
+
+Backend service logging covers weather fallback, model fallback, and unexpected analyze failures. Logs must not include passwords, JWTs, secret values, password hashes, or full sensitive user payloads.
 
 ## Responsible Disclosure
 

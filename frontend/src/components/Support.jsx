@@ -48,7 +48,7 @@ export default function Support() {
               </div>
               <button
                 type="button"
-                onClick={() => setNotice("Support chiptalari hozircha demo. Xabar backendga saqlanmaydi.")}
+                onClick={() => setNotice("Support chiptalari MVP demo rejimida. Xabar backendga saqlanmaydi.")}
                 className="bg-slate-800 hover:bg-slate-900 text-white font-bold py-3 px-6 rounded-xl w-full sm:w-auto flex items-center justify-center gap-2 transition-all"
               >
                 Xabarni Yuborish <Send className="w-4 h-4" />
@@ -57,12 +57,12 @@ export default function Support() {
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-            <button type="button" onClick={() => setNotice("Telegram bot integratsiyasi hozircha demo rejimida.")} className="bg-blue-50 p-4 rounded-xl border border-blue-100 flex flex-col items-center text-center hover:bg-blue-100 transition-colors cursor-pointer">
+            <button type="button" onClick={() => setNotice("Telegram bot integratsiyasi MVP demo rejimida.")} className="bg-blue-50 p-4 rounded-xl border border-blue-100 flex flex-col items-center text-center hover:bg-blue-100 transition-colors cursor-pointer">
               <Bot className="w-8 h-8 text-blue-500 mb-2" />
               <h4 className="font-bold text-slate-800 text-sm">Telegram Bot</h4>
               <p className="text-xs text-slate-500">24/7 Avtomatik yordam</p>
             </button>
-            <button type="button" onClick={() => setNotice("Call markaz kontakti demo. Real aloqa kanali hali ulanmagan.")} className="bg-green-50 p-4 rounded-xl border border-green-100 flex flex-col items-center text-center hover:bg-green-100 transition-colors cursor-pointer">
+            <button type="button" onClick={() => setNotice("Call markaz kontakti MVP demo rejimida. Aloqa kanali backendga ulanmagan.")} className="bg-green-50 p-4 rounded-xl border border-green-100 flex flex-col items-center text-center hover:bg-green-100 transition-colors cursor-pointer">
               <PhoneCall className="w-8 h-8 text-green-500 mb-2" />
               <h4 className="font-bold text-slate-800 text-sm">Call Markaz</h4>
               <p className="text-xs text-slate-500">10:00 - 18:00 gacha</p>
