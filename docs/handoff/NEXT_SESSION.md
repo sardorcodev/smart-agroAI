@@ -30,6 +30,7 @@ The following phases are complete:
 - Phase 3E: frontend audit, bundle, and chart stability.
 - Phase 3F: frontend production demo copy and presentation QA.
 - Phase 3G: final repository readiness pass.
+- Phase 4A: AI/ML data and model reliability audit.
 
 ## 3. Current Technical State
 
@@ -39,6 +40,9 @@ The following phases are complete:
 - Backend has an optional safe local demo seed script under `backend/scripts/seed_demo.py`.
 - Backend `/api/analyze` now reports explicit weather fallback, model fallback, and inference-mode metadata.
 - Backend normalizes common English and Uzbek crop labels for irrigation lookup while preserving display labels.
+- ML audit docs now live under `docs/ml/`.
+- The tracked dataset has 2,200 rows and 22 English labels; the tracked encoder has 22 Uzbek display labels.
+- Dataset provenance/license and model reproducibility remain unresolved by design until Phase 4B.
 - Frontend restores sessions from a stored MVP token using `/api/me`.
 - Frontend uses shared `Notice`, `DemoBadge`, and `LoadingState` helpers.
 - Frontend browser smoke tests live under `frontend/e2e/` and mock backend API responses.
@@ -49,7 +53,7 @@ The following phases are complete:
 
 ## 4. Latest Known Passing Checks
 
-Latest known passing checks after Phase 2E:
+Latest known passing checks after Phase 4A:
 
 - `npm run lint`
 - `npm test`
@@ -66,7 +70,7 @@ Known verification details:
 
 - Frontend unit tests: 11 passing.
 - Playwright smoke tests: 9 passing with mocked backend responses.
-- Backend tests: 51 passing when run with the local backend venv.
+- Backend tests: 52 passing when run with the local backend venv.
 - Vite build no longer emits the previous large chunk warning.
 - `frontend/dist`, `frontend/test-results`, and `backend/smartagro_local.db` may exist locally but are ignored and must not be committed.
 
@@ -80,17 +84,20 @@ Known verification details:
 - No production rate limiting.
 - `localStorage` token storage is MVP-only.
 - Dataset/model reproducibility still needs work.
+- Dataset source/license is unknown and should not be assumed open for redistribution until confirmed.
+- The tracked model artifact is not yet reproducibly generated from source.
+- Model metrics, feature importance, and calibration are not yet documented.
 - UI is still app-state based, not route-based.
 - Several product areas remain demo/static by design.
 - Historical audit notes may describe earlier repository state and should be treated as historical context.
 
 ## 6. Next Planned Phase
 
-Next phase: **Phase 4 - AI/ML Reliability**
+Next phase: **Phase 4B - Training Reproducibility**
 
-Goal: add model/data reproducibility, dataset provenance, metrics, and a model card without treating MVP predictions as production agronomic advice.
+Goal: confirm or replace the dataset source/license, add deterministic training, generate metrics, record artifact metadata, and avoid replacing artifacts until the results are reviewed.
 
-Important instruction: do not start Phase 4 automatically. A new session should first inspect the repo, read this file, run git status/log, and summarize readiness.
+Important instruction: do not start Phase 4B automatically. A new session should first inspect the repo, read this file, run git status/log, and summarize readiness.
 
 ## 7. Recommended Startup Checklist
 
@@ -115,7 +122,7 @@ If environment paths differ, adapt commands safely.
 
 ## 8. Prompt for Next Codex Session
 
-Read `docs/handoff/NEXT_SESSION.md`, `README.md`, `docs/ARCHITECTURE.md`, `docs/DEVELOPMENT.md`, and `docs/SECURITY_NOTES.md`.
+Read `docs/handoff/NEXT_SESSION.md`, `README.md`, `docs/ARCHITECTURE.md`, `docs/DEVELOPMENT.md`, `docs/SECURITY_NOTES.md`, and `docs/ml/`.
 
 Then run `git status --short --untracked-files=all` and `git log --oneline -12`.
 
@@ -126,7 +133,7 @@ Summarize:
 - current repo state
 - completed phases
 - whether the working tree is clean
-- whether Phase 4 can safely start
+- whether Phase 4B can safely start
 - any unexpected risks
 
-Wait for confirmation before implementing Phase 4.
+Wait for confirmation before implementing Phase 4B.

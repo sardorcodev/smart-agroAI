@@ -308,11 +308,18 @@ The model artifacts are included in `backend/`:
 Known limitations:
 
 - No training script is included yet.
-- No model card or metrics are included yet.
-- Dataset provenance and licensing still need documentation.
+- A documentation-only model card and dataset card now exist under `docs/ml/`, but no validated metrics are included yet.
+- Dataset provenance and licensing are unknown and must be confirmed before assuming open redistribution rights.
 - Common English and Uzbek crop labels are normalized for backend irrigation lookup, but full model-label provenance still belongs in the future ML reliability phase.
 - The model is for MVP demonstration and should not be treated as agronomic advice.
 - Weather API failures, malformed provider responses, and model fallback paths are returned with explicit fallback indicators and warning messages.
+
+See:
+
+- [Model audit](docs/ml/MODEL_AUDIT.md)
+- [Dataset card](docs/ml/DATASET_CARD.md)
+- [Model card](docs/ml/MODEL_CARD.md)
+- [Training plan](docs/ml/TRAINING_PLAN.md)
 
 ## What Is Demo-Only
 

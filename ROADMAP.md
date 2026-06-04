@@ -17,13 +17,15 @@ Smart Agro AI is moving from a hackathon-style MVP toward a safer open-source ag
 - Phase 3D: Playwright browser smoke test baseline.
 - Phase 3E: Frontend dependency audit, bundle splitting, and chart stability.
 - Phase 3F: Frontend production demo copy and presentation QA.
+- Phase 4A: AI/ML data and model reliability audit.
 
 ## Next
 
-### Phase 4: AI/ML Reliability
+### Phase 4B: Training Reproducibility
 
-- Add training scripts, model metrics, dataset provenance, and model card.
-- Continue aligning model artifact labels with backend/frontend display labels.
+- Confirm dataset source/license or replace the dataset.
+- Add a deterministic training script, metrics, dataset checksum, and model metadata.
+- Continue aligning model artifact labels with backend/frontend display labels before replacing artifacts.
 
 ## Future Phases
 

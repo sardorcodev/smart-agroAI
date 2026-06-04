@@ -302,6 +302,8 @@ Weather API failures use fallback weather data and are marked with `weather_summ
 
 Model recommendations expose `model_status` and `inference_mode`. Missing model artifacts and runtime inference failures return stable simulation predictions with warning metadata instead of failing the request. Crop labels are normalized for irrigation lookup across common English and Uzbek labels while preserving the display label returned in `recommended_crop`.
 
+ML audit documentation lives under `docs/ml/`. The current dataset source/license is unknown, model metrics are not available, and the tracked artifacts are not yet reproducibly generated from source. Phase 4B should add the training pipeline before replacing artifacts.
+
 ## Common Troubleshooting
 
 ### Model does not load

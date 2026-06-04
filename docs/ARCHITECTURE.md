@@ -112,9 +112,9 @@ Current behavior:
 Current limitations:
 
 - No training script is included.
-- No model card or metrics are included.
-- Dataset provenance and licensing need documentation.
-- Crop label mappings need further cleanup.
+- Documentation-only model and dataset cards exist under `docs/ml/`, but validated metrics are not available yet.
+- Dataset provenance and licensing are unknown and need confirmation before assuming open redistribution rights.
+- Crop label mappings have an MVP normalization layer, but model-label provenance still needs a complete Phase 4B contract.
 
 ## Database Boundary
 
