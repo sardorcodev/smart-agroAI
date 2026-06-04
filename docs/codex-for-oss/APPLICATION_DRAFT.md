@@ -2,13 +2,13 @@
 
 ## Repository URL
 
-`https://github.com/<username>/smart-agroAI`
+`https://github.com/sardorcodev/smart-agroAI`
 
 Replace with the final public repository URL before submitting.
 
 ## GitHub Username
 
-`<github-username>`
+`sardorcodev`
 
 ## Maintainer Role
 
