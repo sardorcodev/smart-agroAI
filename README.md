@@ -307,8 +307,8 @@ The model artifacts are included in `backend/`:
 
 Known limitations:
 
-- No training script is included yet.
-- A documentation-only model card and dataset card now exist under `docs/ml/`, but no validated metrics are included yet.
+- A deterministic candidate training workflow exists under `backend/ml/`, but generated candidate artifacts do not automatically replace the production MVP artifacts.
+- Baseline metrics and candidate metadata are documented under `docs/ml/metrics/` and `docs/ml/artifacts/`; these are reproducibility metrics, not field validation.
 - Dataset provenance and licensing are unknown and must be confirmed before assuming open redistribution rights.
 - Common English and Uzbek crop labels are normalized for backend irrigation lookup, but full model-label provenance still belongs in the future ML reliability phase.
 - The model is for MVP demonstration and should not be treated as agronomic advice.
@@ -320,6 +320,7 @@ See:
 - [Dataset card](docs/ml/DATASET_CARD.md)
 - [Model card](docs/ml/MODEL_CARD.md)
 - [Training plan](docs/ml/TRAINING_PLAN.md)
+- [Label mapping contract](docs/ml/LABEL_MAPPING.md)
 
 ## What Is Demo-Only
 

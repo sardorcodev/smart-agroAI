@@ -20,6 +20,7 @@ All notable changes to Smart Agro AI will be documented here.
 - Added Alembic migration support, an initial users-table migration, and a safe idempotent local demo seed workflow in Phase 2D.
 - Hardened backend weather fallback handling, `/api/analyze` response schemas, model fallback metadata, and crop-label normalization in Phase 2E.
 - Added the Phase 4A AI/ML reliability audit with dataset card, model card, artifact inventory, label consistency findings, and a Phase 4B training reproducibility plan.
+- Added the Phase 4B reproducible candidate training workflow, dataset validation, label mapping contract, metrics baseline, and candidate artifact metadata without replacing production artifacts.
 
 ## 0.1.0
 

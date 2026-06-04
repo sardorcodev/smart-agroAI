@@ -111,10 +111,10 @@ Current behavior:
 
 Current limitations:
 
-- No training script is included.
-- Documentation-only model and dataset cards exist under `docs/ml/`, but validated metrics are not available yet.
+- Candidate training scripts exist under `backend/ml/`, but production MVP artifacts are not replaced automatically.
+- Baseline metrics exist under `docs/ml/metrics/`, but they are reproducibility metrics rather than field validation.
 - Dataset provenance and licensing are unknown and need confirmation before assuming open redistribution rights.
-- Crop label mappings have an MVP normalization layer, but model-label provenance still needs a complete Phase 4B contract.
+- Crop label mappings have an MVP normalization layer and a training label contract, but source-data provenance still needs confirmation.
 
 ## Database Boundary
 

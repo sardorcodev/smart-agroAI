@@ -18,14 +18,16 @@ Smart Agro AI is moving from a hackathon-style MVP toward a safer open-source ag
 - Phase 3E: Frontend dependency audit, bundle splitting, and chart stability.
 - Phase 3F: Frontend production demo copy and presentation QA.
 - Phase 4A: AI/ML data and model reliability audit.
+- Phase 4B: Training reproducibility and model metrics baseline.
 
 ## Next
 
-### Phase 4B: Training Reproducibility
+### Phase 4C: Model Review And Artifact Release Gate
 
+- Review candidate metrics and label behavior.
 - Confirm dataset source/license or replace the dataset.
-- Add a deterministic training script, metrics, dataset checksum, and model metadata.
-- Continue aligning model artifact labels with backend/frontend display labels before replacing artifacts.
+- Decide whether candidate artifacts can replace the current production MVP artifacts.
+- Add any missing metadata such as dependency version capture before release.
 
 ## Future Phases
 

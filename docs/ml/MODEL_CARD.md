@@ -13,9 +13,9 @@ This is a documentation baseline for the currently tracked artifact. It is not a
 | Model type | `xgboost.sklearn.XGBClassifier` |
 | Input feature count | 7 |
 | Output | Top 3 crop recommendations |
-| Current metrics | Not available |
-| Training script | Not available |
-| Reproducibility | Not yet established |
+| Current metrics | `docs/ml/metrics/latest_metrics.json` |
+| Training script | `backend/ml/train_model.py` |
+| Reproducibility | Candidate workflow exists; production artifacts not replaced |
 
 ## Intended Use
 
@@ -48,7 +48,7 @@ The backend returns:
 - `inference_mode`
 - `warnings`
 
-The encoder currently returns Uzbek display labels. Backend irrigation lookup normalizes a small set of common English and Uzbek labels, but a complete label contract is still needed.
+The encoder returns Uzbek display labels. The dataset-to-display label mapping contract is documented in `docs/ml/LABEL_MAPPING.md` and implemented in `backend/ml/label_mapping.py`.
 
 ## Fallback Behavior
 
@@ -66,9 +66,9 @@ If model inference fails at runtime, the backend returns stable simulation predi
 
 ## Known Limitations
 
-- No documented training pipeline.
-- No documented train/test split.
-- No model metrics, confusion matrix, or calibration analysis.
+- Production artifacts have not been replaced by the Phase 4B candidate artifacts.
+- Metrics are a reproducibility baseline, not field validation.
+- No calibration analysis.
 - No feature importance report.
 - No dataset provenance or license confirmation.
 - No regional validation.

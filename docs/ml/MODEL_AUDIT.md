@@ -1,6 +1,6 @@
 # AI/ML Model Audit
 
-Phase: 4A - AI/ML data and model reliability audit
+Phase: 4A audit, updated with Phase 4B reproducibility baseline
 
 This audit documents the current MVP model layer before any training pipeline changes. It is not a model validation report and does not claim production agronomic reliability.
 
@@ -11,8 +11,8 @@ This audit documents the current MVP model layer before any training pipeline ch
 | Crop recommendation dataset | `dataset/Crop_recommendation.csv` | Tracked in repo |
 | XGBoost model artifact | `backend/xgboost_model.joblib` | Tracked in repo |
 | Label encoder artifact | `backend/encoder.joblib` | Tracked in repo |
-| Training script | Not present | Missing |
-| Metrics report | Not present | Missing |
+| Training script | `backend/ml/train_model.py` | Candidate workflow added in Phase 4B |
+| Metrics report | `docs/ml/metrics/latest_metrics.json` | Baseline metrics generated in Phase 4B |
 | Model card | `docs/ml/MODEL_CARD.md` | Documentation-only baseline |
 | Dataset card | `docs/ml/DATASET_CARD.md` | Documentation-only baseline |
 
@@ -39,7 +39,7 @@ The backend currently sends features in this order:
 6. `ph`
 7. `rainfall`
 
-This matches the dataset column order excluding `label`, but the order is not yet enforced by a training script or metadata manifest.
+This matches the dataset column order excluding `label` and is now enforced by `backend/ml/validate_dataset.py` and `backend/ml/train_model.py`.
 
 ## Encoder Classes
 
@@ -47,7 +47,7 @@ The tracked encoder contains Uzbek display labels:
 
 `Anor`, `Apelsin`, `Banan`, `Hind moshi`, `Jut (Tolali ekin)`, `Kaptar no'xati (Mosh turi)`, `Kofe`, `Kokos`, `Loviya`, `Makkajo'xori`, `Mango`, `Mosh`, `No'xat`, `Olma`, `Papayya`, `Paxta`, `Qora mosh`, `Qovun`, `Sholi`, `Tarvuz`, `Uzum`, `Yasmiq`.
 
-The dataset labels are English. This means the model artifact was likely trained with a translated label encoder or a transformed label column, but the repository does not currently include the script that proves that transformation.
+The dataset labels are English. Phase 4B adds an explicit English-to-Uzbek label mapping contract in `backend/ml/label_mapping.py` and `docs/ml/LABEL_MAPPING.md`.
 
 ## Current Backend Behavior
 
@@ -59,14 +59,10 @@ The dataset labels are English. This means the model artifact was likely trained
 
 ## Reproducibility Gaps
 
-- No training script exists.
 - No dataset download/source script exists.
-- No dataset checksum manifest exists.
-- No model metrics are documented.
-- No train/test split seed is documented.
-- No feature engineering or preprocessing script is documented.
 - No proof exists that the tracked model can be regenerated from the tracked dataset.
-- No artifact versioning or model registry convention exists.
+- Candidate metrics and metadata exist, but production artifacts have not been replaced.
+- No artifact versioning or model registry convention exists beyond the current candidate metadata.
 
 ## Limitations
 
@@ -79,8 +75,7 @@ The dataset labels are English. This means the model artifact was likely trained
 ## Recommended Next Steps
 
 1. Confirm dataset source, license, and redistribution rights.
-2. Add a reproducible training script in Phase 4B.
-3. Add deterministic split logic and fixed random seed.
-4. Generate model metrics and confusion matrix.
-5. Save artifact metadata: feature order, label mapping, dataset checksum, dependency versions, and training timestamp.
-6. Expand crop-label normalization from a small MVP map into a documented label contract.
+2. Review Phase 4B candidate metrics and metadata.
+3. Decide whether dataset licensing permits continued redistribution.
+4. Add dependency-version capture to artifact metadata before any production replacement.
+5. Keep production artifacts unchanged until review passes.

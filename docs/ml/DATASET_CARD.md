@@ -15,6 +15,7 @@ This card documents the dataset currently tracked in the repository. The source 
 | Label count | 22 classes |
 | Missing values | 0 missing values observed in all columns |
 | Label language | English |
+| SHA256 | `54a5a6e5408668e668667efc50de2fc867c1b875e0431b4f54dd331b0a109a4e` |
 
 ## Label Classes
 
@@ -48,9 +49,9 @@ Because the license is unknown, this dataset should be treated as a public-relea
 - No collection method is documented.
 - No geography, date range, sampling method, or agronomist validation is documented.
 - No split into train/validation/test files is documented.
-- No checksum or dataset version is documented.
+- Dataset checksum is documented, but no upstream dataset version is known.
 - Labels are English, while the tracked encoder returns Uzbek display labels.
 
 ## Current Use
 
-The dataset appears to define the seven model input features and crop classes used by the MVP crop recommendation model. The repository does not yet include a training script proving that the tracked model was generated from this exact file.
+The dataset defines the seven model input features and crop classes used by the MVP crop recommendation model. Phase 4B adds validation and candidate training scripts, but the current production artifacts are not automatically replaced by generated candidates.

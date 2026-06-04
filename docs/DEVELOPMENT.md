@@ -302,7 +302,19 @@ Weather API failures use fallback weather data and are marked with `weather_summ
 
 Model recommendations expose `model_status` and `inference_mode`. Missing model artifacts and runtime inference failures return stable simulation predictions with warning metadata instead of failing the request. Crop labels are normalized for irrigation lookup across common English and Uzbek labels while preserving the display label returned in `recommended_crop`.
 
-ML audit documentation lives under `docs/ml/`. The current dataset source/license is unknown, model metrics are not available, and the tracked artifacts are not yet reproducibly generated from source. Phase 4B should add the training pipeline before replacing artifacts.
+ML audit and reproducibility documentation lives under `docs/ml/`. The current dataset source/license is unknown. Phase 4B adds dataset validation, label mapping, candidate training, metrics, and candidate metadata, but generated candidate artifacts do not replace the production MVP artifacts automatically.
+
+Validate the dataset:
+
+```powershell
+.\backend\venv\Scripts\python.exe -m backend.ml.validate_dataset --json
+```
+
+Train candidate artifacts into the ignored output directory:
+
+```powershell
+.\backend\venv\Scripts\python.exe -m backend.ml.train_model --output-dir backend\ml\artifacts\phase4b-candidate
+```
 
 ## Common Troubleshooting
 

@@ -1,0 +1,66 @@
+{
+  "artifact_status": "candidate",
+  "created_at": "2026-06-04T07:49:12.526115+00:00",
+  "dataset_path": "D:/1_PROJECTS/smart-agro/dataset/Crop_recommendation.csv",
+  "dataset_row_count": 2200,
+  "dataset_sha256": "54a5a6e5408668e668667efc50de2fc867c1b875e0431b4f54dd331b0a109a4e",
+  "encoder_classes": [
+    "Anor",
+    "Apelsin",
+    "Banan",
+    "Hind moshi",
+    "Jut (Tolali ekin)",
+    "Kaptar no'xati (Mosh turi)",
+    "Kofe",
+    "Kokos",
+    "Loviya",
+    "Makkajo'xori",
+    "Mango",
+    "Mosh",
+    "No'xat",
+    "Olma",
+    "Papayya",
+    "Paxta",
+    "Qora mosh",
+    "Qovun",
+    "Sholi",
+    "Tarvuz",
+    "Uzum",
+    "Yasmiq"
+  ],
+  "feature_order": [
+    "N",
+    "P",
+    "K",
+    "temperature",
+    "humidity",
+    "ph",
+    "rainfall"
+  ],
+  "label_mapping_version": "2026-06-04.phase-4b",
+  "limitations": [
+    "Candidate artifacts are not production MVP artifacts.",
+    "Dataset provenance and license remain unresolved.",
+    "Metrics are generated from the current dataset split and are not field validation.",
+    "Do not use as production agronomic advice."
+  ],
+  "metrics_summary": {
+    "accuracy": 0.995455,
+    "macro_f1": 0.995443,
+    "weighted_f1": 0.995443
+  },
+  "model_params": {
+    "colsample_bytree": 0.9,
+    "eval_metric": "mlogloss",
+    "learning_rate": 0.08,
+    "max_depth": 4,
+    "n_estimators": 120,
+    "n_jobs": 1,
+    "objective": "multi:softprob",
+    "random_state": 42,
+    "subsample": 0.9
+  },
+  "model_type": "xgboost.sklearn.XGBClassifier",
+  "output_dir": "backend/ml/artifacts/phase4b-candidate",
+  "training_entrypoint": "python -m backend.ml.train_model"
+}
