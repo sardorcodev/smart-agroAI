@@ -12,7 +12,7 @@ Replace with the final public repository URL before submitting.
 
 ## Maintainer Role
 
-Project maintainer and primary developer.
+I am the primary maintainer and main developer of Smart Agro AI. I lead the roadmap, architecture, implementation, documentation, testing, release preparation, issue planning, and open-source maintenance workflow.
 
 ## Why This Repository Qualifies
 
