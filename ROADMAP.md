@@ -19,15 +19,15 @@ Smart Agro AI is moving from a hackathon-style MVP toward a safer open-source ag
 - Phase 3F: Frontend production demo copy and presentation QA.
 - Phase 4A: AI/ML data and model reliability audit.
 - Phase 4B: Training reproducibility and model metrics baseline.
+- Phase 4C: Model review and artifact release gate.
 
 ## Next
 
-### Phase 4C: Model Review And Artifact Release Gate
+### Phase 4D: Dataset Provenance Resolution
 
-- Review candidate metrics and label behavior.
 - Confirm dataset source/license or replace the dataset.
-- Decide whether candidate artifacts can replace the current production MVP artifacts.
-- Add any missing metadata such as dependency version capture before release.
+- Decide whether the dataset can remain tracked or should move to a download-only workflow.
+- Keep model artifacts MVP/demo-only until source and license status are resolved.
 
 ## Future Phases
 

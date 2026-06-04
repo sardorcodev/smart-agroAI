@@ -15,6 +15,7 @@ FEATURE_COLUMNS = ["N", "P", "K", "temperature", "humidity", "ph", "rainfall"]
 LABEL_COLUMN = "label"
 REQUIRED_COLUMNS = FEATURE_COLUMNS + [LABEL_COLUMN]
 DEFAULT_DATASET_PATH = Path(__file__).resolve().parents[2] / "dataset" / "Crop_recommendation.csv"
+REPO_ROOT = Path(__file__).resolve().parents[2]
 
 
 def file_sha256(path: Path) -> str:
@@ -23,6 +24,13 @@ def file_sha256(path: Path) -> str:
         for chunk in iter(lambda: file_obj.read(1024 * 1024), b""):
             digest.update(chunk)
     return digest.hexdigest()
+
+
+def report_path(path: Path) -> str:
+    try:
+        return path.resolve().relative_to(REPO_ROOT).as_posix()
+    except ValueError:
+        return path.as_posix()
 
 
 def load_dataset(path: Path) -> pd.DataFrame:
@@ -45,7 +53,7 @@ def validate_dataset(path: Path = DEFAULT_DATASET_PATH) -> dict[str, Any]:
         return {
             "valid": False,
             "errors": errors,
-            "path": path.as_posix(),
+            "path": report_path(path),
             "sha256": file_sha256(path),
         }
 
@@ -79,7 +87,7 @@ def validate_dataset(path: Path = DEFAULT_DATASET_PATH) -> dict[str, Any]:
     return {
         "valid": not errors,
         "errors": errors,
-        "path": path.as_posix(),
+        "path": report_path(path),
         "sha256": file_sha256(path),
         "row_count": int(len(df)),
         "columns": list(df.columns),

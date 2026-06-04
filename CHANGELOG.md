@@ -21,6 +21,7 @@ All notable changes to Smart Agro AI will be documented here.
 - Hardened backend weather fallback handling, `/api/analyze` response schemas, model fallback metadata, and crop-label normalization in Phase 2E.
 - Added the Phase 4A AI/ML reliability audit with dataset card, model card, artifact inventory, label consistency findings, and a Phase 4B training reproducibility plan.
 - Added the Phase 4B reproducible candidate training workflow, dataset validation, label mapping contract, metrics baseline, and candidate artifact metadata without replacing production artifacts.
+- Added the Phase 4C model release gate with production-vs-candidate comparison, dependency/version metadata, promotion checklist, release notes, and a documented non-promotion decision.
 
 ## 0.1.0
 

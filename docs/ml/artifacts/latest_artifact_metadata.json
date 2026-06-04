@@ -1,9 +1,20 @@
 {
+  "artifact_checksums": {
+    "encoder.joblib": "42978c331c20a62b8ca938d69536ffb55ed2cd457f7898ac04278d4cc93f29cc",
+    "xgboost_model.joblib": "867ec732a256394f2788d829b33caad2b1167df029b1a5b7f3221dcc7bc3a4bc"
+  },
   "artifact_status": "candidate",
-  "created_at": "2026-06-04T07:49:12.526115+00:00",
-  "dataset_path": "D:/1_PROJECTS/smart-agro/dataset/Crop_recommendation.csv",
+  "created_at": "2026-06-04T10:23:32.711961+00:00",
+  "dataset_path": "dataset/Crop_recommendation.csv",
   "dataset_row_count": 2200,
   "dataset_sha256": "54a5a6e5408668e668667efc50de2fc867c1b875e0431b4f54dd331b0a109a4e",
+  "dependency_versions": {
+    "joblib": "1.5.3",
+    "numpy": "2.4.4",
+    "pandas": "3.0.2",
+    "scikit-learn": "1.8.0",
+    "xgboost": "3.2.0"
+  },
   "encoder_classes": [
     "Anor",
     "Apelsin",
@@ -62,5 +73,8 @@
   },
   "model_type": "xgboost.sklearn.XGBClassifier",
   "output_dir": "backend/ml/artifacts/phase4b-candidate",
+  "platform": "Windows-10-10.0.26200-SP0",
+  "python_version": "3.11.8",
+  "training_context": "phase-4b-candidate-training",
   "training_entrypoint": "python -m backend.ml.train_model"
 }

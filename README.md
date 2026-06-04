@@ -308,7 +308,8 @@ The model artifacts are included in `backend/`:
 Known limitations:
 
 - A deterministic candidate training workflow exists under `backend/ml/`, but generated candidate artifacts do not automatically replace the production MVP artifacts.
-- Baseline metrics and candidate metadata are documented under `docs/ml/metrics/` and `docs/ml/artifacts/`; these are reproducibility metrics, not field validation.
+- Baseline metrics, candidate metadata, and production-vs-candidate comparison reports are documented under `docs/ml/metrics/` and `docs/ml/artifacts/`; these are reproducibility/release-gate records, not field validation.
+- Phase 4C reviewed the candidate artifacts and did not promote them because dataset provenance/license remains unresolved.
 - Dataset provenance and licensing are unknown and must be confirmed before assuming open redistribution rights.
 - Common English and Uzbek crop labels are normalized for backend irrigation lookup, but full model-label provenance still belongs in the future ML reliability phase.
 - The model is for MVP demonstration and should not be treated as agronomic advice.
@@ -321,6 +322,8 @@ See:
 - [Model card](docs/ml/MODEL_CARD.md)
 - [Training plan](docs/ml/TRAINING_PLAN.md)
 - [Label mapping contract](docs/ml/LABEL_MAPPING.md)
+- [Promotion checklist](docs/ml/MODEL_PROMOTION_CHECKLIST.md)
+- [Model release notes](docs/ml/MODEL_RELEASE_NOTES.md)
 
 ## What Is Demo-Only
 

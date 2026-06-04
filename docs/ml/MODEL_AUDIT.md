@@ -1,6 +1,6 @@
 # AI/ML Model Audit
 
-Phase: 4A audit, updated with Phase 4B reproducibility baseline
+Phase: 4A audit, updated with Phase 4B reproducibility baseline and Phase 4C release-gate result
 
 This audit documents the current MVP model layer before any training pipeline changes. It is not a model validation report and does not claim production agronomic reliability.
 
@@ -13,6 +13,7 @@ This audit documents the current MVP model layer before any training pipeline ch
 | Label encoder artifact | `backend/encoder.joblib` | Tracked in repo |
 | Training script | `backend/ml/train_model.py` | Candidate workflow added in Phase 4B |
 | Metrics report | `docs/ml/metrics/latest_metrics.json` | Baseline metrics generated in Phase 4B |
+| Comparison report | `docs/ml/artifacts/latest_comparison.json` | Production-vs-candidate review generated in Phase 4C |
 | Model card | `docs/ml/MODEL_CARD.md` | Documentation-only baseline |
 | Dataset card | `docs/ml/DATASET_CARD.md` | Documentation-only baseline |
 
@@ -61,7 +62,7 @@ The dataset labels are English. Phase 4B adds an explicit English-to-Uzbek label
 
 - No dataset download/source script exists.
 - No proof exists that the tracked model can be regenerated from the tracked dataset.
-- Candidate metrics and metadata exist, but production artifacts have not been replaced.
+- Candidate metrics, metadata, and production-vs-candidate comparison exist, but production artifacts have not been replaced.
 - No artifact versioning or model registry convention exists beyond the current candidate metadata.
 
 ## Limitations
@@ -75,7 +76,6 @@ The dataset labels are English. Phase 4B adds an explicit English-to-Uzbek label
 ## Recommended Next Steps
 
 1. Confirm dataset source, license, and redistribution rights.
-2. Review Phase 4B candidate metrics and metadata.
-3. Decide whether dataset licensing permits continued redistribution.
-4. Add dependency-version capture to artifact metadata before any production replacement.
-5. Keep production artifacts unchanged until review passes.
+2. Resolve dataset license/provenance before any public model promotion.
+3. Add feature importance and calibration review.
+4. Keep production artifacts unchanged until promotion blockers are cleared.

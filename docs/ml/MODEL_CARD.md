@@ -15,7 +15,7 @@ This is a documentation baseline for the currently tracked artifact. It is not a
 | Output | Top 3 crop recommendations |
 | Current metrics | `docs/ml/metrics/latest_metrics.json` |
 | Training script | `backend/ml/train_model.py` |
-| Reproducibility | Candidate workflow exists; production artifacts not replaced |
+| Reproducibility | Candidate workflow and release gate exist; production artifacts not replaced |
 
 ## Intended Use
 
@@ -67,6 +67,7 @@ If model inference fails at runtime, the backend returns stable simulation predi
 ## Known Limitations
 
 - Production artifacts have not been replaced by the Phase 4B candidate artifacts.
+- Phase 4C blocked promotion because dataset source/license is unresolved.
 - Metrics are a reproducibility baseline, not field validation.
 - No calibration analysis.
 - No feature importance report.

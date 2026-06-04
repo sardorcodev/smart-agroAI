@@ -1,0 +1,216 @@
+{
+  "candidate": {
+    "encoder_classes": [
+      "Anor",
+      "Apelsin",
+      "Banan",
+      "Hind moshi",
+      "Jut (Tolali ekin)",
+      "Kaptar no'xati (Mosh turi)",
+      "Kofe",
+      "Kokos",
+      "Loviya",
+      "Makkajo'xori",
+      "Mango",
+      "Mosh",
+      "No'xat",
+      "Olma",
+      "Papayya",
+      "Paxta",
+      "Qora mosh",
+      "Qovun",
+      "Sholi",
+      "Tarvuz",
+      "Uzum",
+      "Yasmiq"
+    ],
+    "encoder_file_size": 701,
+    "encoder_path": "backend/ml/artifacts/phase4b-candidate/encoder.joblib",
+    "encoder_sha256": "42978c331c20a62b8ca938d69536ffb55ed2cd457f7898ac04278d4cc93f29cc",
+    "encoder_type": "sklearn.preprocessing._label.LabelEncoder",
+    "feature_count": 7,
+    "model_file_size": 2282883,
+    "model_path": "backend/ml/artifacts/phase4b-candidate/xgboost_model.joblib",
+    "model_sha256": "867ec732a256394f2788d829b33caad2b1167df029b1a5b7f3221dcc7bc3a4bc",
+    "model_type": "xgboost.sklearn.XGBClassifier",
+    "prediction_shape": [
+      3,
+      22
+    ],
+    "sample_top_predictions": [
+      [
+        {
+          "crop": "Makkajo'xori",
+          "probability": 24.163596
+        },
+        {
+          "crop": "Jut (Tolali ekin)",
+          "probability": 23.578255
+        },
+        {
+          "crop": "Kofe",
+          "probability": 15.695854
+        }
+      ],
+      [
+        {
+          "crop": "Sholi",
+          "probability": 94.610554
+        },
+        {
+          "crop": "Papayya",
+          "probability": 0.909107
+        },
+        {
+          "crop": "Qora mosh",
+          "probability": 0.516722
+        }
+      ],
+      [
+        {
+          "crop": "Hind moshi",
+          "probability": 63.879979
+        },
+        {
+          "crop": "Mango",
+          "probability": 12.31737
+        },
+        {
+          "crop": "Kofe",
+          "probability": 8.790787
+        }
+      ]
+    ]
+  },
+  "compatibility": {
+    "backend_inference_compatible": true,
+    "encoder_class_count_match": true,
+    "encoder_class_order_match": true,
+    "feature_count_match": true,
+    "model_type_match": true,
+    "prediction_shape_match": true
+  },
+  "notes": [
+    "Candidate artifacts are compatible with the current backend inference shape.",
+    "Prediction probabilities may differ and require review before promotion.",
+    "Production artifacts were not modified by this review."
+  ],
+  "production": {
+    "encoder_classes": [
+      "Anor",
+      "Apelsin",
+      "Banan",
+      "Hind moshi",
+      "Jut (Tolali ekin)",
+      "Kaptar no'xati (Mosh turi)",
+      "Kofe",
+      "Kokos",
+      "Loviya",
+      "Makkajo'xori",
+      "Mango",
+      "Mosh",
+      "No'xat",
+      "Olma",
+      "Papayya",
+      "Paxta",
+      "Qora mosh",
+      "Qovun",
+      "Sholi",
+      "Tarvuz",
+      "Uzum",
+      "Yasmiq"
+    ],
+    "encoder_file_size": 701,
+    "encoder_path": "backend/encoder.joblib",
+    "encoder_sha256": "67c654a39e5d7d856208cb1296b381d2f8f0bab0807ed7e9c8c0738324201d23",
+    "encoder_type": "sklearn.preprocessing._label.LabelEncoder",
+    "feature_count": 7,
+    "model_file_size": 1677050,
+    "model_path": "backend/xgboost_model.joblib",
+    "model_sha256": "5a1b9fe31532991ae20605089a01921728f7d393b572324b7f71dea73f5aa36a",
+    "model_type": "xgboost.sklearn.XGBClassifier",
+    "prediction_shape": [
+      3,
+      22
+    ],
+    "sample_top_predictions": [
+      [
+        {
+          "crop": "Makkajo'xori",
+          "probability": 36.937726
+        },
+        {
+          "crop": "Kofe",
+          "probability": 15.201823
+        },
+        {
+          "crop": "Jut (Tolali ekin)",
+          "probability": 12.861918
+        }
+      ],
+      [
+        {
+          "crop": "Sholi",
+          "probability": 95.072114
+        },
+        {
+          "crop": "Jut (Tolali ekin)",
+          "probability": 0.459791
+        },
+        {
+          "crop": "Papayya",
+          "probability": 0.412114
+        }
+      ],
+      [
+        {
+          "crop": "Hind moshi",
+          "probability": 91.857052
+        },
+        {
+          "crop": "Mango",
+          "probability": 3.482366
+        },
+        {
+          "crop": "Kofe",
+          "probability": 1.383253
+        }
+      ]
+    ]
+  },
+  "promotion_blockers": [
+    "Dataset provenance is unknown.",
+    "Dataset license is unknown; open redistribution rights must not be assumed.",
+    "Candidate metrics are reproducibility metrics, not field validation."
+  ],
+  "promotion_decision": "not_promoted",
+  "sample_features": [
+    [
+      90,
+      42,
+      43,
+      25,
+      70,
+      6.5,
+      100
+    ],
+    [
+      35,
+      60,
+      55,
+      28,
+      82,
+      6.8,
+      210
+    ],
+    [
+      120,
+      40,
+      35,
+      32,
+      55,
+      7.0,
+      70
+    ]
+  ]
+}

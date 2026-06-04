@@ -20,6 +20,7 @@ Phase 4B added a reproducible candidate training workflow without changing produ
 | `docs/ml/LABEL_MAPPING.md` | Human-readable dataset-to-display label contract |
 | `docs/ml/metrics/latest_metrics.json` | Latest committed metrics baseline |
 | `docs/ml/artifacts/latest_artifact_metadata.json` | Latest committed candidate artifact metadata |
+| `docs/ml/artifacts/latest_comparison.json` | Latest committed production-vs-candidate comparison |
 
 ## Dataset Tasks
 
@@ -72,6 +73,8 @@ Train candidate artifacts without replacing production artifacts:
 ```
 
 ## Release Gate Before Replacing Artifacts
+
+Phase 4C added `docs/ml/MODEL_PROMOTION_CHECKLIST.md` and `docs/ml/MODEL_RELEASE_NOTES.md`. The current gate result is **not promoted** because dataset source/license is unresolved.
 
 Do not replace `backend/xgboost_model.joblib` or `backend/encoder.joblib` until:
 

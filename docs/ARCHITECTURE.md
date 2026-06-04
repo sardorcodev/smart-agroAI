@@ -112,8 +112,9 @@ Current behavior:
 Current limitations:
 
 - Candidate training scripts exist under `backend/ml/`, but production MVP artifacts are not replaced automatically.
-- Baseline metrics exist under `docs/ml/metrics/`, but they are reproducibility metrics rather than field validation.
+- Baseline metrics, candidate metadata, and comparison reports exist under `docs/ml/`, but they are reproducibility/release-gate records rather than field validation.
 - Dataset provenance and licensing are unknown and need confirmation before assuming open redistribution rights.
+- Phase 4C found the candidate artifacts backend-compatible but blocked promotion because dataset source/license is unresolved.
 - Crop label mappings have an MVP normalization layer and a training label contract, but source-data provenance still needs confirmation.
 
 ## Database Boundary

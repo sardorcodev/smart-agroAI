@@ -41,7 +41,7 @@ Each class has 100 rows:
 - License: unknown / do not assume open redistribution rights.
 - Redistribution status: unresolved.
 
-Because the license is unknown, this dataset should be treated as a public-release risk until the source and redistribution rights are confirmed. If rights cannot be confirmed, Phase 4B should replace it with a dataset that has clear license terms or document a download-only workflow that does not redistribute restricted data.
+Because the license is unknown, this dataset should be treated as a public-release risk until the source and redistribution rights are confirmed. If rights cannot be confirmed, the project should replace it with a dataset that has clear license terms or document a download-only workflow that does not redistribute restricted data.
 
 ## Known Limitations
 

@@ -14,7 +14,7 @@ from xgboost import XGBClassifier
 
 from .label_mapping import LABEL_MAPPING_VERSION, map_dataset_label
 from .model_metadata import build_artifact_metadata
-from .validate_dataset import DEFAULT_DATASET_PATH, FEATURE_COLUMNS, validate_dataset
+from .validate_dataset import DEFAULT_DATASET_PATH, FEATURE_COLUMNS, file_sha256, validate_dataset
 
 
 RANDOM_SEED = 42
@@ -113,17 +113,22 @@ def train_candidate_model(
         model_params=model_params,
         test_size=test_size,
     )
+    output_dir.mkdir(parents=True, exist_ok=True)
+    model_path = output_dir / "xgboost_model.joblib"
+    encoder_path = output_dir / "encoder.joblib"
+    joblib.dump(model, model_path)
+    joblib.dump(encoder, encoder_path)
     metadata = build_artifact_metadata(
         dataset_validation=dataset_validation,
         encoder_classes=labels,
         metrics=metrics,
         model_params=model_params,
         output_dir=output_dir.as_posix(),
+        artifact_checksums={
+            "xgboost_model.joblib": file_sha256(model_path),
+            "encoder.joblib": file_sha256(encoder_path),
+        },
     )
-
-    output_dir.mkdir(parents=True, exist_ok=True)
-    joblib.dump(model, output_dir / "xgboost_model.joblib")
-    joblib.dump(encoder, output_dir / "encoder.joblib")
     (output_dir / "metrics.json").write_text(json.dumps(metrics, indent=2, sort_keys=True), encoding="utf-8")
     (output_dir / "metadata.json").write_text(json.dumps(metadata, indent=2, sort_keys=True), encoding="utf-8")
 

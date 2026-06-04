@@ -32,6 +32,7 @@ The following phases are complete:
 - Phase 3G: final repository readiness pass.
 - Phase 4A: AI/ML data and model reliability audit.
 - Phase 4B: training reproducibility and model metrics baseline.
+- Phase 4C: model review and artifact release gate.
 
 ## 3. Current Technical State
 
@@ -45,6 +46,8 @@ The following phases are complete:
 - The tracked dataset has 2,200 rows and 22 English labels; the tracked encoder has 22 Uzbek display labels.
 - Dataset validation, label mapping, candidate training, metrics, and candidate artifact metadata now exist under `backend/ml/` and `docs/ml/`.
 - Candidate training writes generated model files to ignored `backend/ml/artifacts/`; production artifacts are not automatically replaced.
+- Phase 4C comparison found the candidate backend-compatible but did not promote it.
+- Candidate metadata captures Python/package versions and artifact checksums.
 - Dataset provenance/license remains unresolved and must not be assumed open for redistribution.
 - Frontend restores sessions from a stored MVP token using `/api/me`.
 - Frontend uses shared `Notice`, `DemoBadge`, and `LoadingState` helpers.
@@ -56,7 +59,7 @@ The following phases are complete:
 
 ## 4. Latest Known Passing Checks
 
-Latest known passing checks after Phase 4B:
+Latest known passing checks after Phase 4C:
 
 - `npm run lint`
 - `npm test`
@@ -70,12 +73,13 @@ Latest known passing checks after Phase 4B:
 - `.\backend\venv\Scripts\python.exe -m backend.scripts.seed_demo` against an ignored migrated SQLite smoke DB.
 - `.\backend\venv\Scripts\python.exe -m backend.ml.validate_dataset --json`
 - `.\backend\venv\Scripts\python.exe -m backend.ml.train_model --output-dir backend\ml\artifacts\phase4b-candidate`
+- `.\backend\venv\Scripts\python.exe -m backend.ml.compare_artifacts --candidate-dir backend\ml\artifacts\phase4b-candidate --output docs\ml\artifacts\latest_comparison.json`
 
 Known verification details:
 
 - Frontend unit tests: 11 passing.
 - Playwright smoke tests: 9 passing with mocked backend responses.
-- Backend tests: 61 passing when run with the local backend venv.
+- Backend tests: 65 passing when run with the local backend venv.
 - Vite build no longer emits the previous large chunk warning.
 - `frontend/dist`, `frontend/test-results`, and `backend/smartagro_local.db` may exist locally but are ignored and must not be committed.
 
@@ -92,18 +96,18 @@ Known verification details:
 - Dataset source/license is unknown and should not be assumed open for redistribution until confirmed.
 - Candidate artifacts are reproducibly generated, but the tracked production MVP artifacts have not been replaced.
 - Candidate metrics are not field validation and must not be presented as production agronomic accuracy.
-- Feature importance, calibration, dependency-version capture, and external validation are not yet documented.
+- Feature importance, calibration, and external validation are not yet documented.
 - UI is still app-state based, not route-based.
 - Several product areas remain demo/static by design.
 - Historical audit notes may describe earlier repository state and should be treated as historical context.
 
 ## 6. Next Planned Phase
 
-Next phase: **Phase 4C - Model Review And Artifact Release Gate**
+Next phase: **Phase 4D - Dataset Provenance Resolution**
 
-Goal: review candidate metrics, resolve dataset source/license status, and decide whether candidate artifacts can replace the current production MVP artifacts.
+Goal: resolve dataset source/license status, decide whether the dataset can remain tracked, and keep model artifacts MVP/demo-only until that decision is documented.
 
-Important instruction: do not start Phase 4C automatically. A new session should first inspect the repo, read this file, run git status/log, and summarize readiness.
+Important instruction: do not start Phase 4D automatically. A new session should first inspect the repo, read this file, run git status/log, and summarize readiness.
 
 ## 7. Recommended Startup Checklist
 
@@ -124,6 +128,7 @@ npm --prefix frontend audit --omit=dev
 $env:DATABASE_URL='sqlite:///backend/smartagro_migration_smoke.db'; .\backend\venv\Scripts\python.exe -m alembic -c backend\alembic.ini upgrade head
 .\backend\venv\Scripts\python.exe -m backend.ml.validate_dataset --json
 .\backend\venv\Scripts\python.exe -m backend.ml.train_model --output-dir backend\ml\artifacts\phase4b-candidate
+.\backend\venv\Scripts\python.exe -m backend.ml.compare_artifacts --candidate-dir backend\ml\artifacts\phase4b-candidate --output docs\ml\artifacts\latest_comparison.json
 ```
 
 If environment paths differ, adapt commands safely.
@@ -141,7 +146,7 @@ Summarize:
 - current repo state
 - completed phases
 - whether the working tree is clean
-- whether Phase 4C can safely start
+- whether Phase 4D can safely start
 - any unexpected risks
 
-Wait for confirmation before implementing Phase 4C.
+Wait for confirmation before implementing Phase 4D.
