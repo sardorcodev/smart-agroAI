@@ -44,4 +44,4 @@ Use this checklist before replacing `backend/xgboost_model.joblib` or `backend/e
 
 Status: **blocked for production promotion**.
 
-Reason: dataset source and license are unknown, so the candidate should not be promoted as a final public model release. The model remains MVP/demo-only.
+Reason: Phase 4D found no repository-local dataset source/license evidence. The candidate should not be promoted as a final public model release. The model remains MVP/demo-only.

@@ -1,6 +1,6 @@
 # AI/ML Model Audit
 
-Phase: 4A audit, updated with Phase 4B reproducibility baseline and Phase 4C release-gate result
+Phase: 4A audit, updated through Phase 4D dataset provenance resolution
 
 This audit documents the current MVP model layer before any training pipeline changes. It is not a model validation report and does not claim production agronomic reliability.
 
@@ -14,6 +14,7 @@ This audit documents the current MVP model layer before any training pipeline ch
 | Training script | `backend/ml/train_model.py` | Candidate workflow added in Phase 4B |
 | Metrics report | `docs/ml/metrics/latest_metrics.json` | Baseline metrics generated in Phase 4B |
 | Comparison report | `docs/ml/artifacts/latest_comparison.json` | Production-vs-candidate review generated in Phase 4C |
+| Data policy | `docs/ml/DATA_POLICY.md` | Dataset governance policy added in Phase 4D |
 | Model card | `docs/ml/MODEL_CARD.md` | Documentation-only baseline |
 | Dataset card | `docs/ml/DATASET_CARD.md` | Documentation-only baseline |
 
@@ -68,7 +69,7 @@ The dataset labels are English. Phase 4B adds an explicit English-to-Uzbek label
 ## Limitations
 
 - The model is MVP-only and should not be used as production agronomic advice.
-- Dataset provenance and license are unknown.
+- Dataset provenance and license are unknown; Phase 4D found no repository-local source/license evidence.
 - Label language differs between dataset labels and encoder classes.
 - No calibration, confidence thresholding, feature importance, fairness review, regional validation, or agronomist validation is documented.
 - Weather context comes from historical archive summaries or fallback defaults, not field-specific sensor truth.
@@ -76,6 +77,7 @@ The dataset labels are English. Phase 4B adds an explicit English-to-Uzbek label
 ## Recommended Next Steps
 
 1. Confirm dataset source, license, and redistribution rights.
-2. Resolve dataset license/provenance before any public model promotion.
-3. Add feature importance and calibration review.
-4. Keep production artifacts unchanged until promotion blockers are cleared.
+2. If source/license cannot be confirmed, remove/replace the dataset or document a download-only workflow.
+3. Resolve dataset license/provenance before any public model promotion.
+4. Add feature importance and calibration review.
+5. Keep production artifacts unchanged until promotion blockers are cleared.

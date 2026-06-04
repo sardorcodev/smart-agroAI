@@ -302,7 +302,9 @@ Weather API failures use fallback weather data and are marked with `weather_summ
 
 Model recommendations expose `model_status` and `inference_mode`. Missing model artifacts and runtime inference failures return stable simulation predictions with warning metadata instead of failing the request. Crop labels are normalized for irrigation lookup across common English and Uzbek labels while preserving the display label returned in `recommended_crop`.
 
-ML audit, reproducibility, and release-gate documentation lives under `docs/ml/`. The current dataset source/license is unknown. Phase 4B adds dataset validation, label mapping, candidate training, metrics, and candidate metadata. Phase 4C compares candidate and production artifacts, captures dependency versions, and blocks promotion until dataset source/license is resolved.
+ML audit, reproducibility, release-gate, and data-governance documentation lives under `docs/ml/`. The current dataset source/license is unknown. Phase 4B adds dataset validation, label mapping, candidate training, metrics, and candidate metadata. Phase 4C compares candidate and production artifacts, captures dependency versions, and blocks promotion until dataset source/license is resolved. Phase 4D found no repository-local source/license evidence for `dataset/Crop_recommendation.csv`.
+
+The repository MIT license must not be assumed to grant redistribution rights for the dataset. See `docs/ml/DATA_POLICY.md`.
 
 Validate the dataset:
 

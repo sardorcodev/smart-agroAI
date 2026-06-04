@@ -30,6 +30,8 @@ Phase 4B added a reproducible candidate training workflow without changing produ
 - Record dataset checksum. Current SHA256: `54a5a6e5408668e668667efc50de2fc867c1b875e0431b4f54dd331b0a109a4e`.
 - Decide whether dataset remains tracked or moves to a documented download workflow.
 
+Phase 4D status: no repository-local dataset source/license evidence was found. The dataset remains temporarily tracked with explicit unresolved-license warnings, but model promotion stays blocked.
+
 ## Training Strategy
 
 - Use explicit feature list: `N`, `P`, `K`, `temperature`, `humidity`, `ph`, `rainfall`.
@@ -75,6 +77,8 @@ Train candidate artifacts without replacing production artifacts:
 ## Release Gate Before Replacing Artifacts
 
 Phase 4C added `docs/ml/MODEL_PROMOTION_CHECKLIST.md` and `docs/ml/MODEL_RELEASE_NOTES.md`. The current gate result is **not promoted** because dataset source/license is unresolved.
+
+Phase 4D added `docs/ml/DATA_POLICY.md`. Dataset source/license must be resolved before this release gate can pass.
 
 Do not replace `backend/xgboost_model.joblib` or `backend/encoder.joblib` until:
 

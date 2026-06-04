@@ -33,6 +33,7 @@ The following phases are complete:
 - Phase 4A: AI/ML data and model reliability audit.
 - Phase 4B: training reproducibility and model metrics baseline.
 - Phase 4C: model review and artifact release gate.
+- Phase 4D: dataset provenance resolution and data policy.
 
 ## 3. Current Technical State
 
@@ -48,7 +49,9 @@ The following phases are complete:
 - Candidate training writes generated model files to ignored `backend/ml/artifacts/`; production artifacts are not automatically replaced.
 - Phase 4C comparison found the candidate backend-compatible but did not promote it.
 - Candidate metadata captures Python/package versions and artifact checksums.
+- Phase 4D found no repository-local source/license evidence for `dataset/Crop_recommendation.csv`.
 - Dataset provenance/license remains unresolved and must not be assumed open for redistribution.
+- The dataset remains temporarily tracked with explicit warnings; model promotion stays blocked.
 - Frontend restores sessions from a stored MVP token using `/api/me`.
 - Frontend uses shared `Notice`, `DemoBadge`, and `LoadingState` helpers.
 - Frontend browser smoke tests live under `frontend/e2e/` and mock backend API responses.
@@ -59,7 +62,7 @@ The following phases are complete:
 
 ## 4. Latest Known Passing Checks
 
-Latest known passing checks after Phase 4C:
+Latest known passing checks after Phase 4D:
 
 - `npm run lint`
 - `npm test`
@@ -94,6 +97,7 @@ Known verification details:
 - `localStorage` token storage is MVP-only.
 - Dataset/model reproducibility still needs work.
 - Dataset source/license is unknown and should not be assumed open for redistribution until confirmed.
+- The project MIT license must not be assumed to grant rights for upstream dataset redistribution.
 - Candidate artifacts are reproducibly generated, but the tracked production MVP artifacts have not been replaced.
 - Candidate metrics are not field validation and must not be presented as production agronomic accuracy.
 - Feature importance, calibration, and external validation are not yet documented.
@@ -103,11 +107,11 @@ Known verification details:
 
 ## 6. Next Planned Phase
 
-Next phase: **Phase 4D - Dataset Provenance Resolution**
+Next phase: **Phase 4E - Dataset Replacement Or Download Workflow**
 
-Goal: resolve dataset source/license status, decide whether the dataset can remain tracked, and keep model artifacts MVP/demo-only until that decision is documented.
+Goal: confirm a redistributable dataset source, replace the dataset, or move to a documented download-only workflow if rights remain unresolved.
 
-Important instruction: do not start Phase 4D automatically. A new session should first inspect the repo, read this file, run git status/log, and summarize readiness.
+Important instruction: do not start Phase 4E automatically. A new session should first inspect the repo, read this file, run git status/log, and summarize readiness.
 
 ## 7. Recommended Startup Checklist
 
@@ -146,7 +150,7 @@ Summarize:
 - current repo state
 - completed phases
 - whether the working tree is clean
-- whether Phase 4D can safely start
+- whether Phase 4E can safely start
 - any unexpected risks
 
-Wait for confirmation before implementing Phase 4D.
+Wait for confirmation before implementing Phase 4E.

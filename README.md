@@ -311,6 +311,7 @@ Known limitations:
 - Baseline metrics, candidate metadata, and production-vs-candidate comparison reports are documented under `docs/ml/metrics/` and `docs/ml/artifacts/`; these are reproducibility/release-gate records, not field validation.
 - Phase 4C reviewed the candidate artifacts and did not promote them because dataset provenance/license remains unresolved.
 - Dataset provenance and licensing are unknown and must be confirmed before assuming open redistribution rights.
+- Phase 4D found no repository-local source/license evidence for `dataset/Crop_recommendation.csv`; the project MIT license must not be assumed to cover upstream dataset redistribution rights.
 - Common English and Uzbek crop labels are normalized for backend irrigation lookup, but full model-label provenance still belongs in the future ML reliability phase.
 - The model is for MVP demonstration and should not be treated as agronomic advice.
 - Weather API failures, malformed provider responses, and model fallback paths are returned with explicit fallback indicators and warning messages.
@@ -324,6 +325,7 @@ See:
 - [Label mapping contract](docs/ml/LABEL_MAPPING.md)
 - [Promotion checklist](docs/ml/MODEL_PROMOTION_CHECKLIST.md)
 - [Model release notes](docs/ml/MODEL_RELEASE_NOTES.md)
+- [Data policy](docs/ml/DATA_POLICY.md)
 
 ## What Is Demo-Only
 
@@ -355,3 +357,5 @@ Planned next steps are listed in `ROADMAP.md`.
 ## License
 
 Smart Agro AI is released under the MIT License. See `LICENSE`.
+
+Dataset note: the project license does not resolve the source/license status of `dataset/Crop_recommendation.csv`. That dataset remains documented as source/license unresolved.

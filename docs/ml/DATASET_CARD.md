@@ -2,7 +2,7 @@
 
 Dataset: `dataset/Crop_recommendation.csv`
 
-This card documents the dataset currently tracked in the repository. The source and license are not confirmed.
+This card documents the dataset currently tracked in the repository. Phase 4D found no repository-local source or dataset-specific license evidence.
 
 ## Basic Facts
 
@@ -38,10 +38,18 @@ Each class has 100 rows:
 ## Provenance And License
 
 - Dataset provenance: unknown / needs confirmation.
-- License: unknown / do not assume open redistribution rights.
+- Dataset license: unknown / do not assume open redistribution rights.
 - Redistribution status: unresolved.
+- Repository-local evidence: no dataset source/license evidence found beyond documentation that marks the status unresolved.
+- Project `LICENSE`: applies to project code/docs unless otherwise stated; it must not be assumed to grant rights for this dataset's upstream contents.
 
 Because the license is unknown, this dataset should be treated as a public-release risk until the source and redistribution rights are confirmed. If rights cannot be confirmed, the project should replace it with a dataset that has clear license terms or document a download-only workflow that does not redistribute restricted data.
+
+## Public Repository Handling Decision
+
+Current decision: **temporarily tracked with explicit unresolved-license warnings**.
+
+Reason: Phase 4D did not remove or replace data without approval, and no compatible replacement dataset was documented locally. The repository must not claim open redistribution rights for this dataset. The next governance step is to confirm source/license or remove/replace the dataset.
 
 ## Known Limitations
 
@@ -51,6 +59,7 @@ Because the license is unknown, this dataset should be treated as a public-relea
 - No split into train/validation/test files is documented.
 - Dataset checksum is documented, but no upstream dataset version is known.
 - Labels are English, while the tracked encoder returns Uzbek display labels.
+- The dataset should not be used as the basis for a promoted public model release until source/license status is resolved.
 
 ## Current Use
 
