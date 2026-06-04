@@ -80,7 +80,7 @@ smart-agro/
     package.json
     .env.example
   dataset/
-    Crop_recommendation.csv
+    README.md
   README.md
   LICENSE
   SECURITY.md
@@ -371,6 +371,18 @@ This repository now includes:
 - GitHub Actions CI for frontend and backend checks
 
 Planned next steps are listed in `ROADMAP.md`.
+
+## Release Preparation
+
+The v0.1.0 release-candidate package is documented in:
+
+- [v0.1.0 release notes](docs/releases/v0.1.0.md)
+- [Release checklist](docs/releases/RELEASE_CHECKLIST.md)
+- [GitHub issue and label plan](docs/github/ISSUES_AND_LABELS_PLAN.md)
+- [Repository presentation recommendations](docs/github/REPOSITORY_PRESENTATION.md)
+- [Codex for OSS application draft](docs/codex-for-oss/APPLICATION_DRAFT.md)
+
+Do not create release tags, deploy public infrastructure, or publish production-readiness claims until the checklist has been reviewed by the maintainer.
 
 ## License
 

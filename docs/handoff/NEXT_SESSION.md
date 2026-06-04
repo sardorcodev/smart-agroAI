@@ -37,6 +37,7 @@ The following phases are complete:
 - Phase 4E: dataset source matching and public handling decision.
 - Phase 4F: dataset source verification and download-only safety.
 - Phase 5A: deployment readiness and public demo planning.
+- Phase 5B: release candidate verification and v0.1.0 preparation.
 
 ## 3. Current Technical State
 
@@ -59,6 +60,9 @@ The following phases are complete:
 - Phase 4F added `backend/ml/compare_dataset_source.py` and `docs/ml/artifacts/source_match_report.json`.
 - Deployment planning docs now live in `docs/DEPLOYMENT.md`.
 - Public demo release checks now live in `docs/PUBLIC_DEMO_CHECKLIST.md`.
+- v0.1.0 release notes and release checklist now live under `docs/releases/`.
+- GitHub issue/label and repository presentation recommendations now live under `docs/github/`.
+- Codex for OSS application draft material now lives under `docs/codex-for-oss/`.
 - Frontend restores sessions from a stored MVP token using `/api/me`.
 - Frontend uses shared `Notice`, `DemoBadge`, and `LoadingState` helpers.
 - Frontend browser smoke tests live under `frontend/e2e/` and mock backend API responses.
@@ -69,7 +73,7 @@ The following phases are complete:
 
 ## 4. Latest Known Passing Checks
 
-Latest known passing checks after Phase 5A:
+Latest known passing checks after Phase 5B on 2026-06-04:
 
 - `npm run lint`
 - `npm test`
@@ -115,11 +119,11 @@ Known verification details:
 
 ## 6. Next Planned Phase
 
-Next phase: **Phase 5B - Release Candidate Verification**
+Next phase: **GitHub release execution and public repo grooming**
 
-Goal: run final full-stack verification, prepare GitHub release notes/tag checklist, and review public demo configuration before any deployment.
+Goal: review the v0.1.0 release package, confirm current CI, apply GitHub About/topics recommendations, create contributor labels/issues/milestone, and create the release tag only after explicit maintainer approval.
 
-Important instruction: do not start Phase 5B automatically. A new session should first inspect the repo, read this file, run git status/log, and summarize readiness.
+Important instruction: do not create a tag or deploy automatically. A new session should first inspect the repo, read this file, run git status/log, and summarize readiness.
 
 ## 7. Recommended Startup Checklist
 
@@ -159,7 +163,7 @@ Summarize:
 - current repo state
 - completed phases
 - whether the working tree is clean
-- whether Phase 5B can safely start
+- whether v0.1.0 release execution can safely start
 - any unexpected risks
 
-Wait for confirmation before implementing Phase 5B.
+Wait for confirmation before creating tags, publishing releases, changing GitHub repository settings, or deploying.
