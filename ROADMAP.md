@@ -23,12 +23,15 @@ Smart Agro AI is moving from a hackathon-style MVP toward a safer open-source ag
 - Phase 4D: Dataset provenance resolution and data policy.
 - Phase 4E: Dataset source matching and public handling decision.
 - Phase 4F: Dataset source verification and download-only safety.
+- Phase 5A: Deployment readiness and public demo planning.
 
 ## Next
 
-### Phase 5A: Deployment Readiness And Public Demo Planning
+### Phase 5B: Release Candidate Verification
 
-- Prepare deployment configuration and public demo checklist.
+- Run final full-stack verification for v0.1.0.
+- Prepare GitHub release notes and tag checklist.
+- Review public demo configuration before any deployment.
 - Keep the dataset download-only unless source/license evidence is added.
 - Keep model artifacts MVP/demo-only until source/license and promotion gates pass.
 

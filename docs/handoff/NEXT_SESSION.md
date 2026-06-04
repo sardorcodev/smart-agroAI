@@ -36,6 +36,7 @@ The following phases are complete:
 - Phase 4D: dataset provenance resolution and data policy.
 - Phase 4E: dataset source matching and public handling decision.
 - Phase 4F: dataset source verification and download-only safety.
+- Phase 5A: deployment readiness and public demo planning.
 
 ## 3. Current Technical State
 
@@ -56,6 +57,8 @@ The following phases are complete:
 - The dataset is download-only/user-provided and ignored by Git; model promotion stays blocked.
 - Phase 4E added `docs/ml/artifacts/dataset_fingerprint.json` for future source matching.
 - Phase 4F added `backend/ml/compare_dataset_source.py` and `docs/ml/artifacts/source_match_report.json`.
+- Deployment planning docs now live in `docs/DEPLOYMENT.md`.
+- Public demo release checks now live in `docs/PUBLIC_DEMO_CHECKLIST.md`.
 - Frontend restores sessions from a stored MVP token using `/api/me`.
 - Frontend uses shared `Notice`, `DemoBadge`, and `LoadingState` helpers.
 - Frontend browser smoke tests live under `frontend/e2e/` and mock backend API responses.
@@ -66,7 +69,7 @@ The following phases are complete:
 
 ## 4. Latest Known Passing Checks
 
-Latest known passing checks after Phase 4F:
+Latest known passing checks after Phase 5A:
 
 - `npm run lint`
 - `npm test`
@@ -112,11 +115,11 @@ Known verification details:
 
 ## 6. Next Planned Phase
 
-Next phase: **Phase 5A - Deployment Readiness And Public Demo Planning**
+Next phase: **Phase 5B - Release Candidate Verification**
 
-Goal: prepare deployment configuration and public demo planning while keeping dataset/model limitations clearly documented.
+Goal: run final full-stack verification, prepare GitHub release notes/tag checklist, and review public demo configuration before any deployment.
 
-Important instruction: do not start Phase 5A automatically. A new session should first inspect the repo, read this file, run git status/log, and summarize readiness.
+Important instruction: do not start Phase 5B automatically. A new session should first inspect the repo, read this file, run git status/log, and summarize readiness.
 
 ## 7. Recommended Startup Checklist
 
@@ -156,7 +159,7 @@ Summarize:
 - current repo state
 - completed phases
 - whether the working tree is clean
-- whether Phase 5A can safely start
+- whether Phase 5B can safely start
 - any unexpected risks
 
-Wait for confirmation before implementing Phase 5A.
+Wait for confirmation before implementing Phase 5B.

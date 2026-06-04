@@ -15,6 +15,17 @@ FastAPI backend
   |-- Open-Meteo archive lookup for weather context
 ```
 
+## Deployment Boundary
+
+Deployment planning is documentation-first. The recommended public demo topology is:
+
+- static frontend hosting for `frontend/dist`,
+- independently hosted FastAPI backend,
+- hosted PostgreSQL for shared demo auth state,
+- Alembic migrations before public demo use.
+
+SQLite remains local-only. The dataset CSV is not required for inference and remains download-only/user-provided. The model remains MVP/demo-only.
+
 ## Frontend Boundary
 
 The frontend lives in `frontend/`.

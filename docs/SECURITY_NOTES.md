@@ -35,6 +35,10 @@ Run Alembic migrations for shared or production-like databases instead of commit
 
 Production or shared deployments must set a strong `JWT_SECRET_KEY`. The development fallback secret is only for local work and tests.
 
+Hosted demos must configure secrets through the hosting provider or environment manager. Do not put production/demo secrets in `.env.example`, screenshots, issue comments, deployment logs, or committed config files.
+
+For public demos, configure `ALLOWED_CORS_ORIGINS` to the exact deployed frontend origin and avoid wildcard CORS.
+
 The current backend does basic email normalization, password length validation, password hashing, JWT signing, JWT validation, and safe current-user lookup. It does not yet include refresh tokens, rate limiting, account verification, password reset, multi-factor auth, or a full production admin authorization system.
 
 The frontend stores the MVP access token in `localStorage`, restores sessions with `/api/me`, and clears stale tokens after `401` responses. This keeps the demo flow simple, but it increases exposure if frontend XSS is introduced and should be revisited before production use.

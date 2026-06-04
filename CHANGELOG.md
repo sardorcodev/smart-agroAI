@@ -25,6 +25,7 @@ All notable changes to Smart Agro AI will be documented here.
 - Added the Phase 4D dataset provenance decision and data policy, documenting that no repository-local source/license evidence was found and dataset/model promotion remains blocked.
 - Added the Phase 4E dataset fingerprint and source-matching policy, keeping the dataset temporarily tracked with warnings while recommending download-only or replacement before final release claims.
 - Added the Phase 4F source verification workflow and moved the unresolved crop dataset to download-only/user-provided handling while preserving backend runtime artifacts.
+- Added Phase 5A deployment readiness documentation, environment matrix, runtime command guidance, and public demo checklist without deploying or adding secrets.
 
 ## 0.1.0
 

@@ -340,6 +340,21 @@ Compare production and candidate artifacts:
 
 ## Common Troubleshooting
 
+## Deployment Planning
+
+Deployment readiness guidance lives in `docs/DEPLOYMENT.md`, and the public demo checklist lives in `docs/PUBLIC_DEMO_CHECKLIST.md`.
+
+For a hosted demo:
+
+- deploy the frontend and backend independently,
+- set `VITE_API_BASE_URL` to the backend URL,
+- set `ALLOWED_CORS_ORIGINS` to the frontend URL,
+- use hosted PostgreSQL through `DATABASE_URL`,
+- run Alembic migrations before demo use,
+- configure a strong `JWT_SECRET_KEY` through the hosting provider,
+- keep the dataset CSV download-only/user-provided,
+- keep model output described as MVP/demo-only.
+
 ### Model does not load
 
 Confirm these files exist:

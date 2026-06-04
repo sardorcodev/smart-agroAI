@@ -93,6 +93,8 @@ smart-agro/
 
 - [Architecture](docs/ARCHITECTURE.md)
 - [Development guide](docs/DEVELOPMENT.md)
+- [Deployment readiness](docs/DEPLOYMENT.md)
+- [Public demo checklist](docs/PUBLIC_DEMO_CHECKLIST.md)
 - [Security notes](docs/SECURITY_NOTES.md)
 - [Contributing](CONTRIBUTING.md)
 - [Roadmap](ROADMAP.md)
@@ -240,6 +242,19 @@ npm run test:e2e
 ```
 
 The Playwright suite starts the Vite dev server automatically and mocks backend API calls. It does not require a real backend, database, weather API, model inference, browser geolocation permission, API keys, or secrets.
+
+## Deployment Planning
+
+Deployment guidance is documented in [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md), and the public demo readiness checklist is in [docs/PUBLIC_DEMO_CHECKLIST.md](docs/PUBLIC_DEMO_CHECKLIST.md).
+
+Recommended MVP demo topology:
+
+- static frontend host such as Vercel, Netlify, or Cloudflare Pages,
+- hosted FastAPI backend such as Render, Railway, Fly.io, or DigitalOcean App Platform,
+- hosted PostgreSQL for shared demo auth state,
+- Alembic migrations before public demo use.
+
+No deployment has been performed by this repository phase. Do not add real secrets to the repo.
 
 ## Backend Tests
 
