@@ -21,10 +21,11 @@ Smart Agro AI is moving from a hackathon-style MVP toward a safer open-source ag
 - Phase 4B: Training reproducibility and model metrics baseline.
 - Phase 4C: Model review and artifact release gate.
 - Phase 4D: Dataset provenance resolution and data policy.
+- Phase 4E: Dataset source matching and public handling decision.
 
 ## Next
 
-### Phase 4E: Dataset Replacement Or Download Workflow
+### Phase 4F: Dataset Download Workflow Or Replacement
 
 - Confirm a redistributable source or replace the dataset.
 - Decide whether the current dataset should be removed from the public repo.

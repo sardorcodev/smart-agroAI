@@ -50,6 +50,7 @@ The candidate artifacts were not copied to `backend/xgboost_model.joblib` or `ba
 - Dataset provenance is unknown.
 - Dataset license is unknown; open redistribution rights must not be assumed.
 - Phase 4D found no repository-local dataset source/license evidence.
+- Phase 4E added a dataset fingerprint and source-matching policy, but no confirmed source/license match was documented.
 - Candidate metrics are reproducibility metrics, not field validation.
 - Feature importance and calibration are not yet documented.
 
@@ -57,7 +58,7 @@ The candidate artifacts were not copied to `backend/xgboost_model.joblib` or `ba
 
 Keep the current MVP production artifacts in place. Resolve dataset source/license status before any public model release or artifact replacement. If source/license cannot be confirmed, replace the dataset or switch to a documented download-only workflow before promotion.
 
-The dataset may remain tracked temporarily with explicit warnings, but the repository must not claim dataset redistribution rights until evidence is added.
+The dataset may remain tracked temporarily with explicit warnings, but the repository must not claim dataset redistribution rights until evidence is added. Before final release claims, move to a download-only workflow or replace the dataset with a confirmed open alternative.
 
 ## Rollback Path
 

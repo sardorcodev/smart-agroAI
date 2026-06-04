@@ -34,6 +34,7 @@ The following phases are complete:
 - Phase 4B: training reproducibility and model metrics baseline.
 - Phase 4C: model review and artifact release gate.
 - Phase 4D: dataset provenance resolution and data policy.
+- Phase 4E: dataset source matching and public handling decision.
 
 ## 3. Current Technical State
 
@@ -52,6 +53,8 @@ The following phases are complete:
 - Phase 4D found no repository-local source/license evidence for `dataset/Crop_recommendation.csv`.
 - Dataset provenance/license remains unresolved and must not be assumed open for redistribution.
 - The dataset remains temporarily tracked with explicit warnings; model promotion stays blocked.
+- Phase 4E added `docs/ml/artifacts/dataset_fingerprint.json` for future source matching.
+- Final release should use download-only workflow or a confirmed open replacement if source/license remains unresolved.
 - Frontend restores sessions from a stored MVP token using `/api/me`.
 - Frontend uses shared `Notice`, `DemoBadge`, and `LoadingState` helpers.
 - Frontend browser smoke tests live under `frontend/e2e/` and mock backend API responses.
@@ -62,7 +65,7 @@ The following phases are complete:
 
 ## 4. Latest Known Passing Checks
 
-Latest known passing checks after Phase 4D:
+Latest known passing checks after Phase 4E:
 
 - `npm run lint`
 - `npm test`
@@ -77,12 +80,13 @@ Latest known passing checks after Phase 4D:
 - `.\backend\venv\Scripts\python.exe -m backend.ml.validate_dataset --json`
 - `.\backend\venv\Scripts\python.exe -m backend.ml.train_model --output-dir backend\ml\artifacts\phase4b-candidate`
 - `.\backend\venv\Scripts\python.exe -m backend.ml.compare_artifacts --candidate-dir backend\ml\artifacts\phase4b-candidate --output docs\ml\artifacts\latest_comparison.json`
+- `.\backend\venv\Scripts\python.exe -m backend.ml.fingerprint_dataset --output docs\ml\artifacts\dataset_fingerprint.json`
 
 Known verification details:
 
 - Frontend unit tests: 11 passing.
 - Playwright smoke tests: 9 passing with mocked backend responses.
-- Backend tests: 65 passing when run with the local backend venv.
+- Backend tests: 70 passing when run with the local backend venv.
 - Vite build no longer emits the previous large chunk warning.
 - `frontend/dist`, `frontend/test-results`, and `backend/smartagro_local.db` may exist locally but are ignored and must not be committed.
 
@@ -107,11 +111,11 @@ Known verification details:
 
 ## 6. Next Planned Phase
 
-Next phase: **Phase 4E - Dataset Replacement Or Download Workflow**
+Next phase: **Phase 4F - Dataset Download Workflow Or Replacement**
 
 Goal: confirm a redistributable dataset source, replace the dataset, or move to a documented download-only workflow if rights remain unresolved.
 
-Important instruction: do not start Phase 4E automatically. A new session should first inspect the repo, read this file, run git status/log, and summarize readiness.
+Important instruction: do not start Phase 4F automatically. A new session should first inspect the repo, read this file, run git status/log, and summarize readiness.
 
 ## 7. Recommended Startup Checklist
 
@@ -133,6 +137,7 @@ $env:DATABASE_URL='sqlite:///backend/smartagro_migration_smoke.db'; .\backend\ve
 .\backend\venv\Scripts\python.exe -m backend.ml.validate_dataset --json
 .\backend\venv\Scripts\python.exe -m backend.ml.train_model --output-dir backend\ml\artifacts\phase4b-candidate
 .\backend\venv\Scripts\python.exe -m backend.ml.compare_artifacts --candidate-dir backend\ml\artifacts\phase4b-candidate --output docs\ml\artifacts\latest_comparison.json
+.\backend\venv\Scripts\python.exe -m backend.ml.fingerprint_dataset --output docs\ml\artifacts\dataset_fingerprint.json
 ```
 
 If environment paths differ, adapt commands safely.
@@ -150,7 +155,7 @@ Summarize:
 - current repo state
 - completed phases
 - whether the working tree is clean
-- whether Phase 4E can safely start
+- whether Phase 4F can safely start
 - any unexpected risks
 
-Wait for confirmation before implementing Phase 4E.
+Wait for confirmation before implementing Phase 4F.

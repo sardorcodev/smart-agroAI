@@ -15,6 +15,7 @@ This audit documents the current MVP model layer before any training pipeline ch
 | Metrics report | `docs/ml/metrics/latest_metrics.json` | Baseline metrics generated in Phase 4B |
 | Comparison report | `docs/ml/artifacts/latest_comparison.json` | Production-vs-candidate review generated in Phase 4C |
 | Data policy | `docs/ml/DATA_POLICY.md` | Dataset governance policy added in Phase 4D |
+| Dataset fingerprint | `docs/ml/artifacts/dataset_fingerprint.json` | Local source-matching fingerprint added in Phase 4E |
 | Model card | `docs/ml/MODEL_CARD.md` | Documentation-only baseline |
 | Dataset card | `docs/ml/DATASET_CARD.md` | Documentation-only baseline |
 
@@ -70,6 +71,7 @@ The dataset labels are English. Phase 4B adds an explicit English-to-Uzbek label
 
 - The model is MVP-only and should not be used as production agronomic advice.
 - Dataset provenance and license are unknown; Phase 4D found no repository-local source/license evidence.
+- Phase 4E added fingerprinting, but no confirmed external source/license match exists.
 - Label language differs between dataset labels and encoder classes.
 - No calibration, confidence thresholding, feature importance, fairness review, regional validation, or agronomist validation is documented.
 - Weather context comes from historical archive summaries or fallback defaults, not field-specific sensor truth.
@@ -77,7 +79,7 @@ The dataset labels are English. Phase 4B adds an explicit English-to-Uzbek label
 ## Recommended Next Steps
 
 1. Confirm dataset source, license, and redistribution rights.
-2. If source/license cannot be confirmed, remove/replace the dataset or document a download-only workflow.
+2. If source/license cannot be confirmed, move to download-only workflow or replace the dataset before final release claims.
 3. Resolve dataset license/provenance before any public model promotion.
 4. Add feature importance and calibration review.
 5. Keep production artifacts unchanged until promotion blockers are cleared.

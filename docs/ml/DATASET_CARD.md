@@ -16,6 +16,7 @@ This card documents the dataset currently tracked in the repository. Phase 4D fo
 | Missing values | 0 missing values observed in all columns |
 | Label language | English |
 | SHA256 | `54a5a6e5408668e668667efc50de2fc867c1b875e0431b4f54dd331b0a109a4e` |
+| Fingerprint | `docs/ml/artifacts/dataset_fingerprint.json` |
 
 ## Label Classes
 
@@ -42,14 +43,15 @@ Each class has 100 rows:
 - Redistribution status: unresolved.
 - Repository-local evidence: no dataset source/license evidence found beyond documentation that marks the status unresolved.
 - Project `LICENSE`: applies to project code/docs unless otherwise stated; it must not be assumed to grant rights for this dataset's upstream contents.
+- Source matching status: unresolved; no repository-local or user-provided fingerprint match to an external source is documented.
 
 Because the license is unknown, this dataset should be treated as a public-release risk until the source and redistribution rights are confirmed. If rights cannot be confirmed, the project should replace it with a dataset that has clear license terms or document a download-only workflow that does not redistribute restricted data.
 
 ## Public Repository Handling Decision
 
-Current decision: **temporarily tracked with explicit unresolved-license warnings**.
+Current Phase 4E decision: **temporarily tracked with explicit unresolved-license warnings**.
 
-Reason: Phase 4D did not remove or replace data without approval, and no compatible replacement dataset was documented locally. The repository must not claim open redistribution rights for this dataset. The next governance step is to confirm source/license or remove/replace the dataset.
+Reason: no repository-local or user-provided evidence confirms source/license, and no compatible replacement dataset was documented locally. The repository must not claim open redistribution rights for this dataset. Before final release claims, the project should move to download-only workflow or replace the dataset with a confirmed open alternative.
 
 ## Known Limitations
 
@@ -60,6 +62,7 @@ Reason: Phase 4D did not remove or replace data without approval, and no compati
 - Dataset checksum is documented, but no upstream dataset version is known.
 - Labels are English, while the tracked encoder returns Uzbek display labels.
 - The dataset should not be used as the basis for a promoted public model release until source/license status is resolved.
+- The dataset should not be presented as safely redistributable until source/license evidence is added.
 
 ## Current Use
 

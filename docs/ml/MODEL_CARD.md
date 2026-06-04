@@ -69,6 +69,7 @@ If model inference fails at runtime, the backend returns stable simulation predi
 - Production artifacts have not been replaced by the Phase 4B candidate artifacts.
 - Phase 4C blocked promotion because dataset source/license is unresolved.
 - Phase 4D found no repository-local source/license evidence for the dataset.
+- Phase 4E added a dataset fingerprint but did not confirm an external source/license match.
 - Metrics are a reproducibility baseline, not field validation.
 - No calibration analysis.
 - No feature importance report.

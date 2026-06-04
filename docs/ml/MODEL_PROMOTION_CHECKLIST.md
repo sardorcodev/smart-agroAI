@@ -10,6 +10,8 @@ Use this checklist before replacing `backend/xgboost_model.joblib` or `backend/e
 - [ ] Dataset license allows redistribution if the dataset remains tracked.
 - [x] Dataset checksum is recorded.
 - [x] Dataset schema validation passes.
+- [x] Dataset fingerprint is recorded.
+- [ ] Dataset fingerprint is matched to a confirmed source.
 
 ## Training Reproducibility
 
@@ -44,4 +46,4 @@ Use this checklist before replacing `backend/xgboost_model.joblib` or `backend/e
 
 Status: **blocked for production promotion**.
 
-Reason: Phase 4D found no repository-local dataset source/license evidence. The candidate should not be promoted as a final public model release. The model remains MVP/demo-only.
+Reason: Phase 4E records a local dataset fingerprint, but no confirmed source/license match exists. The candidate should not be promoted as a final public model release. The model remains MVP/demo-only.

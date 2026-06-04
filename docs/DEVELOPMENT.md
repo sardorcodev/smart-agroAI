@@ -306,6 +306,12 @@ ML audit, reproducibility, release-gate, and data-governance documentation lives
 
 The repository MIT license must not be assumed to grant redistribution rights for the dataset. See `docs/ml/DATA_POLICY.md`.
 
+Generate the local dataset fingerprint for source matching:
+
+```powershell
+.\backend\venv\Scripts\python.exe -m backend.ml.fingerprint_dataset --output docs\ml\artifacts\dataset_fingerprint.json
+```
+
 Validate the dataset:
 
 ```powershell

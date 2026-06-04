@@ -23,6 +23,7 @@ All notable changes to Smart Agro AI will be documented here.
 - Added the Phase 4B reproducible candidate training workflow, dataset validation, label mapping contract, metrics baseline, and candidate artifact metadata without replacing production artifacts.
 - Added the Phase 4C model release gate with production-vs-candidate comparison, dependency/version metadata, promotion checklist, release notes, and a documented non-promotion decision.
 - Added the Phase 4D dataset provenance decision and data policy, documenting that no repository-local source/license evidence was found and dataset/model promotion remains blocked.
+- Added the Phase 4E dataset fingerprint and source-matching policy, keeping the dataset temporarily tracked with warnings while recommending download-only or replacement before final release claims.
 
 ## 0.1.0
 
