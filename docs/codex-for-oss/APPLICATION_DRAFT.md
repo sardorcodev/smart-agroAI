@@ -16,15 +16,15 @@ I am the primary maintainer and main developer of Smart Agro AI. I lead the road
 
 ## Why This Repository Qualifies
 
-Smart Agro AI is an open-source agriculture AI MVP with React, FastAPI, CI, Playwright smoke tests, Alembic migrations, and ML/data governance docs. It is structured for contributors and documents current MVP limits honestly.
+Smart Agro AI is an open-source AI agriculture MVP focused on crop recommendation, irrigation decision support, and transparent ML governance. It includes React, FastAPI, CI, Playwright E2E tests, Alembic migrations, JWT auth, release docs, issue planning, and honest MVP/data limitations for contributors.
 
-Character count: 230
+Character count: 316
 
 ## How API Credits Would Be Used
 
-Credits would support responsible OSS development: backend/API hardening, frontend QA automation, accessibility improvements, deployment docs, ML governance, and future demo planning without adding proprietary lock-in or hidden services.
+API credits would support core OSS maintainer workflows: PR review, issue triage, release checklist automation, documentation review, security checks, backend/API hardening, frontend QA, and future safe AI agronom assistant experiments without proprietary lock-in or unsupported production claims.
 
-Character count: 224
+Character count: 300
 
 ## Additional Notes
 
